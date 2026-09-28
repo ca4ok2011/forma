@@ -394,6 +394,14 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
 .sgroup h2.sh svg{width:20px;height:20px;color:var(--acc);flex:none}
 .seg.ic button svg{color:var(--muted)}
 .seg.ic button[aria-pressed="true"] svg{color:var(--acc)}
+.seg.sex button[data-v="m"] svg{color:#3E8FE0}
+.seg.sex button[data-v="f"] svg{color:#E0508F}
+.seg.sex button[aria-pressed="true"]{color:#fff;box-shadow:0 4px 12px -4px var(--sexc)}
+.seg.sex button[aria-pressed="true"] svg{color:#fff}
+.seg.sex button[data-v="m"]{--sexc:#2F7FE0}
+.seg.sex button[data-v="f"]{--sexc:#E0508F}
+.seg.sex button[data-v="m"][aria-pressed="true"]{background:linear-gradient(135deg,#5AA8F5,#2567D1)}
+.seg.sex button[data-v="f"][aria-pressed="true"]{background:linear-gradient(135deg,#F585B5,#D63F80)}
 .mguide{border:1.5px solid var(--line);border-radius:14px;overflow:hidden}
 .mguide>button{width:100%;display:flex;align-items:center;gap:8px;border:0;background:var(--surface-2);padding:11px 12px;font-weight:700;font-size:14px;color:var(--ink);text-align:left}
 .mguide>button svg{width:18px;height:18px;color:var(--acc);flex:none}
@@ -888,7 +896,7 @@ const EQ = {'barbell':'штанга','dumbbell':'гантели','cable':'бло
 
 
 /* ---------- state ---------- */
-const APP_VERSION = '1.8';
+const APP_VERSION = '1.9';
 const DEFAULT_SETTINGS = {kcalGoal:2200, kcalMode:'auto', waterGoal:2500, customFoods:[], foodOverrides:{}, customEx:[], favorites:[], waterPresets:[150,250,330,500], profile:{sex:'m',age:28,height:178,weight:78,neat:1.3,goalMode:'lose',rate:500,protein:1.8,fatk:0.9,targetWeight:0}};
 const S = {
   days:{}, settings:clone(DEFAULT_SETTINGS),
@@ -1857,7 +1865,7 @@ function sheetSettings(){
   const st = S.settings, p = prof(), t = today(), hasW = weightEntries().length;
   const base = Math.round(baseSpend(t)), sh = goalShift(), tg = targetOn(t), mt = macroTargets(t), w = weightOn(t);
   let b = `<div class="card sgroup"><h2 class="sh">${MI.user}Профиль</h2>
-    ${optRow('profile.sex', p.sex, [['m',MI.male+'Мужчина'],['f',MI.female+'Женщина']], 'ic')}
+    ${optRow('profile.sex', p.sex, [['m',MI.male+'Мужчина'],['f',MI.female+'Женщина']], 'ic sex')}
     <div class="srow"><span class="flab">${MI.age}Возраст</span>${nstep('s-age', p.age, 1, 'лет', 'data-a="sset" data-f="profile.age"')}</div>
     <div class="srow"><span class="flab">${MI.height}Рост</span>${nstep('s-h', p.height, 1, 'см', 'data-a="sset" data-f="profile.height"')}</div>
     ${hasW ? `<div class="srow"><span class="flab">${MI.scale}Вес</span><button class="linkrow" data-a="wopen"><b class="num">${fmt1(w)} кг</b><small>из дневника веса · записать</small></button></div>`
