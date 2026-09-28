@@ -788,23 +788,32 @@ function tmKm(x){ return num(x.spd) ? num(x.spd)*setMin(x)/60 : num(x.km); }
 // NET kcal: gross minus resting metabolism (1 MET) for that time — BMR is already in the daily spend
 const RAILS = ['Беговая дорожка','Степпер','Эллипс'];
 function netCardio(name, x, kg){ const g = setKcal(name, x, kg), rest = 3.5*kg/1000*5*setMin(x); return Math.max(0, g - rest) * (x.rails && RAILS.includes(name) ? 0.8 : 1); }
+// piecewise-linear interpolation helper
+function lerpTab(tab, v){ if (v<=tab[0][0]) return tab[0][1]; for (let i=1;i<tab.length;i++){ if (v<=tab[i][0]){ const [x0,y0]=tab[i-1],[x1,y1]=tab[i]; return y0+(y1-y0)*(v-x0)/(x1-x0); } } return tab[tab.length-1][1]; }
+// Flat treadmill METs by speed (Compendium of Physical Activities 2011; walk→jog transition smoothed 6.4–8 km/h)
+const TM_MET = [[1,1.8],[2,2.0],[3.2,2.8],[4,3.0],[4.8,3.5],[5.6,4.3],[6.4,5.0],[7.2,6.8],[8,8.3],[8.4,9.0],[9.7,9.8],[10.8,10.5],[11.3,11.0],[12.1,11.5],[12.9,11.8],[13.8,12.3],[14.5,12.8],[16.1,14.5],[17.7,16.0],[19.3,19.0],[22.5,23.0]];
+const ROPE_MET = [[40,7.0],[80,8.8],[110,11.8],[140,12.3],[180,13.5]];
+// Keytel et al. 2005: energy from heart rate (kcal/min), used when pulse is entered
+function hrKcal(hr, kg, min){ const p = prof(), a = num(p.age)||30; const k = p.sex==='f' ? (-20.4022 + 0.4472*hr - 0.1263*kg + 0.074*a)/4.184 : (-55.0969 + 0.6309*hr + 0.1988*kg + 0.2017*a)/4.184; return Math.max(0, k*min); }
 function setKcal(name, x, kg){
   const min = setMin(x); if (!min) return 0;
   const met = (m) => m * 3.5 * kg / 1000 * 5 * min;              // MET → kcal (1 MET = 3.5 ml O2/kg/min, ≈5 kcal per L O2)
+  if (num(x.hr) >= 80) return hrKcal(num(x.hr), kg, min);        // measured pulse beats estimates
   if (name==='Беговая дорожка'){
-    const S_ = num(x.spd)*1000/60, G = num(x.inc)/100;           // m/min, grade
-    if (!S_) return met(3.5);
-    const vo2 = num(x.spd) >= 8 ? 0.2*S_ + 0.9*S_*G + 3.5 : 0.1*S_ + 1.8*S_*G + 3.5;
-    return vo2 * kg / 1000 * 5 * min;
+    const v = num(x.spd), S_ = v*1000/60, G = num(x.inc)/100;    // km/h, m/min, grade
+    if (!v) return met(3.5);
+    // flat cost from the Compendium curve (no walk/run jump) + ACSM vertical component (walk 1.8·S·G, run 0.9·S·G, blended 6.4–8.4 km/h)
+    const run = Math.min(1, Math.max(0, (v-6.4)/2)), grade = S_*G*(1.8*(1-run) + 0.9*run);
+    return met(lerpTab(TM_MET, v) + grade/3.5);
   }
-  if (name==='Велотренажёр') return met(num(x.lvl) ? Math.min(11, 3.5 + 0.45*num(x.lvl)) : 6.8);
-  if (name==='Эллипс') return met(num(x.lvl) ? Math.min(9.5, 4 + 0.3*num(x.lvl)) : 5.0);
+  if (name==='Велотренажёр'){ let m = num(x.lvl) ? Math.min(11, 3.5 + 0.45*num(x.lvl)) : 6.8; if (num(x.rpm)) m *= Math.min(1.25, Math.max(0.8, 0.6 + num(x.rpm)/200)); return met(m); }
+  if (name==='Эллипс') return met((num(x.lvl) ? Math.min(9.5, 4 + 0.3*num(x.lvl)) : 5.0) + Math.min(2, 0.15*num(x.inc)));
   if (name==='Гребной тренажёр'){
-    if (num(x.m)){ const pace = (min*60)/num(x.m); const watts = 2.8/Math.pow(pace,3); return ((4*watts*0.8604) + 300) * min/60; }  // Concept2 formula
-    return met(7.0);
+    if (num(x.m)){ const pace = (min*60)/num(x.m), watts = 2.8/Math.pow(pace,3); return met(Math.min(16, Math.max(2.5, 2.5 + 0.045*watts))); }  // Concept2 pace→watts, watts→MET (Compendium: 50 W≈4.8, 100 W≈7, 150 W≈8.5–9)
+    return met(num(x.lvl) ? 5 + 0.3*num(x.lvl) : 7.0);
   }
-  if (name==='Степпер') return met(num(x.lvl) ? Math.min(12, 5 + 0.45*num(x.lvl)) : 9.0);
-  if (name==='Скакалка'){ const jpm = num(x.jumps)/min; return met(!jpm ? 11.8 : jpm < 100 ? 8.8 : jpm <= 120 ? 11.8 : 12.3); }
+  if (name==='Степпер') return met(num(x.lvl) ? Math.min(12, 5 + 0.45*num(x.lvl)) : (num(x.fl) ? Math.min(12, 4 + 1.2*num(x.fl)/min) : 9.0));
+  if (name==='Скакалка'){ const jpm = num(x.jumps)/min; return met(jpm ? lerpTab(ROPE_MET, jpm) : 11.8); }
   return met(num(x.lvl) ? Math.min(10, 4 + 0.4*num(x.lvl)) : 6.0);
 }
 /* Strength: time part (MET 3.5 over sets + rest) + work part (load × g × ROM × reps, muscle efficiency ~15%, +30% eccentric/stabilisation) */
@@ -1783,7 +1792,7 @@ function cardioCalc(f){
   const kg = bodyKg(), x = f.c, parts = [];
   if (f.name==='Беговая дорожка' && num(x.spd) && setMin(x)) parts.push(`Дистанция <b class="num">≈ ${fmt1(Math.round(tmKm(x)*100)/100)} км</b>`);
   const gross = setKcal(f.name, x, kg), kc = netCardio(f.name, x, kg); if (gross) parts.push(`Сожжено <b class="num">≈ ${fmt(kc)} ккал</b>`);
-  return parts.length ? parts.join(' · ') + `<div class="hint">Чистый расход сверх покоя: всего ≈ ${fmt(gross)} ккал минус ≈ ${fmt(3.5*kg/1000*5*setMin(x))} ккал обмена веществ за это время${x.rails&&RAILS.includes(f.name)?', минус 20% за поручни':''}. Вес ${fmt1(kg)} кг${f.name==='Беговая дорожка'?', формулы ACSM для ходьбы и бега с наклоном':''}.</div>` : '<span class="hint">Заполни время' + (f.name==='Беговая дорожка'?' и скорость':'') + ' — посчитаю дистанцию и калории.</span>';
+  return parts.length ? parts.join(' · ') + `<div class="hint">Чистый расход сверх покоя: всего ≈ ${fmt(gross)} ккал минус ≈ ${fmt(3.5*kg/1000*5*setMin(x))} ккал обмена веществ за это время${x.rails&&RAILS.includes(f.name)?', минус 20% за поручни':''}. Вес ${fmt1(kg)} кг${num(x.hr)>=80?', считаю по пульсу (формула Keytel)':f.name==='Беговая дорожка'?', таблица нагрузок Compendium по скорости + ACSM для наклона':f.name==='Гребной тренажёр'&&num(x.m)?', мощность по темпу (формула Concept2)':''}.</div>` : '<span class="hint">Заполни время' + (f.name==='Беговая дорожка'?' и скорость':'') + ' — посчитаю дистанцию и калории.</span>';
 }
 function formSets(f){ return f.per ? f.sets.map(s=>({w:s.w, r:s.r})) : Array.from({length:Math.max(1,Math.round(num(f.n)))}, ()=>({w:f.w, r:f.r})); }
 function needsWeight(f){ if (f.cardio) return false; const info = exInfo(f.name); if (!info) return false; return !/bw|sec/.test(info.f||''); }
