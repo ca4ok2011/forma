@@ -390,6 +390,25 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
 .mode[aria-pressed="true"] .mode-ic{background:var(--mc);color:#fff}
 .sgroup{display:flex;flex-direction:column;gap:10px}
 .sgroup h2{margin:0}
+.sgroup h2.sh{display:flex;align-items:center;gap:8px}
+.sgroup h2.sh svg{width:20px;height:20px;color:var(--acc);flex:none}
+.seg.ic button svg{color:var(--muted)}
+.seg.ic button[aria-pressed="true"] svg{color:var(--acc)}
+.mguide{border:1.5px solid var(--line);border-radius:14px;overflow:hidden}
+.mguide>button{width:100%;display:flex;align-items:center;gap:8px;border:0;background:var(--surface-2);padding:11px 12px;font-weight:700;font-size:14px;color:var(--ink);text-align:left}
+.mguide>button svg{width:18px;height:18px;color:var(--acc);flex:none}
+.mguide>button .chev{margin-left:auto;color:var(--muted);transition:transform .2s}
+.mguide.open>button .chev{transform:rotate(180deg)}
+.mg-body{padding:12px;display:flex;flex-direction:column;gap:12px;font-size:13.5px;line-height:1.45;color:var(--muted)}
+.mg-item{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start}
+.mg-l{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:16px;color:#fff}
+.mdot{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:6px;font-style:normal;font-weight:800;font-size:11.5px;color:#fff;flex:none}
+.macrochips span{display:inline-flex;align-items:center;gap:6px}
+.mg-p{background:#E5484D}.mg-f{background:#E8A317}.mg-c{background:#3E8FE0}
+.mg-item b{color:var(--ink)}
+.mg-item .kc{display:inline-block;margin-left:6px;font-size:11.5px;font-weight:700;padding:1px 7px;border-radius:99px;background:var(--surface-2);color:var(--ink)}
+.mg-note{background:var(--acc-soft);border-radius:12px;padding:10px 12px;color:var(--ink)}
+.mg-note p{margin:0 0 6px}.mg-note p:last-child{margin:0}
 .srow{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px;font-weight:600}
 .srow .nst{flex:0 1 200px}
 .srow .nst-b{width:40px;min-height:40px}
@@ -869,7 +888,7 @@ const EQ = {'barbell':'штанга','dumbbell':'гантели','cable':'бло
 
 
 /* ---------- state ---------- */
-const APP_VERSION = '1.7';
+const APP_VERSION = '1.8';
 const DEFAULT_SETTINGS = {kcalGoal:2200, kcalMode:'auto', waterGoal:2500, customFoods:[], foodOverrides:{}, customEx:[], favorites:[], waterPresets:[150,250,330,500], profile:{sex:'m',age:28,height:178,weight:78,neat:1.3,goalMode:'lose',rate:500,protein:1.8,fatk:0.9,targetWeight:0}};
 const S = {
   days:{}, settings:clone(DEFAULT_SETTINGS),
@@ -984,6 +1003,14 @@ const MI = {
   walk:SV('<circle cx="13" cy="4" r="2"/><path d="M10 21l2-6 3 3v3M9 11l3-4 3 3 3 1M12 7l-1 5"/>'),
   steps:SV('<path d="M7 16c-2 0-3-2-3-5s1-6 3-6 3 3 3 6-1 5-3 5zM4.5 19h5M17 12c2 0 3-2 3-5s-1-5-3-5-3 3-3 5 1 5 3 5zM14.5 15h5"/>'),
   hammer:SV('<path d="M14 6l4 4M11 9l-7.5 7.5a2 2 0 0 0 3 3L14 12M10 5l5-2 6 6-2 5"/>'),
+  male:SV('<circle cx="10" cy="14" r="6"/><path d="M14.5 9.5L20 4M15 4h5v5"/>'),
+  female:SV('<circle cx="12" cy="9" r="6"/><path d="M12 15v7M9 19h6"/>'),
+  keep:SV('<path d="M5 9.5h14M5 14.5h14"/>'),
+  robot:SV('<rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 5v3M9 13v1M15 13v1M9.5 17h5M2 12.5v3M22 12.5v3"/><circle cx="12" cy="3.5" r="1.3"/>'),
+  manual:SV('<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/>'),
+  user:SV('<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'),
+  pie:SV('<path d="M11 4a8.5 8.5 0 1 0 9 9h-9z"/><path d="M14 2.5a8 8 0 0 1 7.5 7.5H14z"/>'),
+  data:SV('<ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>'),
   scale:SV('<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9a4 4 0 0 1 8 0zM12 9l1.5-2"/>')
 };
 const CKEY_IC = {min:'time', km:'dist', m:'dist', fl:'stairs', jumps:'jump', spd:'speed', inc:'incline', lvl:'level', rpm:'rpm', spm:'reps', hr:'pulse'};
@@ -1829,45 +1856,52 @@ function optRow(path, cur, opts, cls){ return `<div class="seg ${cls||''}" role=
 function sheetSettings(){
   const st = S.settings, p = prof(), t = today(), hasW = weightEntries().length;
   const base = Math.round(baseSpend(t)), sh = goalShift(), tg = targetOn(t), mt = macroTargets(t), w = weightOn(t);
-  let b = `<div class="card sgroup"><h2>Профиль</h2>
-    ${optRow('profile.sex', p.sex, [['m','Мужчина'],['f','Женщина']])}
+  let b = `<div class="card sgroup"><h2 class="sh">${MI.user}Профиль</h2>
+    ${optRow('profile.sex', p.sex, [['m',MI.male+'Мужчина'],['f',MI.female+'Женщина']], 'ic')}
     <div class="srow"><span class="flab">${MI.age}Возраст</span>${nstep('s-age', p.age, 1, 'лет', 'data-a="sset" data-f="profile.age"')}</div>
     <div class="srow"><span class="flab">${MI.height}Рост</span>${nstep('s-h', p.height, 1, 'см', 'data-a="sset" data-f="profile.height"')}</div>
     ${hasW ? `<div class="srow"><span class="flab">${MI.scale}Вес</span><button class="linkrow" data-a="wopen"><b class="num">${fmt1(w)} кг</b><small>из дневника веса · записать</small></button></div>`
            : `<div class="srow"><span class="flab">${MI.scale}Вес</span>${nstep('s-w', p.weight, 0.5, 'кг', 'data-a="sset" data-f="profile.weight"')}</div>`}
   </div>
-  <div class="card sgroup"><h2>Активность вне зала</h2>
+  <div class="card sgroup"><h2 class="sh">${MI.walk}Активность вне зала</h2>
     <div class="vlist">${NEAT.map(([v,n],i)=>`<button data-a="sopt" data-f="profile.neat" data-v="${v}" aria-pressed="${num(p.neat)===v}"><span class="flab">${MI[['sit','walk','steps','hammer'][i]]}${n}</span><small class="num">×${v}</small></button>`).join('')}</div>
     <div class="hint">Тренировки не учитывай — зал добавляется отдельно по факту.</div>
   </div>
-  <div class="card sgroup"><h2>Цель</h2>
-    ${optRow('profile.goalMode', p.goalMode, [['lose','Похудеть'],['keep','Держать'],['gain','Набрать']])}
+  <div class="card sgroup"><h2 class="sh">${MI.target}Цель</h2>
+    ${optRow('profile.goalMode', p.goalMode, [['lose',MI.trend+'Похудеть'],['keep',MI.keep+'Держать'],['gain',MI.up+'Набрать']], 'ic')}
     ${p.goalMode!=='keep' ? `<div class="sub">${p.goalMode==='lose'?'Дефицит в день':'Профицит в день'}</div>${optRow('profile.rate', p.rate, p.goalMode==='lose'?[[300,'300'],[500,'500'],[750,'750']]:[[200,'200'],[300,'300'],[500,'500']])}
       <div class="hint">${p.goalMode==='lose'?`≈ −${fmt1(num(p.rate)*7/7700)} кг в неделю. 500 ккал — комфортный темп.`:`≈ +${fmt1(num(p.rate)*7/7700)} кг в неделю.`}</div>` : ''}
-    <div class="srow"><span>Желаемый вес</span>${nstep('s-tw', p.targetWeight||'', 0.5, 'кг', 'data-a="sset" data-f="profile.targetWeight"')}</div>
+    <div class="srow"><span class="flab">${MI.flag}Желаемый вес</span>${nstep('s-tw', p.targetWeight||'', 0.5, 'кг', 'data-a="sset" data-f="profile.targetWeight"')}</div>
   </div>
-  <div class="card sgroup"><h2>Калории на день</h2>
-    ${optRow('kcalMode', st.kcalMode, [['auto','Автоматически'],['manual','Вручную']])}
-    ${st.kcalMode==='manual' ? `<div class="srow"><span>Цель</span>${nstep('s-kc', st.kcalGoal, 50, 'ккал', 'data-a="sset" data-f="kcalGoal"')}</div>`
+  <div class="card sgroup"><h2 class="sh">${MI.flame}Калории на день</h2>
+    ${optRow('kcalMode', st.kcalMode, [['auto',MI.robot+'Автоматически'],['manual',MI.manual+'Вручную']], 'ic')}
+    ${st.kcalMode==='manual' ? `<div class="srow"><span class="flab">${MI.target}Цель</span>${nstep('s-kc', st.kcalGoal, 50, 'ккал', 'data-a="sset" data-f="kcalGoal"')}</div>`
       : `<div class="calcbox"><div><span>Обмен веществ и быт</span><b class="num">${fmt(base)}</b></div><div><span>+ зал сегодня</span><b class="num">${dayBurn(t)?fmt(dayBurn(t)):'0'}</b></div><div><span>${sh<0?'− на похудение':sh>0?'+ на набор':'цель: держать вес'}</span><b class="num">${sh?fmt(Math.abs(sh)):'0'}</b></div><div class="tot"><span>Цель сегодня</span><b class="num">${fmt(tg)} ккал</b></div></div>
          <div class="hint">Мифлин — Сан Жеор × активность вне зала. В дни тренировок цель растёт на сожжённое в зале, поэтому дефицит остаётся тем, что ты выбрал.</div>`}
   </div>
-  <div class="card sgroup"><h2>Белки, жиры, углеводы</h2>
-    <div class="srow"><span>Белок</span>${nstep('s-pr', p.protein, 0.1, 'г/кг', 'data-a="sset" data-f="profile.protein"')}</div>
-    <div class="srow"><span>Жиры</span>${nstep('s-fk', p.fatk, 0.1, 'г/кг', 'data-a="sset" data-f="profile.fatk"')}</div>
-    <div class="macrochips"><span>Б <b class="num">${fmt(mt.p)} г</b></span><span>Ж <b class="num">${fmt(mt.f)} г</b></span><span>У <b class="num">${fmt(mt.c)} г</b></span></div>
+  <div class="card sgroup"><h2 class="sh">${MI.pie}Белки, жиры, углеводы</h2>
+    <div class="srow"><span class="flab"><i class="mdot mg-p">Б</i>Белок</span>${nstep('s-pr', p.protein, 0.1, 'г/кг', 'data-a="sset" data-f="profile.protein"')}</div>
+    <div class="srow"><span class="flab"><i class="mdot mg-f">Ж</i>Жиры</span>${nstep('s-fk', p.fatk, 0.1, 'г/кг', 'data-a="sset" data-f="profile.fatk"')}</div>
+    <div class="macrochips"><span><i class="mdot mg-p">Б</i><b class="num">${fmt(mt.p)} г</b></span><span><i class="mdot mg-f">Ж</i><b class="num">${fmt(mt.f)} г</b></span><span><i class="mdot mg-c">У</i><b class="num">${fmt(mt.c)} г</b></span></div>
     ${(()=>{ const gb = dayBurn(t); if (st.kcalMode==='manual' || !gb) return ''; const cb = Math.max(0,(Math.round((base+sh)/10)*10 - mt.p*4 - mt.f*9)/4); return `<div class="hint" style="margin:0">Сегодня углеводов больше из‑за зала (+${fmt(gb)} ккал ≈ +${fmt(gb/4)} г). В день без тренировки: У <b class="num">${fmt(cb)} г</b>.</div>`; })()}
-    <div class="hint">Белок и жиры — по твоему весу (${fmt1(w)} кг × г/кг). Углеводы — всё, что осталось от калорий цели. При похудении белок 1,6–2,2 г на кг сохраняет мышцы.</div>
+    <div class="mguide ${S.macroHelp?'open':''}"><button data-a="macrohelp" aria-expanded="${!!S.macroHelp}">${MI.list}Памятка для новичков: что такое Б, Ж, У<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+    ${S.macroHelp ? `<div class="mg-body">
+      <div class="mg-item"><span class="mg-l mg-p">Б</span><div><b>Белок</b><span class="kc">4 ккал в 1 г</span><br>Строительный материал для мышц. Сытно и помогает не терять мышцы на похудении — <b>держи его всегда</b>.<br>Где: курица, индейка, рыба, яйца, творог, греческий йогурт, мясо, фасоль.</div></div>
+      <div class="mg-item"><span class="mg-l mg-f">Ж</span><div><b>Жиры</b><span class="kc">9 ккал в 1 г</span><br>Нужны для гормонов и усвоения витаминов. Самые калорийные: ложка масла ≈ 90 ккал. Совсем убирать нельзя.<br>Где: масло, орехи, авокадо, сыр, жирная рыба, желтки.</div></div>
+      <div class="mg-item"><span class="mg-l mg-c">У</span><div><b>Углеводы</b><span class="kc">4 ккал в 1 г</span><br>Топливо для тренировок и мозга. Их норма — остаток калорий, поэтому в дни зала она растёт.<br>Где: крупы, хлеб, макароны, картофель, фрукты, сладкое.</div></div>
+      <div class="mg-note"><p><b>«г/кг»</b> — граммы на каждый килограмм твоего веса. Белок 1,8 г/кг при весе ${fmt1(w)} кг = ${fmt(w*1.8)} г в день.</p><p><b>Не путай</b> граммы белка с граммами продукта: в 100 г куриной грудки ≈ 23 г белка, а не 100.</p><p><b>Сколько ставить:</b> белок 1,6–2,2 г/кг, жиры 0,8–1 г/кг. Если не уверен — не трогай, стандарт уже подходит.</p><p><b>Главное</b> — попасть в калории и белок. Жиры и углеводы могут гулять ± 20 %.</p></div>
+    </div>` : ''}</div>
+    <div class="hint">Белок и жиры — по твоему весу (${fmt1(w)} кг × г/кг). Углеводы — всё, что осталось от калорий цели.</div>
   </div>
-  <div class="card sgroup"><h2>Вода</h2>
+  <div class="card sgroup"><h2 class="sh">${MI.drop}Вода</h2>
     <div class="srow"><span>Норма</span>${nstep('s-wg', st.waterGoal, 50, 'мл', 'data-a="sset" data-f="waterGoal"')}</div>
     ${Math.round(w*30/50)*50!==num(st.waterGoal)?`<button class="linkbtn" data-a="swaterauto">По весу: ${fmt(Math.round(w*30/50)*50)} мл (30 мл на кг)</button>`:''}
   </div>
-  <div class="card sgroup"><h2>Таймер отдыха</h2>
+  <div class="card sgroup"><h2 class="sh">${MI.time}Таймер отдыха</h2>
     <div class="srow"><span class="flab">${MI.pulse}Звук в конце</span>${optRow('restSound', st.restSound||'on', [['on','Вкл'],['off','Выкл']])}</div>
     <div class="srow"><span class="flab">${MI.reps}Вибрация</span>${optRow('restVibe', st.restVibe||'on', [['on','Вкл'],['off','Выкл']])}</div>
   </div>
-  <div class="card sgroup"><h2>Данные</h2>
+  <div class="card sgroup"><h2 class="sh">${MI.data}Данные</h2>
     <div class="hint" style="margin:0">${db&&S.synced?'Хранятся в облаке и одинаковы на всех твоих устройствах.':'Данные хранятся только на этом телефоне. Время от времени сохраняй резервную копию (кнопка ниже) — например, в «Файлы» или iCloud.'}</div>
     <div class="row" style="flex-wrap:wrap;gap:8px"><button class="btn ghost" style="flex:1 1 140px" data-a="export" data-fmt="csv">${I.dl} Excel (CSV)</button><button class="btn ghost" style="flex:1 1 140px" data-a="export" data-fmt="json">${I.dl} Резервная копия</button></div>
     <div class="hint" style="margin:0">Схемы мышц: «Muscular system», Wikimedia Commons (через проект wger). Фото упражнений: Free Exercise DB (общественное достояние).</div>
@@ -2193,6 +2227,7 @@ document.addEventListener('click', ev => {
     case 'gdelno': sh.confirmDel = false; break;
     case 'gdelyes': { const k = sh.key, before = clone(getDay(k)); editDay(k, d=>d.gym=null); S.sheet=null; showToast('Тренировка удалена', {k, day:before}); return; }
     // settings
+    case 'macrohelp': S.macroHelp = !S.macroHelp; break;
     case 'sopt': { const v = el.dataset.v; setPath(S.settings, el.dataset.f, isNaN(+v) ? v : +v); if (el.dataset.f==='profile.goalMode'){ const g = v; S.settings.profile.rate = g==='lose' ? 500 : g==='gain' ? 300 : 0; } persistSettings(); break; }
     case 'export': doExport(el.dataset.fmt); return;
     case 'swaterauto': S.settings.waterGoal = Math.round(bodyKg()*30/50)*50; persistSettings(); break;
