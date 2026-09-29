@@ -402,6 +402,16 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
 .seg.sex button[data-v="f"]{--sexc:#E0508F}
 .seg.sex button[data-v="m"][aria-pressed="true"]{background:linear-gradient(135deg,#5AA8F5,#2567D1)}
 .seg.sex button[data-v="f"][aria-pressed="true"]{background:linear-gradient(135deg,#F585B5,#D63F80)}
+.cseg{border:1.5px solid var(--line);border-radius:14px;padding:10px 12px 8px;margin-top:10px}
+.cseg:first-of-type{margin-top:0}
+.cseg.new{border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-soft)}
+.cseg .pset-h{margin-bottom:8px}
+.cseg .calc{margin-top:8px}
+.segnote{display:flex;gap:8px;align-items:flex-start;background:var(--acc-soft);border-radius:12px;padding:10px 12px;margin-bottom:10px;font-size:13.5px;line-height:1.4}
+.segnote svg{width:18px;height:18px;flex:none;color:var(--acc);margin-top:1px}
+.ctot b{text-align:right}
+.ctot{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-top:10px;padding-top:10px;border-top:1.5px dashed var(--line);font-size:14px}
+.ctot span{color:var(--muted);font-weight:600}
 .mguide{border:1.5px solid var(--line);border-radius:14px;overflow:hidden}
 .mguide>button{width:100%;display:flex;align-items:center;gap:8px;border:0;background:var(--surface-2);padding:11px 12px;font-weight:700;font-size:14px;color:var(--ink);text-align:left}
 .mguide>button svg{width:18px;height:18px;color:var(--acc);flex:none}
@@ -880,7 +890,9 @@ function cardioParts(e){
   const sets = e.sets||[]; const mins = sets.reduce((a,x)=>a+num(x.min ?? x.r),0);
   const km = sets.reduce((a,x)=>a+(e.name==='Беговая дорожка'?tmKm(x):num(x.km)),0), m = sets.reduce((a,x)=>a+num(x.m),0), fl = sets.reduce((a,x)=>a+num(x.fl),0), jumps = sets.reduce((a,x)=>a+num(x.jumps),0);
   const parts = []; if (mins) parts.push(['min',`${fmt1(mins)} мин`]); if (km) parts.push(['km',`${e.name==='Беговая дорожка'?'≈ ':''}${fmt1(Math.round(km*100)/100)} км`]); if (m) parts.push(['m',`${fmt(m)} м`]); if (fl) parts.push(['fl',`${fmt(fl)} эт.`]); if (jumps) parts.push(['jumps',`${fmt(jumps)} прыжков`]);
-  const s0 = sets[0]||{}; if (num(s0.spd)) parts.push(['spd',`${fmt1(num(s0.spd))} км/ч`]); if (num(s0.inc)) parts.push(['inc',`наклон ${fmt1(num(s0.inc))}${e.name==='Беговая дорожка'?'%':''}`]); if (num(s0.lvl)) parts.push(['lvl',`ур. ${fmt(num(s0.lvl))}`]); if (num(s0.rpm)) parts.push(['rpm',`${fmt(num(s0.rpm))} об/мин`]); if (num(s0.spm)) parts.push(['spm',`${fmt(num(s0.spm))} ${e.name==='Гребной тренажёр'?'гр':'шаг'}/мин`]); if (num(s0.hr)) parts.push(['hr',`${fmt(num(s0.hr))} уд/мин`]);
+  const rng = (k, f) => { const v = sets.map(x=>num(x[k])).filter(x=>x>0); if (!v.length) return ''; const lo = Math.min(...v), hi = Math.max(...v); return lo===hi ? f(lo) : `${f(lo)}–${f(hi)}`; };
+  const sp = rng('spd', fmt1); if (sp) parts.push(['spd',`${sp} км/ч`]); const ic = rng('inc', fmt1); if (ic) parts.push(['inc',`наклон ${ic}${e.name==='Беговая дорожка'?'%':''}`]); const lv = rng('lvl', fmt); if (lv) parts.push(['lvl',`ур. ${lv}`]); const rp = rng('rpm', fmt); if (rp) parts.push(['rpm',`${rp} об/мин`]); const sm = rng('spm', fmt); if (sm) parts.push(['spm',`${sm} ${e.name==='Гребной тренажёр'?'гр':'шаг'}/мин`]); const hr = rng('hr', fmt); if (hr) parts.push(['hr',`${hr} уд/мин`]);
+  const segs = sets.filter(x=>setMin(x)>0||num(x.km)||num(x.m)||num(x.fl)||num(x.jumps)).length; if (segs>1) parts.unshift(['seg',`${segs} ${plural(segs,'отрезок','отрезка','отрезков')}`]);
   return parts;
 }
 function prevCardio(name, beforeK){
@@ -896,7 +908,7 @@ const EQ = {'barbell':'штанга','dumbbell':'гантели','cable':'бло
 
 
 /* ---------- state ---------- */
-const APP_VERSION = '2.1';
+const APP_VERSION = '2.2';
 const DEFAULT_SETTINGS = {kcalGoal:2200, kcalMode:'auto', waterGoal:2500, customFoods:[], foodOverrides:{}, customEx:[], favorites:[], waterPresets:[150,250,330,500], profile:{sex:'m',age:28,height:178,weight:78,neat:1.3,goalMode:'lose',rate:500,protein:1.8,fatk:0.9,targetWeight:0}};
 const S = {
   days:{}, settings:clone(DEFAULT_SETTINGS),
@@ -1088,7 +1100,7 @@ const MI = {
   data:SV('<ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>'),
   scale:SV('<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9a4 4 0 0 1 8 0zM12 9l1.5-2"/>')
 };
-const CKEY_IC = {min:'time', km:'dist', m:'dist', fl:'stairs', jumps:'jump', spd:'speed', inc:'incline', lvl:'level', rpm:'rpm', spm:'reps', hr:'pulse'};
+const CKEY_IC = {seg:'sets', min:'time', km:'dist', m:'dist', fl:'stairs', jumps:'jump', spd:'speed', inc:'incline', lvl:'level', rpm:'rpm', spm:'reps', hr:'pulse'};
 const I = {
   food:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v8a2 2 0 0 0 2 2v8M5 3v5M9 3v5M17 21V3c-2 1-3 4-3 8h3"/></svg>',
   water:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg>',
@@ -1820,7 +1832,7 @@ function saveDrafts(){ try{ const lim = addDays(today(),-1); Object.keys(DRAFTS)
 function dropDraft(key, name, id){ delete DRAFTS[key+'|'+name]; if (id) delete DRAFTS[key+'|id:'+id]; saveDrafts(); }
 function newForm(name, group, ei){
   const sh = S.sheet, ex = ei>=0 ? ((getDay(sh.key).gym||{}).exercises||[])[ei] : null, dk = sh.key+'|'+(ex ? 'id:'+ex.id : name);
-  if (name && DRAFTS[dk]) return Object.assign(DRAFTS[dk], {ei});
+  if (name && DRAFTS[dk]){ const d = DRAFTS[dk]; if (d.cardio && !d.cs) d.cs = [d.c||{}]; return Object.assign(d, {ei}); }
   const f = buildForm(name, group, ei);
   if (name) DRAFTS[dk] = f;
   return f;
@@ -1831,7 +1843,7 @@ function buildForm(name, group, ei){
   const f = {name, g:group, ei, cardio, per:false, w:'', r:'10', n:3, sets:[], c:{}, rests:[]};
   const src = ei>=0 ? getDay(sh.key).gym.exercises[ei] : (lastSession(name, sh.key)||{}).e;
   if (ei>=0 && src.rests) f.rests = src.rests.slice();
-  if (cardio){ f.c = src && src.sets && src.sets[0] ? Object.assign({}, src.sets[0]) : {}; if (f.c.r!==undefined && f.c.min===undefined) f.c.min = f.c.r; return f; }
+  if (cardio){ f.cs = src && (src.sets||[]).length ? src.sets.map(x=>{ const c = Object.assign({}, x); if (c.r!==undefined && c.min===undefined) c.min = c.r; return c; }) : [{}]; delete f.c; return f; }
   if (info && (info.f||'').includes('sec')) f.r = '30';
   if (info && (info.f||'').includes('bw')) f.w = '';
   if (src && (src.sets||[]).length){
@@ -1873,9 +1885,15 @@ function gymDetailStep(){
   }
   if (f.cardio){
     const fs = CARDIO[f.name] || CARDIO_GENERIC;
-    b += `<div class="card params"><div class="sec-t" style="margin:0 0 8px">Параметры</div><div class="cgrid">${fs.map(x=>`<div class="f"><span class="flab">${MI[CKEY_IC[x.k]]||''}${x.label}</span>${nstep('gc-'+x.k, f.c[x.k]??'', CSTEP[x.k]||x.step, x.unit, `data-a="gcf" data-f="${x.k}"`, x.main)}</div>`).join('')}</div>
-      ${RAILS.includes(f.name)?`<label class="row" style="gap:8px;font-size:14px;font-weight:600;margin:10px 0 0"><input type="checkbox" id="gcrails" data-a="gcrails" ${f.c.rails?'checked':''}> Держался за поручни <span class="muted" style="font-weight:500">(−20% ккал)</span></label>`:''}
-      <div class="calc" id="gcalc">${cardioCalc(f)}</div>
+    const multi = f.cs.length>1;
+    b += `<div class="card params"><div class="sec-t" style="margin:0 0 8px">Параметры</div>
+      ${f.segNote?`<div class="segnote">${MI.sets}<span>«${esc(f.name)}» уже есть сегодня — добавил <b>отрезок ${f.cs.length}</b>. Поменяй наклон, скорость или время.</span></div>`:''}
+      ${f.cs.map((c,si)=>`<div class="${multi?'cseg'+(f.segNote&&si===f.cs.length-1?' new':''):''}">${multi?`<div class="pset-h"><span>Отрезок ${si+1}</span><button class="del" data-a="gcsdel" data-si="${si}" aria-label="Удалить отрезок ${si+1}">${I.x}</button></div>`:''}
+        <div class="cgrid">${fs.map(x=>`<div class="f"><span class="flab">${MI[CKEY_IC[x.k]]||''}${x.label}</span>${nstep('gc-'+si+'-'+x.k, c[x.k]??'', CSTEP[x.k]||x.step, x.unit, `data-a="gcf" data-si="${si}" data-f="${x.k}"`, x.main)}</div>`).join('')}</div>
+        <div class="calc" id="gcalc-${si}">${cardioCalc(f, si)}</div></div>`).join('')}
+      <button class="add" style="margin-top:10px" data-a="gcsadd">${I.plus} Ещё отрезок</button>${f.cs.length<2?'<div class="hint" style="margin:6px 0 0;text-align:center">Например, 20 мин с наклоном 2% и 10 мин с наклоном 8%</div>':''}
+      <div id="gctot">${cardioTotal(f)}</div>
+      ${RAILS.includes(f.name)?`<label class="row" style="gap:8px;font-size:14px;font-weight:600;margin:10px 0 0"><input type="checkbox" id="gcrails" data-a="gcrails" ${f.cs[0].rails?'checked':''}> Держался за поручни <span class="muted" style="font-weight:500">(−20% ккал)</span></label>`:''}
       ${last?`<div class="hint" style="margin-top:8px">Прошлый раз (${dayLabel(last.k)}): ${esc(cardioSummary(last.e)||'—')}</div>`:''}</div>`;
   } else {
     const secU = info && (info.f||'').includes('sec'), bw = info && (info.f||'').includes('bw');
@@ -1895,8 +1913,16 @@ function gymDetailStep(){
   if (editing) b += `<button class="btn danger" data-a="gdelex2">Удалить упражнение</button>`;
   return {title: editing ? 'Упражнение' : f.g, body:b, back: editing ? 'gback-day' : 'gback-list'};
 }
-function cardioCalc(f){
-  const kg = bodyKg(), x = f.c, parts = [];
+function segHas(x){ return Object.entries(x).some(([k,v])=>k!=='rails' && num(v)>0); }
+function cardioTotal(f){
+  const segs = f.cs.filter(segHas); if (f.cs.length<2) return '';
+  const e = {name:f.name, muscle:'Кардио', sets:segs}, kc = exKcal(e), sum = cardioParts(e).filter(p=>['seg','min','km','m','fl','jumps'].includes(p[0])).map(p=>p[1]).join(' · ');
+  return segs.length ? `<div class="ctot"><span>Итого</span><b class="num">${esc(sum)}${kc?` · ≈ ${fmt(kc)} ккал`:''}</b></div>` : '';
+}
+function cardioCalc(f, si){
+  if (si===undefined) si = 0;
+  const kg = bodyKg(), x = f.cs[si]||{}, parts = [];
+  if (f.cs.length>1){ const kc = netCardio(f.name, x, kg); const km = f.name==='Беговая дорожка' && num(x.spd) && setMin(x) ? `≈ ${fmt1(Math.round(tmKm(x)*100)/100)} км · ` : ''; return setMin(x) ? `<span class="muted">${km}≈ <b class="num">${fmt(kc)} ккал</b></span>` : '<span class="hint">Заполни время отрезка</span>'; }
   if (f.name==='Беговая дорожка' && num(x.spd) && setMin(x)) parts.push(`Дистанция <b class="num">≈ ${fmt1(Math.round(tmKm(x)*100)/100)} км</b>`);
   const gross = setKcal(f.name, x, kg), kc = netCardio(f.name, x, kg); if (gross) parts.push(`Сожжено <b class="num">≈ ${fmt(kc)} ккал</b>`);
   return parts.length ? parts.join(' · ') + `<div class="hint">Чистый расход сверх покоя: всего ≈ ${fmt(gross)} ккал минус ≈ ${fmt(3.5*kg/1000*5*setMin(x))} ккал обмена веществ за это время${x.rails&&RAILS.includes(f.name)?', минус 20% за поручни':''}. Вес ${fmt1(kg)} кг${num(x.hr)>=80?', считаю по пульсу (формула Keytel)':f.name==='Беговая дорожка'?', таблица нагрузок Compendium по скорости + ACSM для наклона':f.name==='Гребной тренажёр'&&num(x.m)?', мощность по темпу (формула Concept2)':''}.</div>` : '<span class="hint">Заполни время' + (f.name==='Беговая дорожка'?' и скорость':'') + ' — посчитаю дистанцию и калории.</span>';
@@ -1905,13 +1931,14 @@ function formSets(f){ return f.per ? f.sets.map(s=>({w:s.w, r:s.r})) : Array.fro
 function needsWeight(f){ if (f.cardio) return false; const info = exInfo(f.name); if (!info) return false; return !/bw|sec/.test(info.f||''); }
 function saveHint(f){ const ss = formSets(f); return !ss.some(x=>num(x.r)>0) ? 'Укажи повторения, чтобы сохранить' : 'Укажи вес, чтобы сохранить'; }
 function formCanSave(f){ if (f.cardio) return true; const ss = formSets(f); if (!ss.some(x=>num(x.r)>0)) return false; return !needsWeight(f) || ss.every(x=>num(x.w)>0); }
+function syncCardio(){ const f = S.sheet && S.sheet.form; if (!f || !f.cs) return; f.cs.forEach((_,i)=>{ const c = $('#gcalc-'+i); if (c) c.innerHTML = cardioCalc(f, i); }); const t = $('#gctot'); if (t) t.innerHTML = cardioTotal(f); }
 function syncSave(){ const f = S.sheet && S.sheet.form, bt = $('[data-a="gsave"]'); if (!f || !bt) return; const ok = formCanSave(f); bt.disabled = !ok; const h = $('#gneedw'); if (h) h.style.display = ok ? 'none' : ''; else if (!ok && !f.cardio){ bt.insertAdjacentHTML('afterend','<div class="hint" id="gneedw" style="text-align:center;margin-top:-4px"></div>'); } const h2 = $('#gneedw'); if (h2 && !ok) h2.textContent = saveHint(f); }
 function formTotal(f){ const ss = formSets(f); const t = ss.reduce((a,s)=>a+num(s.w)*num(s.r),0); const kc = exKcal({name:f.name, muscle:f.g, sets:ss, rests:f.rests}); return `${ss.length} ${plural(ss.length,'подход','подхода','подходов')}` + (kc?` · сожжено <b class="num">≈ ${fmt(kc)} ккал</b>`:'') + (kc&&!f.cardio?`<div class="hint">Чистый расход сверх покоя: подходы (≈ 2¼ мин на подход с отдыхом) плюс работа — вес × повторы × амплитуда. Больше вес — больше ккал. Таймер отдыха на калории не влияет.</div>`:''); }
 function saveForm(){
   const sh = S.sheet, f = sh.form;
-  const e = {id: uid(), name:f.name, muscle:f.g, sets: f.cardio ? [Object.assign({}, f.c)] : formSets(f).filter(s=>num(s.w)>0||num(s.r)>0)};
+  const e = {id: uid(), name:f.name, muscle:f.g, sets: f.cardio ? f.cs.filter(segHas).map(c=>Object.assign({}, c)) : formSets(f).filter(s=>num(s.w)>0||num(s.r)>0)};
   if (!f.cardio && (f.rests||[]).length) e.rests = f.rests.slice();
-  if (!e.sets.length || (f.cardio && !Object.values(f.c).some(v=>num(v)>0))){ showToast(f.cardio?'Заполни хотя бы время':'Укажи вес или повторения'); return false; }
+  if (!e.sets.length){ showToast(f.cardio?'Заполни хотя бы время':'Укажи вес или повторения'); return false; }
   editDay(sh.key, d => {
     if (!d.gym) d.gym = {muscles:[], exercises:[], note:''};
     if (f.ei>=0){ e.id = d.gym.exercises[f.ei].id || e.id; d.gym.exercises[f.ei] = e; } else d.gym.exercises.push(e);
@@ -2256,7 +2283,11 @@ document.addEventListener('click', ev => {
     case 'gback-group': sh.step = 'group'; sh.gq = ''; break;
     case 'gback-list': sh.step = 'list'; sh.form = null; break;
     case 'glist': sh.group = el.dataset.m; sh.step = 'list'; sh.gq = ''; render(); { const b=$('.sheet-b'); if (b) b.scrollTop=0; } return;
-    case 'gpickex': { sh.renaming = false; sh.delMine = false; const n = el.dataset.n; if (el.dataset.g) sh.group = el.dataset.g; const g = getDay(sh.key).gym; const ei = g ? (g.exercises||[]).findIndex(e=>e.name===n) : -1; sh.form = newForm(n, sh.group, ei); sh.photo = false; sh.step = 'detail'; render(); const b=$('.sheet-b'); if (b) b.scrollTop=0; return; }
+    case 'gcsadd': { const f = sh.form, last = f.cs[f.cs.length-1]||{}; f.cs.push(Object.assign({}, last)); f.segNote = false; render(); setTimeout(()=>{ const n = document.querySelectorAll('.cseg'); const el2 = n[n.length-1]; if (el2) el2.scrollIntoView({block:'center', behavior:'smooth'}); }, 30); return; }
+    case 'gcsdel': { const f = sh.form; f.cs.splice(+el.dataset.si, 1); if (!f.cs.length) f.cs = [{}]; f.segNote = false; render(); return; }
+    case 'gpickex': { sh.renaming = false; sh.delMine = false; const n = el.dataset.n; if (el.dataset.g) sh.group = el.dataset.g; const g = getDay(sh.key).gym; const ei = g ? (g.exercises||[]).findIndex(e=>e.name===n) : -1; sh.form = newForm(n, sh.group, ei);
+      if (ei>=0 && sh.form.cardio && !sh.form.segNote){ const f = sh.form, saved = (g.exercises[ei].sets||[]).length; if (f.cs.length <= saved){ f.cs.push(Object.assign({}, f.cs[f.cs.length-1]||{})); f.segNote = true; } }
+      sh.photo = false; sh.step = 'detail'; render(); const b=$('.sheet-b'); if (b) b.scrollTop=0; if (sh.form.segNote) setTimeout(()=>{ const n = document.querySelector('.cseg.new'); if (n) n.scrollIntoView({block:'center'}); }, 30); return; }
     case 'gcustom': { sh.form = Object.assign(newForm('', sh.group, -1), {custom:true}); sh.photo = false; sh.step = 'detail'; render(); const b=$('.sheet-b'); if (b) b.scrollTop=0; setTimeout(()=>$('#gname')?.focus(), 50); return; }
     case 'gedit': { sh.renaming = false; sh.delMine = false; const e = getDay(sh.key).gym.exercises[+el.dataset.ei]; sh.group = e.muscle; sh.photo = false; sh.form = newForm(e.name, e.muscle, +el.dataset.ei); sh.step = 'detail'; render(); const b=$('.sheet-b'); if (b) b.scrollTop=0; return; }
     case 'gstep': { const f = sh.form, id = el.dataset.f, d = num(el.dataset.d); let v = Math.max(id==='n'?1:0, Math.round((num(f[id]) + d)*100)/100); if (id==='n') v = Math.min(20, v); f[id] = String(v); break; }
@@ -2379,8 +2410,8 @@ document.addEventListener('input', ev => {
   else if (a==='gdur'){ const d = S.days[sh.key]; if (d&&d.gym){ d.gym.duration = num(el.value); persistDay(sh.key); } }
   else if (a==='gf'){ sh.form[el.dataset.f] = el.value; const t = $('#gtotal'); if (t) t.innerHTML = formTotal(sh.form); syncSave(); }
   else if (a==='gps'){ sh.form.sets[+el.dataset.si][el.dataset.f] = el.value; const t = $('#gtotal'); if (t) t.innerHTML = formTotal(sh.form); syncSave(); }
-  else if (a==='gcrails'){ sh.form.c.rails = el.checked; const c = $('#gcalc'); if (c) c.innerHTML = cardioCalc(sh.form); }
-  else if (a==='gcf'){ sh.form.c[el.dataset.f] = el.value; const c = $('#gcalc'); if (c) c.innerHTML = cardioCalc(sh.form); }
+  else if (a==='gcrails'){ sh.form.cs.forEach(c=>{ c.rails = el.checked; }); syncCardio(); }
+  else if (a==='gcf'){ const si = +el.dataset.si||0; sh.form.cs[si][el.dataset.f] = el.value; syncCardio(); }
   else if (a==='gnote'){ const d = S.days[sh.key]; if (d&&d.gym){ d.gym.note = el.value; persistDay(sh.key); } }
   else if (a==='sset'){ const v = num(el.value); const allowZero = el.dataset.f==='profile.targetWeight'; if (el.value.trim()==='' && !allowZero) return; if (v>0 || (allowZero && (el.value.trim()==='' || v>=0))){ setPath(S.settings, el.dataset.f, el.value.trim()===''?0:v); persistSettings(); clearTimeout(window.__srt); window.__srt = setTimeout(()=>renderSoon(), 700); } }
   else if (a==='sgoal'){ const v = num(el.value); if (v>0){ S.settings[el.dataset.f] = Math.round(v); persistSettings(); } }
@@ -2413,8 +2444,8 @@ loadLocal();
 if ('serviceWorker' in navigator && (location.protocol==='https:'||location.hostname==='localhost')) navigator.serviceWorker.register('sw.js').catch(()=>{});
 render();
 loadMirror().then(ch => { if (ch) render(); return initDb(); }).then(render);
-document.addEventListener('visibilitychange', () => { if (document.visibilityState==='hidden') cacheLocal(); });
-window.addEventListener('pagehide', () => cacheLocal());
+// another tab/window of the app saved newer data → take it instead of later overwriting it
+window.addEventListener('storage', ev => { if (ev.key!=='forma.cache' || !ev.newValue) return; try{ const c = JSON.parse(ev.newValue); if ((c.seq||0) > localSeq){ applyCache(c); renderSoon(); } }catch(e){} });
 initDownloads();
 })();
 </script>
