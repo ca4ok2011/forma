@@ -433,9 +433,14 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
 .achpips i.on{border-color:transparent}
 .wc-prog{display:inline-flex;align-items:center;gap:6px;color:var(--walk);font-weight:700;align-self:flex-start}
 .wc-prog svg{width:16px;height:16px}
-.walkcard{display:flex;flex-direction:column;gap:12px;background:linear-gradient(180deg,var(--walk-soft),var(--surface) 70%)}
+.walkcard{display:flex;flex-direction:column;gap:12px}
+.arrow.sm{width:36px;height:36px;border:0;border-radius:10px;background:var(--surface-2);display:grid;place-items:center;color:var(--ink)}
+.arrow.sm svg{width:18px;height:18px}
+.arrow:disabled{opacity:.35}
+.walkgoal{display:flex;align-items:center;gap:8px;margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--acc-soft);color:var(--acc);font-weight:700;font-size:14px}
+.walkgoal svg{width:18px;height:18px}
 .wc-h{display:flex;align-items:center;gap:12px}
-.wc-h>div{flex:1;display:flex;flex-direction:column}
+.wc-h>div{flex:1;display:flex;flex-direction:column;gap:2px}
 .wc-h small{color:var(--muted);font-size:12.5px}
 .wc-h .hbtn{height:40px;padding:0 14px;font-size:15px}
 .wc-ic,.wh-ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--walk-grad);color:#fff;flex:none}
@@ -676,7 +681,7 @@ button.hcard{cursor:pointer}
 
 /* tab bar */
 .tabs{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:8px 16px calc(8px + env(safe-area-inset-bottom,0px));z-index:20}
-.tabs .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.tabs .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
 .tab{border:0;background:none;border-radius:14px;padding:6px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;font-weight:700;color:var(--muted)}
 .tab svg{width:24px;height:24px}
 .tab[aria-selected="true"]{color:var(--acc);background:var(--acc-soft)}
@@ -684,6 +689,8 @@ button.hcard{cursor:pointer}
 .tab.t-water{--acc:var(--water);--acc-soft:var(--water-soft)}
 .tab.t-gym{--acc:var(--gym);--acc-soft:var(--gym-soft);--on-acc:var(--gym-on)}
 .tab.t-home{--acc:var(--home);--acc-soft:var(--home-soft)}
+.tab.t-walk{--acc:var(--walk);--acc-soft:var(--walk-soft)}
+@media (max-width:380px){.tab{font-size:11px;padding:6px 2px}}
 
 /* sheet */
 .overlay{position:fixed;inset:0;background:rgba(4,6,9,.72);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);z-index:40;display:flex;align-items:stretch;justify-content:center}
@@ -977,7 +984,7 @@ const EQ = {'barbell':'штанга','dumbbell':'гантели','cable':'бло
 
 
 /* ---------- state ---------- */
-const APP_VERSION = '2.5';
+const APP_VERSION = '2.6';
 const DEFAULT_SETTINGS = {kcalGoal:2200, kcalMode:'auto', waterGoal:2500, customFoods:[], foodOverrides:{}, customEx:[], favorites:[], waterPresets:[150,250,330,500], profile:{sex:'m',age:28,height:178,weight:78,neat:1.3,goalMode:'lose',rate:500,protein:1.8,fatk:0.9,targetWeight:0}};
 const S = {
   days:{}, settings:clone(DEFAULT_SETTINGS),
@@ -986,8 +993,8 @@ const S = {
   progEx:null, progPer:'day', synced:false, toast:null
 };
 S.tab = 'home';
-try{ const h = (location.hash||'').slice(1); if (['home','food','water','gym'].includes(h)) S.tab = h; }catch(e){}
-try{ const t = localStorage.getItem('forma.tab'); if (!location.hash && ['home','food','water','gym'].includes(t)) S.tab = t; }catch(e){}
+try{ const h = (location.hash||'').slice(1); if (['home','food','water','gym','walk'].includes(h)) S.tab = h; }catch(e){}
+try{ const t = localStorage.getItem('forma.tab'); if (!location.hash && ['home','food','water','gym','walk'].includes(t)) S.tab = t; }catch(e){}
 
 const blankDay = () => ({food:[], water:[], gym:null});
 const getDay = k => S.days[k] || blankDay();
@@ -1178,6 +1185,7 @@ const I = {
   food:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v8a2 2 0 0 0 2 2v8M5 3v5M9 3v5M17 21V3c-2 1-3 4-3 8h3"/></svg>',
   water:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg>',
   gym:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10v4M6 7v10M18 7v10M21 10v4M6 12h12"/></svg>',
+  walk:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5V7c0-.6.5-1 1-1h3.2l1.3 2.4c.6 1.1 1.8 1.8 3 1.8h.5l6.6 1.9c2 .6 3.4 2.2 3.4 4.1v.3a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 17.5z"/><path d="M3 15.3h18.9M9.6 9.6l1.4-1.8M12.6 10.3l1.4-1.8"/></svg>',
   gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>',
   left:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
   right:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>',
@@ -1203,7 +1211,7 @@ function ring(val, goal, big, sub, extra){
   return `<div class="ring ${val>goal&&goal>0?'over':''}"><svg viewBox="0 0 150 150"><circle class="c-bg" cx="75" cy="75" r="${r}" stroke-width="13"/><circle class="c-fg" cx="75" cy="75" r="${r}" stroke-width="13" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-p)}"/></svg><div class="in"><div class="big num">${big}</div><small>${sub}</small>${extra||''}</div></div>`;
 }
 function dateNav(){
-  const k = S.date, food = S.tab==='food' || S.tab==='water';
+  const k = S.date, food = S.tab==='food' || S.tab==='water' || S.tab==='walk';
   return `<div class="nav"><button class="arrow" data-a="dprev" aria-label="Предыдущий день">${I.left}</button>
     <div class="label"><button data-a="${food?'calopen':'dtoday'}" ${food?'aria-label="Открыть календарь"':''}>${food?`<span class="row" style="gap:6px;justify-content:center">${relLabel(k)}<span class="muted" style="display:inline-flex">${I.cal}</span></span>`:relLabel(k)}<small>${dayLabel(k)}</small></button></div>
     <button class="arrow" data-a="dnext" aria-label="Следующий день">${I.right}</button></div>`;
@@ -1289,7 +1297,7 @@ function viewHome(){
     ${g ? `<button class="hc-gym" data-a="openday" data-k="${t}">${bodyPair(g.muscles||[],'lg2')}<div class="hc-nums"><b class="ht">${esc((g.muscles||[]).join(', ')||'Тренировка')}</b><span class="hs">${(g.exercises||[]).length} ${plural((g.exercises||[]).length,'упражнение','упражнения','упражнений')}</span>${burn?`<span class="hs burn">${I.flame}${kcalTxt(burn)}</span>`:''}</div></button>`
         : `<div class="hc-row"><span class="hs" style="white-space:nowrap">Тренировки пока нет</span><button class="hbtn" data-a="openday" data-new="1" data-k="${t}">${I.plusW} Добавить</button></div>`}</div>`;
   { const st = daySteps(t), wb = walkBurn(t);
-    h += `<div class="card hcard m-walk"><button class="hc-h" data-a="walkopen" data-k="${t}"><span class="hc-ic">${MI.shoe}</span><b>Прогулка</b><span class="chev">${I.right}</span></button>
+    h += `<div class="card hcard m-walk"><button class="hc-h" data-a="tab" data-id="walk"><span class="hc-ic">${MI.shoe}</span><b>Прогулка</b><span class="chev">${I.right}</span></button>
       <div class="hc-row">${st ? `<div class="hc-nums"><div class="hv-row"><b class="hv num">${fmt(st)}</b><span class="hu">шагов</span></div><span class="hs">≈ ${fmt1(Math.round(dayWalkKm(t)*10)/10)} км · <span class="walkc">${I.flame}≈ ${fmt(wb)} ккал</span></span></div><button class="hbtn soft" data-a="walkopen" data-k="${t}" aria-label="Добавить прогулку">${I.plus}</button>`
         : `<span class="hs" style="white-space:nowrap">Сегодня без прогулки</span><button class="hbtn" data-a="walkopen" data-k="${t}">${I.plusW} Добавить</button>`}</div></div>`; }
   h += homeAch();
@@ -1395,7 +1403,7 @@ function progWalks(){
   let hh = `<div class="seg" role="group" aria-label="Что показывать" style="margin-top:10px"><button data-a="walkunit" data-u="steps" aria-pressed="${!useKm}">Шаги</button><button data-a="walkunit" data-u="km" aria-pressed="${useKm}">Путь, км</button></div>
     <div class="seg" role="group" aria-label="Период" style="margin-top:8px"><button data-a="progper" data-p="day" aria-pressed="${per==='day'}">По дням</button><button data-a="progper" data-p="week" aria-pressed="${per==='week'}">По неделям</button></div>`;
   hh += progBars(items, unit, f);
-  hh += `<div class="pr"><div><i class="pri">${MI.shoe}</i><b class="num">${daySteps(t)?fmt(daySteps(t)):'—'}</b><span>${daySteps(t)?`шагов сегодня · ${fmt1(Math.round(km1*10)/10)} км`:'шагов сегодня'}</span></div>
+  hh += `<div class="pr"><div><i class="pri">${MI.shoe}</i><b class="num">${daySteps(t)?fmt(daySteps(t)):'—'}</b><span>шагов сегодня</span></div>
     <div><i class="pri">${MI.dist}</i><b class="num">${fmt1(Math.round(wkKm*10)/10)} км</b><span>за неделю</span></div>
     <div><i class="pri">${MI.age}</i><b class="num">${fmt(km30)} км</b><span>за 30 дней</span></div></div>`;
   return `<div class="m-walk">${hh}</div>`;
@@ -1407,7 +1415,6 @@ function progressCard(){
     if (isCardio(e)){ if (cardioMin(e) || cardioDist(e)){ seen.add(e.name); cardioNames.push(e.name); } }
     else if ((e.sets||[]).some(x=>num(x.w)>0||num(x.r)>0)){ seen.add(e.name); strNames.push(e.name); } }));
   if (!S.progCat) S.progCat = strNames.length ? 'str' : 'end';
-  if (Object.keys(S.days).some(k=>dayWalks(k).length)) cardioNames.unshift(PROG_WALK);
   const cat = S.progCat, opts = cat==='end' ? cardioNames : strNames;
   if (!S.progEx || !opts.includes(S.progEx)) S.progEx = opts[0] || null;
   let h = `<section class="card chart"><h2>Прогресс</h2>
@@ -1482,11 +1489,10 @@ function viewGym(){
   const rng = a.getMonth()===b.getMonth() ? `${a.getDate()}–${b.getDate()} ${MON[b.getMonth()]}` : `${a.getDate()} ${MON_S[a.getMonth()]} – ${b.getDate()} ${MON_S[b.getMonth()]}`;
   const isCur = ws===mondayOf(t);
   let html = `<div class="nav"><button class="arrow" data-a="wprev" aria-label="Предыдущая неделя">${I.left}</button><div class="label"><button data-a="calopen" aria-label="Открыть календарь тренировок"><span class="row" style="gap:6px;justify-content:center">${isCur?'Эта неделя':ws===mondayOf(addDays(t,-7))?'Прошлая неделя':'Неделя'}<span class="muted" style="display:inline-flex">${I.cal}</span></span><small>${rng}</small></button></div><button class="arrow" data-a="wnext" aria-label="Следующая неделя">${I.right}</button></div>`;
-  html += `<section class="card"><div class="week">${days.map((k,i)=>{ const g = getDay(k).gym; const m = g?(g.muscles||[]):[]; return `<button class="day ${g?'done':''} ${k===t?'today':''}" data-a="openday" data-k="${k}" aria-label="${WD_FULL[i]}, ${dayLabel(k)}${g?', тренировка':''}"><span class="wd">${WD[i]}</span><span class="dn num">${parseKey(k).getDate()}</span>${g?(m.length?bodyPair(m,'wk'):`<span class="dots"><span>✓</span></span>`):''}${dayWalks(k).length?'<i class="wkdot" title="Прогулка"></i>':''}</button>`; }).join('')}</div>`;
+  html += `<section class="card"><div class="week">${days.map((k,i)=>{ const g = getDay(k).gym; const m = g?(g.muscles||[]):[]; return `<button class="day ${g?'done':''} ${k===t?'today':''}" data-a="openday" data-k="${k}" aria-label="${WD_FULL[i]}, ${dayLabel(k)}${g?', тренировка':''}"><span class="wd">${WD[i]}</span><span class="dn num">${parseKey(k).getDate()}</span>${g?(m.length?bodyPair(m,'wk'):`<span class="dots"><span>✓</span></span>`):''}</button>`; }).join('')}</div>`;
   const wk = days.filter(k=>getDay(k).gym);
   html += `<div class="row between" style="margin-top:14px"><div><b class="num" style="font-family:var(--display);font-size:20px">${wk.length}</b> <span class="muted">${plural(wk.length,'тренировка','тренировки','тренировок')} за неделю</span></div><button class="add" data-a="openday" data-new="1" data-k="${days.includes(t)?t:days[0]}">${I.plus} ${days.includes(t)?'Сегодня':'Отметить'}</button></div></section>`;
 
-  html += walkCard(days, t);
   html += `<section class="card restcard"><span class="tb-l">${I.clock} Таймер отдыха</span><div class="rc-b">${REST_PRE.map(v=>`<button class="tb-c" data-a="tmr" data-s="${v}">${v} с</button>`).join('')}</div></section>`;
   // 28 days heatmap
   html += muscleHeat(t);
@@ -1691,9 +1697,10 @@ function emKcal(em){ return num(em.p)*4 + num(em.f)*9 + num(em.c)*4; }
 function dayKcal(k){ const d = S.days[k]; return d && d.food && d.food.length ? d.food.reduce((a,e)=>a+e.kcal,0) : null; }
 function dayMl(k){ const d = S.days[k]; return d && d.water && d.water.length ? d.water.reduce((a,e)=>a+e.ml,0) : null; }
 function dayTon(k){ const d = S.days[k]; if (!d || !d.gym) return null; return (d.gym.exercises||[]).reduce((a,e)=>a+(e.sets||[]).reduce((b,x)=>b+num(x.w)*num(x.r),0),0); }
-function calVal(mode,k){ return mode==='water' ? dayMl(k) : mode==='gym' ? (S.days[k] && S.days[k].gym ? 1 : null) : dayKcal(k); }
-function calGoal(mode, k){ return mode==='water' ? S.settings.waterGoal : mode==='gym' ? null : targetOn(k || today()); }
-const CAL_UNIT = {food:'ккал', water:'мл', gym:'кг'};
+function calVal(mode,k){ return mode==='walk' ? (dayWalks(k).length ? daySteps(k) : null) : mode==='water' ? dayMl(k) : mode==='gym' ? (S.days[k] && S.days[k].gym ? 1 : null) : dayKcal(k); }
+const walkGoal = () => num(S.settings.walkGoal) || 10000;
+function calGoal(mode, k){ return mode==='walk' ? walkGoal() : mode==='water' ? S.settings.waterGoal : mode==='gym' ? null : targetOn(k || today()); }
+const CAL_UNIT = {food:'ккал', water:'мл', gym:'кг', walk:'шагов'};
 function allPRs(){
   const best = {}, prs = [];
   gymSessions().forEach(s => (s.g.exercises||[]).forEach(e => {
@@ -1721,6 +1728,7 @@ function sheetCal(){
       logged++; sum += v;
       if (mode==='food'){ const tg = targetOn(k); st = v>tg ? 'over' : 'ok'; if (v>tg) hit++; txt = fmtK(v); }
       else if (mode==='water'){ st = v>=goal ? 'full' : 'ok'; if (v>=goal) hit++; txt = v>=1000 ? fmt1(v/1000)+' л' : fmt(v); }
+      else if (mode==='walk'){ st = v>=goal ? 'full' : 'ok'; if (v>=goal) hit++; txt = v>=1000 ? fmt1(Math.round(v/100)/10)+'k' : fmt(v); }
       else { st = 'full'; const ms = (S.days[k].gym.muscles||[]); txt = ms.slice(0,2).map(x=>MUSCLE_SHORT[x]).join('·') || '✓'; }
     }
     const isSel = mode==='gym' ? false : k===S.date;
@@ -1730,9 +1738,11 @@ function sheetCal(){
   }
   const legend = mode==='food' ? `<span><i class="lg ok"></i>в пределах цели</span><span><i class="lg over"></i>больше цели дня</span>`
     : mode==='water' ? `<span><i class="lg full"></i>норма ${fmt(goal)} мл выполнена</span><span><i class="lg ok"></i>меньше нормы</span>`
+    : mode==='walk' ? `<span><i class="lg full"></i>цель ${fmt(goal)} шагов</span><span><i class="lg ok"></i>была прогулка</span>`
     : `<span><i class="lg full"></i>тренировка</span><span><span class="star-i">★</span>новый рекорд в упражнении</span>`;
   let stats;
   if (mode==='food') stats = [[logged, plural(logged,'день','дня','дней')+' с записями'],[logged?fmt(sum/logged):'—','ккал в среднем'],[hit, plural(hit,'день','дня','дней')+' сверх цели']];
+  else if (mode==='walk'){ const km = Array.from({length:dim},(_,i)=>dayWalkKm(`${mPrefix}-${pad(i+1)}`)).reduce((a,b)=>a+b,0); stats = [[logged, plural(logged,'день','дня','дней')+' с прогулкой'],[logged?fmt(sum/logged):'—','шагов в среднем'],[fmt1(Math.round(km*10)/10), 'км за месяц']]; }
   else if (mode==='water') stats = [[hit, plural(hit,'день','дня','дней')+' с нормой'],[logged?fmt(sum/logged):'—','мл в среднем'],[waterStreak(), plural(waterStreak(),'день','дня','дней')+' подряд с нормой']];
   else { const mp = prs.filter(p=>p.k.startsWith(mPrefix)); const burnM = Array.from({length:dim},(_,i)=>dayBurn(`${mPrefix}-${pad(i+1)}`)).reduce((a,b)=>a+b,0); stats = [[logged, plural(logged,'тренировка','тренировки','тренировок')],[fmt(burnM),'ккал сожжено'],[mp.length, plural(mp.length,'рекорд','рекорда','рекордов')]]; }
   const months = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
@@ -1743,11 +1753,11 @@ function sheetCal(){
     const mp = prs.filter(p=>p.k.startsWith(mPrefix)).reverse();
     b += `<div class="card"><h2>Рекорды за месяц</h2>${mp.length ? `<ul class="hist">${mp.map(p=>`<li><button data-a="calpick" data-k="${p.k}"><span><b>${esc(p.name)}</b><br><small class="muted">${WD[wdIdx(p.k)]}, ${dayLabel(p.k)}</small></span><span style="text-align:right"><b class="num">${fmt1(p.w)} кг × ${p.r}</b><br><small class="muted num">было ${fmt1(p.prev)} кг · +${fmt1(p.w-p.prev)}</small></span></button></li>`).join('')}</ul>` : '<div class="hint">В этом месяце рекордов пока нет. Рекорд — когда рабочий вес в упражнении выше, чем во всех прошлых тренировках.</div>'}</div>`;
   }
-  const ctitle = mode==='food' ? 'Калории по дням' : 'Вода по дням';
+  const ctitle = mode==='food' ? 'Калории по дням' : mode==='walk' ? 'Шаги по дням' : 'Вода по дням';
   if (mode!=='gym') b += `<div class="card chart"><div class="row between" style="flex-wrap:wrap;gap:10px;margin-bottom:6px"><h2 style="margin:0">${ctitle}</h2>
     <div class="seg" role="group" aria-label="Период">${[7,30,90].map(r=>`<button data-a="calrange" data-r="${r}" aria-pressed="${sh.range===r}">${r} дней</button>`).join('')}</div></div>
     ${barChart(sh.range, mode)}</div>`;
-  return {title: mode==='food' ? 'Календарь питания' : mode==='water' ? 'Календарь воды' : 'Календарь тренировок', body:b};
+  return {title: mode==='food' ? 'Календарь питания' : mode==='water' ? 'Календарь воды' : mode==='walk' ? 'Календарь прогулок' : 'Календарь тренировок', body:b};
 }
 function waterStreak(){ const g = S.settings.waterGoal; let k = today(), n = 0; if ((dayMl(k)||0) < g) k = addDays(k,-1); while ((dayMl(k)||0) >= g){ n++; k = addDays(k,-1); } return n; }
 function fmtK(v){ return v>=10000 ? Math.round(v/1000)+'k' : fmt(v); }
@@ -1765,7 +1775,7 @@ function barChart(range, mode){
   let g = '';
   for (let v=0; v<=hi+1e-9; v+=step) g += `<line class="grid" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="axis" x="${L-6}" y="${y(v)+3}" text-anchor="end">${fmtK(v)}</text>`;
   const rad = Math.min(4, bw/2);
-  const cls = (v,k) => mode==='food' ? (v>targetOn(k)?'over':'') : mode==='water' ? (v>=goal?'':'soft') : '';
+  const cls = (v,k) => mode==='food' ? (v>targetOn(k)?'over':'') : (mode==='water'||mode==='walk') ? (v>=goal?'':'soft') : '';
   const bars = days.map((k,i)=>{ const v = vals[i]; const x0 = L + i*pw + gap/2;
     const hitR = `<rect class="hit" x="${L+i*pw}" y="${T}" width="${pw}" height="${H-T-B}" data-k="${k}" data-v="${v===null?'':Math.round(v)}"/>`;
     if (v===null || v<=0) return (mode==='gym' && v===0 ? `<circle cx="${x0+bw/2}" cy="${H-B-4}" r="${Math.min(3,bw/2)}" class="dot"/>` : '') + hitR;
@@ -1775,7 +1785,7 @@ function barChart(range, mode){
   let xl = '';
   const every = range===7 ? 1 : range===30 ? 7 : 15;
   days.forEach((k,i)=>{ if ((range-1-i)%every===0){ const d = parseKey(k); const anc = range===7 ? 'middle' : i===range-1 ? 'end' : i===0 ? 'start' : 'middle'; const xx = range===7 ? L+i*pw+pw/2 : i===range-1 ? W-R : i===0 ? L : L+i*pw+pw/2; xl += `<text class="axis" x="${xx}" y="${H-7}" text-anchor="${anc}">${range===7?WD[wdIdx(k)]:d.getDate()+' '+MON_S[d.getMonth()]}</text>`; } });
-  const gl = goal ? `<line x1="${L}" x2="${W-R}" y1="${y(goal)}" y2="${y(goal)}" class="goalline"/><text class="lab" x="${W-R}" y="${y(goal)-5}" text-anchor="end">${mode==='water'?'норма':S.settings.kcalMode==='manual'?'цель':'цель без зала'} ${fmt(goal)}</text>` : '';
+  const gl = goal ? `<line x1="${L}" x2="${W-R}" y1="${y(goal)}" y2="${y(goal)}" class="goalline"/><text class="lab" x="${W-R}" y="${y(goal)-5}" text-anchor="end">${mode==='water'?'норма':mode==='walk'?'цель':S.settings.kcalMode==='manual'?'цель':'цель без зала'} ${fmt(goal)}</text>` : '';
   let summary;
   if (!have.length) summary = mode==='gym' ? 'За этот период тренировок нет.' : 'За этот период записей нет.';
   else if (mode==='gym') summary = `${have.length} ${plural(have.length,'тренировка','тренировки','тренировок')}, всего <b class="num">${fmt(have.reduce((a,b)=>a+b,0))} кг</b>. Тоннаж — сумма «вес × повторы» по всем подходам.`;
@@ -1933,10 +1943,27 @@ function achCheck(){
 function walkCard(days, t){
   const inWeek = days.includes(t), key = inWeek ? t : days[0];
   const steps = days.map(daySteps), mx = Math.max(...steps, 1), tot = steps.reduce((a,b)=>a+b,0), n = days.reduce((a,k)=>a+dayWalks(k).length,0), kc = days.reduce((a,k)=>a+walkBurn(k),0);
-  return `<section class="card walkcard m-walk"><div class="wc-h"><span class="wc-ic">${MI.shoe}</span><div style="min-width:0"><b>Прогулки</b><small>не зал — просто шаги на улице</small></div><button class="hbtn" data-a="walkopen" data-k="${key}">${I.plusW} Прогулка</button></div>
-    <div class="wc-bars">${days.map((k,i)=>`<button class="wc-b ${k===t?'today':''}" data-a="walkopen" data-k="${k}" aria-label="${WD_FULL[i]}: ${fmt(steps[i])} шагов"><i style="height:${steps[i]?Math.max(8,steps[i]/mx*100):0}%"></i><span>${WD[i]}</span></button>`).join('')}</div>
-    <div class="wc-f">${n ? `<span><b class="num">${fmt(tot)}</b> шагов · <b class="num">≈ ${fmt1(Math.round(days.reduce((a,k)=>a+dayWalkKm(k),0)*10)/10)} км</b></span><span>${n} ${plural(n,'прогулка','прогулки','прогулок')} · ≈ ${fmt(kc)} ккал</span>` : `<span class="muted">На этой неделе прогулок нет</span>`}</div>
-    ${Object.keys(S.days).some(k=>dayWalks(k).length) ? `<button class="linkbtn wc-prog" data-a="walkprog">${MI.trend} Прогресс прогулок: шаги и путь по дням</button>` : ''}</section>`;
+  return `<section class="card walkcard"><div class="wc-h"><div style="min-width:0"><h2 style="margin:0">Неделя</h2><small>${S.walkWeek===mondayOf(t)?'эта неделя':`${dayLabel(days[0])} – ${dayLabel(days[6])}`}</small></div><span class="row" style="gap:6px"><button class="arrow sm" data-a="wkwprev" aria-label="Предыдущая неделя">${I.left}</button><button class="arrow sm" data-a="wkwnext" aria-label="Следующая неделя" ${S.walkWeek>=mondayOf(t)?'disabled':''}>${I.right}</button></span></div>
+    <div class="wc-bars">${days.map((k,i)=>`<button class="wc-b ${k===S.date?'today':''}" data-a="wkday" data-k="${k}" aria-label="${WD_FULL[i]}: ${fmt(steps[i])} шагов"><i style="height:${steps[i]?Math.max(8,steps[i]/mx*100):0}%"></i><span>${WD[i]}</span></button>`).join('')}</div>
+    <div class="wc-f">${n ? `<span><b class="num">${fmt(tot)}</b> шагов · <b class="num">≈ ${fmt1(Math.round(days.reduce((a,k)=>a+dayWalkKm(k),0)*10)/10)} км</b></span><span>${n} ${plural(n,'прогулка','прогулки','прогулок')} · ≈ ${fmt(kc)} ккал</span>` : `<span class="muted">На этой неделе прогулок нет</span>`}</div></section>`;
+}
+function viewWalk(){
+  const k = S.date, t = today(), ws = dayWalks(k), st = daySteps(k), g = walkGoal(), km = dayWalkKm(k), kc = walkBurn(k), mn = ws.reduce((a,w)=>a+num(w.min),0);
+  if (!S.walkWeek) S.walkWeek = mondayOf(k);
+  const days = [...Array(7)].map((_,i)=>addDays(S.walkWeek,i));
+  let h = dateNav();
+  h += `<section class="card"><div class="hero">${ring(Math.min(st, g), g, st?fmt(st):'0', `из ${fmt(g)} шагов`)}
+    <div class="stats"><div class="stat"><i class="sti">${MI.dist}</i><b class="num">${st?'≈ '+fmt1(Math.round(km*10)/10):'0'}</b><span>км пройдено</span></div>
+    <div class="stat"><i class="sti" style="color:var(--warn)">${MI.flame}</i><b class="num">${kc?'≈ '+fmt(kc):'0'}</b><span>ккал сожжено${mn?` · ${fmt(mn)} мин`:''}</span></div></div></div>
+    ${st>=g ? `<div class="walkgoal">${MI.trophy} Цель на день выполнена</div>` : st ? `<div class="hint" style="margin:10px 0 0">До цели ${fmt(g-st)} шагов · ≈ ${fmt1(Math.round((g-st)*strideM()/100)/10)} км</div>` : ''}
+    <button class="btn big" style="margin-top:12px;width:100%" data-a="walkopen" data-k="${k}">${I.plusW} Прогулка</button></section>`;
+  if (ws.length) h += `<section class="card"><h2>${k===t?'Сегодня':esc(dayLabel(k))}</h2><ul class="items">${ws.map(w=>`<li><span class="wl-ic">${MI.shoe}</span><div class="nm"><div class="num">${fmt(num(w.steps))} шагов</div><small class="num">≈ ${fmt1(Math.round(walkKm(w)*10)/10)} км${num(w.min)?` · ${fmt(num(w.min))} мин · ${fmt1(Math.round(walkSpeed(w)*10)/10)} км/ч`:''}</small></div><span class="kcal num">${fmt(walkKcal(w, weightOn(k)))}</span><span class="rowbtns"><button class="del" data-a="wkedit2" data-k="${k}" data-id="${w.id}" aria-label="Изменить прогулку">${I.pen}</button></span></li>`).join('')}</ul></section>`;
+  h += walkCard(days, t);
+  h += `<section class="card chart"><h2>Прогресс</h2>${progWalks()}</section>`;
+  const recent = Object.keys(S.days).filter(x=>dayWalks(x).length).sort().reverse().slice(0,8);
+  if (recent.length) h += `<section class="card"><h2>Недавние прогулки</h2><ul class="hist">${recent.map(x=>`<li><button data-a="wkday" data-k="${x}"><span><b>${WD[wdIdx(x)]}, ${dayLabel(x)}</b><br><small class="muted num">≈ ${fmt1(Math.round(dayWalkKm(x)*10)/10)} км · ≈ ${fmt(walkBurn(x))} ккал</small></span><span class="num" style="text-align:right"><b>${fmt(daySteps(x))}</b><br><small class="muted">шагов</small></span></button></li>`).join('')}</ul></section>`;
+  h += `<div class="hint" style="padding:0 4px">Прогулки — это не зал: они не считаются тренировкой и не красят карту мышц, но их калории прибавляются к цели дня. Длина шага ≈ ${fmt(strideM()*100)} см — по твоему росту и полу из настроек.</div>`;
+  return h;
 }
 function walkCalc(){
   const sh = S.sheet, w = {steps:sh.steps, min:sh.min}; if (!num(w.steps)) return '<span class="hint">Введи шаги — посчитаю километры и калории.</span>';
@@ -2182,7 +2209,7 @@ function sheetSettings(){
   </div>
   <div class="card sgroup"><h2 class="sh">${MI.walk}Активность вне зала</h2>
     <div class="vlist">${NEAT.map(([v,n,ic,x])=>`<button data-a="sopt" data-f="profile.neat" data-v="${v}" aria-pressed="${String(p.neat)===String(v)}"><span class="flab">${MI[ic]}${n}</span><small class="num">×${fmt1(x)}${v==='mix'?' + прогулки по факту':''}</small></button>`).join('')}</div>
-    <div class="hint">${p.neat==='mix' ? 'Обычный день считается как сидячий, а каждая записанная прогулка прибавляется по факту: «Зал» → «Прогулка».' : 'Тренировки не учитывай — зал добавляется отдельно по факту.'}</div>
+    <div class="hint">${p.neat==='mix' ? 'Обычный день считается как сидячий, а каждая записанная прогулка прибавляется по факту: вкладка «Прогулки».' : 'Тренировки не учитывай — зал добавляется отдельно по факту.'}</div>
   </div>
   <div class="card sgroup"><h2 class="sh">${MI.target}Цель</h2>
     ${optRow('profile.goalMode', p.goalMode, [['lose',MI.trend+'Похудеть'],['keep',MI.keep+'Держать'],['gain',MI.up+'Набрать']], 'ic')}
@@ -2213,6 +2240,9 @@ function sheetSettings(){
   <div class="card sgroup"><h2 class="sh">${MI.drop}Вода</h2>
     <div class="srow"><span>Норма</span>${nstep('s-wg', st.waterGoal, 50, 'мл', 'data-a="sset" data-f="waterGoal"')}</div>
     ${Math.round(w*30/50)*50!==num(st.waterGoal)?`<button class="linkbtn" data-a="swaterauto">По весу: ${fmt(Math.round(w*30/50)*50)} мл (30 мл на кг)</button>`:''}
+  </div>
+  <div class="card sgroup m-walk"><h2 class="sh">${MI.shoe}Прогулки</h2>
+    <div class="srow"><span>Цель в день</span>${nstep('s-wkg', st.walkGoal||10000, 500, 'шагов', 'data-a="sset" data-f="walkGoal"')}</div>
   </div>
   <div class="card sgroup"><h2 class="sh">${MI.time}Таймер отдыха</h2>
     <div class="srow"><span class="flab">${MI.pulse}Звук в конце</span>${optRow('restSound', st.restSound||'on', [['on','Вкл'],['off','Выкл']])}</div>
@@ -2343,7 +2373,7 @@ function render(){
   const scrollY = window.scrollY;
   const sheetScroll = $('.sheet-b') ? $('.sheet-b').scrollTop : 0;
   document.body.className = 'm-'+S.tab + (S.sheet?' sheet-open':'');
-  const view = S.tab==='home' ? viewHome() : S.tab==='food' ? viewFood() : S.tab==='water' ? viewWater() : viewGym();
+  const view = S.tab==='home' ? viewHome() : S.tab==='food' ? viewFood() : S.tab==='water' ? viewWater() : S.tab==='walk' ? viewWalk() : viewGym();
   let sheet = '';
   if (S.sheet){
     const s = S.sheet.type==='food' ? sheetFood() : S.sheet.type==='fedit' ? sheetFoodEdit() : S.sheet.type==='gym' ? sheetGym() : S.sheet.type==='cal' ? sheetCal() : S.sheet.type==='weight' ? sheetWeight() : S.sheet.type==='wedit' ? sheetWaterEdit() : S.sheet.type==='wpre' ? sheetWaterPresets() : S.sheet.type==='walk' ? sheetWalk() : S.sheet.type==='ach' ? sheetAch() : sheetSettings();
@@ -2351,7 +2381,7 @@ function render(){
     sheet = `<div class="overlay ${mod}" data-a="closebg"><div class="sheet" role="dialog" aria-modal="true" aria-label="${esc(s.title)}"><div class="sheet-h">${s.back?`<button class="iconbtn" data-a="${s.back}" aria-label="Назад">${I.left}</button>`:''}<h3 style="flex:1">${esc(s.title)}</h3><button class="iconbtn" data-a="close" aria-label="Закрыть">${I.x}</button></div><div class="sheet-b">${s.body}</div>${S.sheet.type==='gym'&&S.sheet.step==='detail'?timerBar():''}</div></div>`;
   }
   app.innerHTML = `<div class="wrap"><header class="top"><div class="brand"><h1>Дневник формы</h1><span class="sync ${db&&S.synced?'on':''}"><i></i>${db&&S.synced?'Сохранено в облаке':'Хранится на этом телефоне'}</span></div><button class="iconbtn" data-a="settings" aria-label="Настройки">${I.gear}</button></header>${view}</div>
-    <nav class="tabs"><div class="in" role="tablist">${[['home','Сегодня'],['food','Еда'],['water','Вода'],['gym','Зал']].map(([id,n])=>`<button class="tab t-${id}" role="tab" aria-selected="${S.tab===id}" data-a="tab" data-id="${id}">${I[id]}${n}</button>`).join('')}</div></nav>
+    <nav class="tabs"><div class="in" role="tablist">${[['home','Сегодня'],['food','Еда'],['water','Вода'],['gym','Зал'],['walk','Прогулки']].map(([id,n])=>`<button class="tab t-${id}" role="tab" aria-selected="${S.tab===id}" data-a="tab" data-id="${id}">${I[id]}${n}</button>`).join('')}</div></nav>
     ${sheet}`;
   window.scrollTo(0, scrollY);
   if ($('.sheet-b')) $('.sheet-b').scrollTop = sheetScroll;
@@ -2393,6 +2423,10 @@ document.addEventListener('click', ev => {
   switch(a){
     case 'tab': S.tab = el.dataset.id; try{ localStorage.setItem('forma.tab', S.tab); history.replaceState(null,'','#'+S.tab); }catch(e){} window.scrollTo(0,0); break;
     case 'achopen': S.sheet = {type:'ach'}; break;
+    case 'wkday': S.date = el.dataset.k; S.walkWeek = mondayOf(el.dataset.k); window.scrollTo(0,0); break;
+    case 'wkwprev': S.walkWeek = addDays(S.walkWeek||mondayOf(today()), -7); break;
+    case 'wkwnext': { const n = addDays(S.walkWeek||mondayOf(today()), 7); if (n <= mondayOf(today())) S.walkWeek = n; break; }
+    case 'wkedit2': { const w = dayWalks(el.dataset.k).find(x=>x.id===el.dataset.id); if (!w) return; S.sheet = {type:'walk', k:el.dataset.k, steps:String(w.steps), min:w.min?String(w.min):'', eid:w.id}; break; }
     case 'walkunit': S.walkUnit = el.dataset.u; break;
     case 'walkprog': { S.progCat = 'end'; S.progEx = PROG_WALK; render(); setTimeout(()=>{ const c = $('.card.chart'); if (c) c.scrollIntoView({block:'start', behavior:'smooth'}); }, 30); return; }
     case 'walkopen': { S.sheet = {type:'walk', k:el.dataset.k || today(), steps:'', min:'', eid:null}; break; }
@@ -2412,12 +2446,12 @@ document.addEventListener('click', ev => {
     case 'homewater': { const ml = num(el.dataset.ml), k = today(); const was = dayMl(k)||0, before = clone(getDay(k)); editDay(k, d=>d.water.push({id:uid(), type:'water', ml, t:Date.now()})); waterToast(was, ml, 'water', {k, day:before}); return; }
     case 'settings': S.sheet = {type:'settings'}; break;
     case 'close': S.sheet = null; break;
-    case 'dprev': S.date = addDays(S.date,-1); break;
-    case 'dnext': S.date = addDays(S.date,1); break;
+    case 'dprev': S.date = addDays(S.date,-1); S.walkWeek = mondayOf(S.date); break;
+    case 'dnext': S.date = addDays(S.date,1); S.walkWeek = mondayOf(S.date); break;
     case 'dtoday': S.date = today(); break;
     case 'calopen': S.sheet = {type:'cal', mode:S.tab, month:(S.tab==='gym'?(S.week===mondayOf(today())?today():addDays(S.week,3)):S.date).slice(0,7), range:7}; break;
     case 'calmon': { const [y,m] = sh.month.split('-').map(Number); const d = new Date(y, m-1+(+el.dataset.d), 1); sh.month = `${d.getFullYear()}-${pad(d.getMonth()+1)}`; break; }
-    case 'calpick': { const k = el.dataset.k; if (sh.mode==='gym'){ S.week = mondayOf(k); const g = getDay(k).gym; S.sheet = {type:'gym', key:k, step: g && ((g.exercises||[]).length || g.note || (g.muscles||[]).length) ? 'day' : 'group', picker:false, confirmDel:false}; break; } S.date = k; S.sheet = null; window.scrollTo(0,0); break; }
+    case 'calpick': { const k = el.dataset.k; if (sh.mode==='gym'){ S.week = mondayOf(k); const g = getDay(k).gym; S.sheet = {type:'gym', key:k, step: g && ((g.exercises||[]).length || g.note || (g.muscles||[]).length) ? 'day' : 'group', picker:false, confirmDel:false}; break; } S.date = k; S.walkWeek = mondayOf(k); S.sheet = null; window.scrollTo(0,0); break; }
     case 'calrange': sh.range = +el.dataset.r; break;
     case 'progper': S.progPer = el.dataset.p; break;
     case 'wmper': S.wmPer = el.dataset.p; break;
