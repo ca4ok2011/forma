@@ -31,7 +31,7 @@
 <style>
 :root{
   --bg:#EDF0F3; --surface:#FFFFFF; --surface-2:#F4F6F8; --ink:#131A21; --muted:#5F6B78; --line:#DDE3E9;
-  --food:#DB5327; --food-soft:#FBE4DA; --water:#1C74D9; --water-soft:#DAE9FA; --food-grad:linear-gradient(135deg,#F0804C,#D0461B); --water-grad:linear-gradient(135deg,#4A9BF0,#1564C0); --gym:#3A8A20; --gym-soft:#E3F2D6; --gym-on:#fff; --gym-grad:linear-gradient(135deg,#62BC38,#3A8A20); --on-acc:#fff; --weight:#0E8C84; --weight-soft:#D7F1EE; --home:#1F2A36; --home-soft:#E3E8EE;
+  --food:#DB5327; --food-soft:#FBE4DA; --water:#1C74D9; --water-soft:#DAE9FA; --food-grad:linear-gradient(135deg,#F0804C,#D0461B); --water-grad:linear-gradient(135deg,#4A9BF0,#1564C0); --gym:#3A8A20; --gym-soft:#E3F2D6; --gym-on:#fff; --gym-grad:linear-gradient(135deg,#62BC38,#3A8A20); --on-acc:#fff; --weight:#0E8C84; --weight-soft:#D7F1EE; --walk:#6A4BD6; --walk-soft:#ECE7FC; --walk-grad:linear-gradient(135deg,#9479F2,#5A3CC6); --ach:#B7791F; --ach-soft:#FBF0D9; --ach-grad:linear-gradient(135deg,#F4C45A,#C98A12); --home:#1F2A36; --home-soft:#E3E8EE;
   --good:#17905A; --warn:#C67C00; --shadow:0 1px 2px rgba(19,26,33,.06),0 6px 18px rgba(19,26,33,.06); --bodyc:#C3CCD6; --wgf:invert(1) brightness(.35) contrast(1.4);
   --acc:var(--food); --acc-soft:var(--food-soft);
   --display:"Unbounded","Manrope",system-ui,sans-serif; --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -39,12 +39,12 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){color-scheme:dark;
     --bg:#0D1216; --surface:#161D24; --surface-2:#1E2730; --ink:#E6ECF2; --muted:#8E9BA8; --line:#29333D;
-    --food:#FF7C4F; --food-soft:#3A2117; --water:#4FA2FF; --water-soft:#132A44; --food-grad:linear-gradient(135deg,#FFA072,#F2622E); --water-grad:linear-gradient(135deg,#86C2FF,#3D8BF0); --gym:#A6DF6A; --gym-soft:#1E2A15; --gym-on:#10200A; --gym-grad:linear-gradient(135deg,#C6F28E,#86CC4E); --weight:#3CC7BC; --weight-soft:#12302E; --home:#E6ECF2; --home-soft:#26303B;
+    --food:#FF7C4F; --food-soft:#3A2117; --water:#4FA2FF; --water-soft:#132A44; --food-grad:linear-gradient(135deg,#FFA072,#F2622E); --water-grad:linear-gradient(135deg,#86C2FF,#3D8BF0); --ach:#F2C14E; --ach-soft:#322711; --ach-grad:linear-gradient(135deg,#F7D27A,#D9A02A); --walk:#A995FF; --walk-soft:#241E3F; --walk-grad:linear-gradient(135deg,#BCA9FF,#7F63EE); --gym:#A6DF6A; --gym-soft:#1E2A15; --gym-on:#10200A; --gym-grad:linear-gradient(135deg,#C6F28E,#86CC4E); --weight:#3CC7BC; --weight-soft:#12302E; --home:#E6ECF2; --home-soft:#26303B;
     --good:#3CC585; --warn:#F0A83A; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25); --bodyc:#3E4A58; --wgf:brightness(.92);}
 }
 :root[data-theme="dark"]{color-scheme:dark;
   --bg:#0D1216; --surface:#161D24; --surface-2:#1E2730; --ink:#E6ECF2; --muted:#8E9BA8; --line:#29333D;
-  --food:#FF7C4F; --food-soft:#3A2117; --water:#4FA2FF; --water-soft:#132A44; --food-grad:linear-gradient(135deg,#FFA072,#F2622E); --water-grad:linear-gradient(135deg,#86C2FF,#3D8BF0); --gym:#A6DF6A; --gym-soft:#1E2A15; --gym-on:#10200A; --gym-grad:linear-gradient(135deg,#C6F28E,#86CC4E); --weight:#3CC7BC; --weight-soft:#12302E; --home:#E6ECF2; --home-soft:#26303B;
+  --food:#FF7C4F; --food-soft:#3A2117; --water:#4FA2FF; --water-soft:#132A44; --food-grad:linear-gradient(135deg,#FFA072,#F2622E); --water-grad:linear-gradient(135deg,#86C2FF,#3D8BF0); --ach:#F2C14E; --ach-soft:#322711; --ach-grad:linear-gradient(135deg,#F7D27A,#D9A02A); --walk:#A995FF; --walk-soft:#241E3F; --walk-grad:linear-gradient(135deg,#BCA9FF,#7F63EE); --gym:#A6DF6A; --gym-soft:#1E2A15; --gym-on:#10200A; --gym-grad:linear-gradient(135deg,#C6F28E,#86CC4E); --weight:#3CC7BC; --weight-soft:#12302E; --home:#E6ECF2; --home-soft:#26303B;
   --good:#3CC585; --warn:#F0A83A; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25); --bodyc:#3E4A58; --wgf:brightness(.92);}
 
 *{box-sizing:border-box}
@@ -57,6 +57,8 @@ body{color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;-w
 .btn:not(.ghost):not(.danger):not(.addown):not(:disabled),.vol,.plusbtn,.day.done,.cd.full{background:var(--acc-grad,var(--acc))}
 .m-gym .day.done{border-color:transparent}
 .m-weight{--acc:var(--weight);--acc-soft:var(--weight-soft)}
+.m-ach{--acc:var(--ach);--acc-soft:var(--ach-soft);--acc-grad:var(--ach-grad);--on-acc:#fff}
+.m-walk{--acc:var(--walk);--acc-soft:var(--walk-soft);--acc-grad:var(--walk-grad);--on-acc:#fff}
 .m-home{--acc:var(--home);--acc-soft:var(--home-soft)}
 .wrap{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
 button,input,select,textarea{font:inherit;color:inherit}
@@ -402,6 +404,60 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
 .seg.sex button[data-v="f"]{--sexc:#E0508F}
 .seg.sex button[data-v="m"][aria-pressed="true"]{background:linear-gradient(135deg,#5AA8F5,#2567D1)}
 .seg.sex button[data-v="f"][aria-pressed="true"]{background:linear-gradient(135deg,#F585B5,#D63F80)}
+.achcnt{margin-left:auto;font-weight:800;color:var(--ach);font-size:14px}
+.m-ach .hc-h .chev{margin-left:6px}
+.achrow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.achmini{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;min-width:0}
+.achmini small{font-size:11px;line-height:1.25;color:var(--muted);font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.achb{position:relative;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,var(--t1),var(--t2));color:#fff;box-shadow:inset 0 -3px 0 rgba(0,0,0,.15),0 3px 10px -4px var(--t2);flex:none}
+.achb svg{width:22px;height:22px}
+.achb.big{width:54px;height:54px}.achb.big svg{width:26px;height:26px}
+.achb.off{background:var(--surface-2);color:var(--muted);box-shadow:none;opacity:.8}
+.achlv{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);font-style:normal;font-size:9px;letter-spacing:-1px;background:var(--surface);color:var(--t2);border-radius:99px;padding:0 5px;line-height:14px;box-shadow:0 1px 3px rgba(0,0,0,.2);white-space:nowrap}
+.achnext{display:flex;flex-direction:column;gap:6px;font-size:13.5px}
+.achnext b{color:var(--ink)}
+.achbar{height:7px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.achbar i{display:block;height:100%;border-radius:99px;background:var(--ach-grad)}
+.achhero{display:flex;gap:12px;align-items:center;background:var(--ach-soft);border-radius:16px;padding:14px}
+.achhero>svg{width:34px;height:34px;color:var(--ach);flex:none}
+.achhero>div{display:flex;flex-direction:column;gap:3px}
+.achhero b{font-size:20px;font-family:var(--display)}
+.achhero small{color:var(--muted);font-size:13px;line-height:1.35}
+.achlist{display:flex;flex-direction:column;gap:16px}
+.achitem{display:flex;gap:12px;align-items:flex-start}
+.achtx{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
+.achtx small{color:var(--muted);font-size:12.5px;line-height:1.35}
+.achdone{color:var(--ach)!important;font-weight:700}
+.achpips{display:inline-flex;gap:4px}
+.achpips i{width:9px;height:9px;border-radius:50%;background:var(--surface-2);border:1.5px solid var(--line)}
+.achpips i.on{border-color:transparent}
+.wc-prog{display:inline-flex;align-items:center;gap:6px;color:var(--walk);font-weight:700;align-self:flex-start}
+.wc-prog svg{width:16px;height:16px}
+.walkcard{display:flex;flex-direction:column;gap:12px;background:linear-gradient(180deg,var(--walk-soft),var(--surface) 70%)}
+.wc-h{display:flex;align-items:center;gap:12px}
+.wc-h>div{flex:1;display:flex;flex-direction:column}
+.wc-h small{color:var(--muted);font-size:12.5px}
+.wc-h .hbtn{height:40px;padding:0 14px;font-size:15px}
+.wc-ic,.wh-ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--walk-grad);color:#fff;flex:none}
+.wc-ic svg,.wh-ic svg{width:22px;height:22px}
+.wc-bars{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;height:74px}
+.wc-b{border:0;background:none;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;min-width:0}
+.wc-b i{display:block;width:100%;max-width:26px;border-radius:7px 7px 3px 3px;background:var(--walk-grad);opacity:.55}
+.wc-b.today i{opacity:1}
+.wc-b span{font-size:11px;font-weight:700;color:var(--muted)}
+.wc-b.today span{color:var(--walk)}
+.wc-f{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13.5px;color:var(--muted)}
+.wc-f b{color:var(--ink)}
+.day .wkdot{position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--walk)}
+.day{position:relative}
+.walkhero{display:flex;gap:12px;align-items:center}
+.walkhero>div{display:flex;flex-direction:column;gap:2px}
+.walkhero small{color:var(--muted);font-size:13px}
+.wl-ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--walk-soft);color:var(--walk);flex:none}
+.wl-ic svg{width:18px;height:18px}
+.walkc{color:var(--walk);display:inline-flex;align-items:center;gap:3px}
+.walkc svg{width:13px;height:13px}
+.m-walk .bar{fill:var(--walk)}
 .cseg{border:1.5px solid var(--line);border-radius:14px;padding:10px 12px 8px;margin-top:10px}
 .cseg:first-of-type{margin-top:0}
 .cseg.new{border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-soft)}
@@ -806,10 +862,23 @@ function weightOn(k){ const es = weightEntries().filter(e=>e.k<=k); return es.le
 function bodyKg(){ return weightOn(today()); }
 function bmrOn(k){ const p = prof(); return 10*weightOn(k) + 6.25*num(p.height) - 5*num(p.age) + (p.sex==='f'?-161:5); }
 function bmrOf(){ return bmrOn(S.date || today()); }
-const NEAT = [[1.2,'Сидячая работа, мало хожу'],[1.3,'Сидячая работа + прогулки'],[1.4,'Много хожу, на ногах'],[1.5,'Физическая работа']];
-function neat(){ return num(prof().neat) || 1.3; }
+const NEAT = [[1.2,'Сидячая работа, мало хожу','sit',1.2],['mix','Сидячая работа, периодически гуляю','cloud',1.2],[1.3,'Сидячая работа + прогулки','walk',1.3],[1.4,'Много хожу, на ногах','steps',1.4],[1.5,'Физическая работа','hammer',1.5]];
+function neat(){ const v = prof().neat; return v==='mix' ? 1.2 : (num(v) || 1.3); }
+const neatHasWalks = () => { const v = prof().neat; return v!=='mix' && num(v) >= 1.3; };
+/* Walks (outside the gym): steps → distance by stride (height × 0.415 men / 0.413 women);
+   net cost of walking above rest ≈ 0.40 kcal per kg per km at easy pace, rising with brisk pace (Compendium / ACSM walking economy). */
+const WALK_C = [[3,0.40],[4,0.40],[5,0.42],[5.5,0.45],[6,0.50],[6.5,0.56],[7,0.63],[8,0.72]];
+function strideM(){ const p = prof(); return (num(p.height)||178) * (p.sex==='f' ? 0.413 : 0.415) / 100; }
+function walkKm(w){ return num(w.steps) * strideM() / 1000; }
+function walkSpeed(w){ const km = walkKm(w), mn = num(w.min); return mn>0 && km>0 ? Math.min(8, Math.max(2, km/(mn/60))) : 4.8; }
+function walkMin(w){ return num(w.min) || walkKm(w)/4.8*60; }
+function walkKcal(w, kg){ return walkKm(w) * (kg || bodyKg()) * lerpTab(WALK_C, walkSpeed(w)); }
+function dayWalks(k){ return (S.days[k]||{}).walks || []; }
+function walkBurn(k){ return dayWalks(k).reduce((a,w)=>a+walkKcal(w, weightOn(k)), 0); }
+function daySteps(k){ return dayWalks(k).reduce((a,w)=>a+num(w.steps), 0); }
+function dayWalkKm(k){ return dayWalks(k).reduce((a,w)=>a+walkKm(w), 0); }
 function baseSpend(k){ return bmrOn(k)*neat(); }
-function spendOn(k){ return baseSpend(k) + dayBurn(k); }
+function spendOn(k){ return baseSpend(k) + dayBurn(k) + walkBurn(k); }
 function goalShift(){ const p = prof(); return p.goalMode==='lose' ? -num(p.rate) : p.goalMode==='gain' ? num(p.rate) : 0; }
 function targetOn(k){ return S.settings.kcalMode==='manual' ? num(S.settings.kcalGoal) : Math.round((spendOn(k) + goalShift())/10)*10; }
 function macroTargets(k){ const kc = targetOn(k), w = weightOn(k), p = prof(); const pr = w*(num(p.protein)>0?num(p.protein):1.8), ft = w*(num(p.fatk)>0?num(p.fatk):0.9); return {p:pr, f:ft, c:Math.max(0,(kc - pr*4 - ft*9)/4)}; }
@@ -908,7 +977,7 @@ const EQ = {'barbell':'штанга','dumbbell':'гантели','cable':'бло
 
 
 /* ---------- state ---------- */
-const APP_VERSION = '2.2';
+const APP_VERSION = '2.5';
 const DEFAULT_SETTINGS = {kcalGoal:2200, kcalMode:'auto', waterGoal:2500, customFoods:[], foodOverrides:{}, customEx:[], favorites:[], waterPresets:[150,250,330,500], profile:{sex:'m',age:28,height:178,weight:78,neat:1.3,goalMode:'lose',rate:500,protein:1.8,fatk:0.9,targetWeight:0}};
 const S = {
   days:{}, settings:clone(DEFAULT_SETTINGS),
@@ -924,7 +993,7 @@ const blankDay = () => ({food:[], water:[], gym:null});
 const getDay = k => S.days[k] || blankDay();
 const gymEmpty = g => !g || (!(g.exercises||[]).length && !(g.muscles||[]).length && !(g.note||'').trim());
 function normDay(d){ if (d && d.gym && gymEmpty(d.gym)) d.gym = null; return d; }
-const isEmptyDay = d => !(d.food&&d.food.length) && !(d.water&&d.water.length) && !d.gym && !num(d.weight);
+const isEmptyDay = d => !(d.food&&d.food.length) && !(d.water&&d.water.length) && !d.gym && !num(d.weight) && !(d.walks&&d.walks.length);
 
 /* ---------- storage ----------
    Rules that keep data from "jumping back":
@@ -972,7 +1041,9 @@ function writeDoc(path, getData){
   }, 350);
 }
 /* days */
+let achT = null;
 function persistDay(k, resync){
+  if (!resync){ clearTimeout(achT); achT = setTimeout(() => { try{ achCheck(); }catch(e){} }, 600); }
   if (!resync){ if (S.days[k]) S.days[k]._ts = Date.now(); else { const t = readJSON('forma.tomb', {}); t[k] = Date.now(); writeJSON('forma.tomb', t); } }
   if (S.days[k]) normDay(S.days[k]);
   if (S.toast && S.toast.undo && S.toast.undo.k===k && !persistDay.undoing && Date.now()-(S.toast.at||0) > 300) hideToast();
@@ -982,7 +1053,7 @@ function unionById(a, b){ const m = new Map(); (b||[]).forEach(x => m.set(x.id, 
 function mergeDay(L, C){ // both edited: keep everything from both, newer wins on conflicts
   const newer = (L._ts||0) >= (C._ts||0) ? L : C, older = newer===L ? C : L;
   const r = clone(newer);
-  r.food = unionById(newer.food, older.food); r.water = unionById(newer.water, older.water);
+  r.food = unionById(newer.food, older.food); r.water = unionById(newer.water, older.water); if ((newer.walks||[]).length || (older.walks||[]).length) r.walks = unionById(newer.walks, older.walks);
   if (!r.gym && older.gym) r.gym = clone(older.gym);
   else if (r.gym && older.gym){ r.gym.exercises = unionById(newer.gym.exercises, older.gym.exercises).map(e=>clone(e)); r.gym.muscles = [...new Set((newer.gym.muscles||[]).concat(older.gym.muscles||[]))]; if (!r.gym.note && older.gym.note) r.gym.note = older.gym.note; }
   if (!num(r.weight) && num(older.weight)) r.weight = older.weight;
@@ -1098,6 +1169,8 @@ const MI = {
   user:SV('<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'),
   pie:SV('<path d="M11 4a8.5 8.5 0 1 0 9 9h-9z"/><path d="M14 2.5a8 8 0 0 1 7.5 7.5H14z"/>'),
   data:SV('<ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>'),
+  shoe:SV('<path d="M3 17.5V7c0-.6.5-1 1-1h3.2l1.3 2.4c.6 1.1 1.8 1.8 3 1.8h.5l6.6 1.9c2 .6 3.4 2.2 3.4 4.1v.3a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 17.5z"/><path d="M3 15.3h18.9M9.6 9.6l1.4-1.8M12.6 10.3l1.4-1.8"/>'),
+  cloud:SV('<path d="M7 19h10a4 4 0 0 0 .5-7.97A6 6 0 0 0 6.1 11.5 3.8 3.8 0 0 0 7 19z"/><path d="M12 3v1.5M5.6 5.6l1 1M18.4 5.6l-1 1"/>'),
   scale:SV('<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9a4 4 0 0 1 8 0zM12 9l1.5-2"/>')
 };
 const CKEY_IC = {seg:'sets', min:'time', km:'dist', m:'dist', fl:'stairs', jumps:'jump', spd:'speed', inc:'incline', lvl:'level', rpm:'rpm', spm:'reps', hr:'pulse'};
@@ -1142,11 +1215,11 @@ function viewFood(){
   const d = getDay(S.date), t = foodTotals(d), g = targetOn(S.date), mg = macroGoals();
   const left = g - t.kcal;
   const mac = (lbl, v, goal, col) => `<div class="macro"><div class="t"><span>${lbl}</span><span class="num">${fmt(goal)} г</span></div><b class="num">${fmt(v)} г</b><div class="bar"><i style="width:${Math.min(100,goal?v/goal*100:0)}%;background:${col}"></i></div></div>`;
-  const base = Math.round(baseSpend(S.date)), burn = Math.round(dayBurn(S.date)), spend = base + burn, bal = spend - t.kcal, sh = goalShift();
+  const base = Math.round(baseSpend(S.date)), gymB = Math.round(dayBurn(S.date)), walkB = Math.round(walkBurn(S.date)), burn = gymB + walkB, spend = base + burn, bal = spend - t.kcal, sh = goalShift();
   let html = dateNav() + `<section class="card"><div class="hero">${ring(t.kcal, g, fmt(t.kcal), 'из '+fmt(g)+' ккал')}
     <div class="stats"><div class="stat"><i class="sti">${MI.flag}</i><b class="num" style="color:${left<0?'var(--bad)':'inherit'}">${fmt(Math.abs(left))}</b><span>${left<0?'ккал сверх цели':'ккал осталось до цели'}</span></div>
-    <div class="stat"><i class="sti" style="color:var(--warn)">${MI.flame}</i><b class="num">${burn?'≈ '+fmt(burn):'0'}</b><span>ккал сожжено в зале</span></div></div></div>
-    <div class="balance"><span>Расход за день <b class="num">≈ ${fmt(spend)}</b> = ${fmt(base)} обмен веществ и быт + ${fmt(burn)} зал</span>${S.settings.kcalMode==='manual'?'<span>Цель задана вручную в настройках</span>':`<span>Цель <b class="num">${fmt(g)}</b> = расход ${sh<0?'− '+fmt(-sh)+' на похудение':sh>0?'+ '+fmt(sh)+' на набор':'(держим вес)'}</span>`}<span>Съедено <b class="num">${fmt(t.kcal)}</b> → ${bal>=0?'дефицит':'профицит'} <b class="num" style="color:${bal>=0?'var(--good)':'var(--warn)'}">${fmt(Math.abs(bal))} ккал</b></span></div>
+    <div class="stat"><i class="sti" style="color:var(--warn)">${MI.flame}</i><b class="num">${burn?'≈ '+fmt(burn):'0'}</b><span>${walkB&&gymB?'ккал сожжено: зал и прогулка':walkB?'ккал сожжено на прогулке':'ккал сожжено в зале'}</span></div></div></div>
+    <div class="balance"><span>Расход за день <b class="num">≈ ${fmt(spend)}</b> = ${fmt(base)} обмен веществ и быт${gymB||!walkB?` + ${fmt(gymB)} зал`:''}${walkB?` + ${fmt(walkB)} прогулка`:''}</span>${S.settings.kcalMode==='manual'?'<span>Цель задана вручную в настройках</span>':`<span>Цель <b class="num">${fmt(g)}</b> = расход ${sh<0?'− '+fmt(-sh)+' на похудение':sh>0?'+ '+fmt(sh)+' на набор':'(держим вес)'}</span>`}<span>Съедено <b class="num">${fmt(t.kcal)}</b> → ${bal>=0?'дефицит':'профицит'} <b class="num" style="color:${bal>=0?'var(--good)':'var(--warn)'}">${fmt(Math.abs(bal))} ккал</b></span></div>
     <div class="macros">${mac('Белки',t.p,mg.p,'var(--food)')}${mac('Жиры',t.f,mg.f,'var(--warn)')}${mac('Углеводы',t.c,mg.c,'var(--good)')}</div>${balanceLine(S.date)}</section>`;
   MEALS.forEach(([id,name]) => {
     const items = d.food.filter(e=>e.meal===id); const kc = items.reduce((a,e)=>a+e.kcal,0);
@@ -1215,6 +1288,11 @@ function viewHome(){
   h += `<div class="card hcard m-gym"><button class="hc-h" data-a="tab" data-id="gym"><span class="hc-ic">${I.gym}</span><b>Зал</b><span class="chev">${I.right}</span></button>
     ${g ? `<button class="hc-gym" data-a="openday" data-k="${t}">${bodyPair(g.muscles||[],'lg2')}<div class="hc-nums"><b class="ht">${esc((g.muscles||[]).join(', ')||'Тренировка')}</b><span class="hs">${(g.exercises||[]).length} ${plural((g.exercises||[]).length,'упражнение','упражнения','упражнений')}</span>${burn?`<span class="hs burn">${I.flame}${kcalTxt(burn)}</span>`:''}</div></button>`
         : `<div class="hc-row"><span class="hs" style="white-space:nowrap">Тренировки пока нет</span><button class="hbtn" data-a="openday" data-new="1" data-k="${t}">${I.plusW} Добавить</button></div>`}</div>`;
+  { const st = daySteps(t), wb = walkBurn(t);
+    h += `<div class="card hcard m-walk"><button class="hc-h" data-a="walkopen" data-k="${t}"><span class="hc-ic">${MI.shoe}</span><b>Прогулка</b><span class="chev">${I.right}</span></button>
+      <div class="hc-row">${st ? `<div class="hc-nums"><div class="hv-row"><b class="hv num">${fmt(st)}</b><span class="hu">шагов</span></div><span class="hs">≈ ${fmt1(Math.round(dayWalkKm(t)*10)/10)} км · <span class="walkc">${I.flame}≈ ${fmt(wb)} ккал</span></span></div><button class="hbtn soft" data-a="walkopen" data-k="${t}" aria-label="Добавить прогулку">${I.plus}</button>`
+        : `<span class="hs" style="white-space:nowrap">Сегодня без прогулки</span><button class="hbtn" data-a="walkopen" data-k="${t}">${I.plusW} Добавить</button>`}</div></div>`; }
+  h += homeAch();
   // weight
   const es = weightEntries(), cur = es.length ? es[es.length-1] : null, p = prof(), tw = num(p.targetWeight);
   const last30 = [...Array(30)].map((_,i)=>{ const k = addDays(t, i-29); return S.days[k] && num(S.days[k].weight) ? num(S.days[k].weight) : null; });
@@ -1305,7 +1383,23 @@ function exKind(name){
 }
 function cardioDist(e){ return (e.sets||[]).reduce((a,x)=>a+(e.name==='Беговая дорожка'?tmKm(x):num(x.km) || num(x.m)/1000),0); }
 function cardioMin(e){ return (e.sets||[]).reduce((a,x)=>a+setMin(x),0); }
-const PROG_ALL = '__cardio';
+const PROG_ALL = '__cardio', PROG_WALK = '__walks';
+function progWalks(){
+  const t = today(), per = S.progPer || 'day', useKm = S.walkUnit==='km', val = useKm ? dayWalkKm : daySteps, f = v => useKm ? fmt1(Math.round(v*10)/10) : fmt(v), unit = useKm ? 'км' : 'шагов';
+  let items;
+  if (per==='day') items = [...Array(14)].map((_,i)=>{ const k = addDays(t, i-13); return {k, v:val(k), lab: i%2===1 ? '' : `${parseKey(k).getDate()}`, tip:`${WD[wdIdx(k)]}, ${dayLabel(k)}`}; });
+  else { const m0 = mondayOf(t); items = [...Array(8)].map((_,i)=>{ const ws = addDays(m0, (i-7)*7); const v = [...Array(7)].reduce((a,_,d)=>a+val(addDays(ws,d)),0); const a = parseKey(ws); return {k:ws, v, lab:`${a.getDate()}.${pad(a.getMonth()+1)}`, tip:`Неделя с ${a.getDate()} ${MON_S[a.getMonth()]}`}; }); }
+  const sum = (from, n, fn) => [...Array(n)].reduce((a,_,d)=>a+fn(addDays(from,d)),0);
+  const wk = sum(mondayOf(t), 7, val), wkPrev = sum(addDays(mondayOf(t),-7), 7, val), m30 = sum(addDays(t,-29), 30, val), km30 = sum(addDays(t,-29), 30, dayWalkKm);
+  const st30 = sum(addDays(t,-29), 30, daySteps), km1 = dayWalkKm(t), wkKm = sum(mondayOf(t), 7, dayWalkKm), wkSt = sum(mondayOf(t), 7, daySteps);
+  let hh = `<div class="seg" role="group" aria-label="Что показывать" style="margin-top:10px"><button data-a="walkunit" data-u="steps" aria-pressed="${!useKm}">Шаги</button><button data-a="walkunit" data-u="km" aria-pressed="${useKm}">Путь, км</button></div>
+    <div class="seg" role="group" aria-label="Период" style="margin-top:8px"><button data-a="progper" data-p="day" aria-pressed="${per==='day'}">По дням</button><button data-a="progper" data-p="week" aria-pressed="${per==='week'}">По неделям</button></div>`;
+  hh += progBars(items, unit, f);
+  hh += `<div class="pr"><div><i class="pri">${MI.shoe}</i><b class="num">${daySteps(t)?fmt(daySteps(t)):'—'}</b><span>${daySteps(t)?`шагов сегодня · ${fmt1(Math.round(km1*10)/10)} км`:'шагов сегодня'}</span></div>
+    <div><i class="pri">${MI.dist}</i><b class="num">${fmt1(Math.round(wkKm*10)/10)} км</b><span>за неделю</span></div>
+    <div><i class="pri">${MI.age}</i><b class="num">${fmt(km30)} км</b><span>за 30 дней</span></div></div>`;
+  return `<div class="m-walk">${hh}</div>`;
+}
 function progressCard(){
   const cardioNames = [], strNames = [];
   const seen = new Set();
@@ -1313,13 +1407,15 @@ function progressCard(){
     if (isCardio(e)){ if (cardioMin(e) || cardioDist(e)){ seen.add(e.name); cardioNames.push(e.name); } }
     else if ((e.sets||[]).some(x=>num(x.w)>0||num(x.r)>0)){ seen.add(e.name); strNames.push(e.name); } }));
   if (!S.progCat) S.progCat = strNames.length ? 'str' : 'end';
+  if (Object.keys(S.days).some(k=>dayWalks(k).length)) cardioNames.unshift(PROG_WALK);
   const cat = S.progCat, opts = cat==='end' ? cardioNames : strNames;
   if (!S.progEx || !opts.includes(S.progEx)) S.progEx = opts[0] || null;
   let h = `<section class="card chart"><h2>Прогресс</h2>
     <div class="seg ic" role="group" aria-label="Категория" style="margin-bottom:10px"><button data-a="progcat" data-c="str" aria-pressed="${cat==='str'}">${MI.dumb} Сила</button><button data-a="progcat" data-c="end" aria-pressed="${cat==='end'}">${MI.pulse} Выносливость</button></div>`;
   if (!opts.length) return h + `<div class="hint">${cat==='end' ? 'Запиши кардио — здесь появится, сколько ты прошёл за день и неделю.' : 'Запиши силовое упражнение — здесь появится рабочий вес или повторы.'}</div></section>`;
-  h += `<select class="field" id="progex" data-a="progex" aria-label="Упражнение">${opts.map(n=>`<option ${n===S.progEx?'selected':''}>${esc(n)}</option>`).join('')}</select>`;
+  h += `<select class="field" id="progex" data-a="progex" aria-label="Упражнение">${opts.map(n=>`<option value="${esc(n)}" ${n===S.progEx?'selected':''}>${esc(n===PROG_WALK?'Прогулки':n)}</option>`).join('')}</select>`;
   const kind = cat==='end' ? 'cardio' : exKind(S.progEx);
+  if (S.progEx===PROG_WALK) return h + progWalks() + `</section>`;
   return h + (kind==='cardio' ? progCardio(S.progEx) : progStrength(S.progEx, kind)) + `</section>`;
 }
 function progCardio(name){
@@ -1386,10 +1482,11 @@ function viewGym(){
   const rng = a.getMonth()===b.getMonth() ? `${a.getDate()}–${b.getDate()} ${MON[b.getMonth()]}` : `${a.getDate()} ${MON_S[a.getMonth()]} – ${b.getDate()} ${MON_S[b.getMonth()]}`;
   const isCur = ws===mondayOf(t);
   let html = `<div class="nav"><button class="arrow" data-a="wprev" aria-label="Предыдущая неделя">${I.left}</button><div class="label"><button data-a="calopen" aria-label="Открыть календарь тренировок"><span class="row" style="gap:6px;justify-content:center">${isCur?'Эта неделя':ws===mondayOf(addDays(t,-7))?'Прошлая неделя':'Неделя'}<span class="muted" style="display:inline-flex">${I.cal}</span></span><small>${rng}</small></button></div><button class="arrow" data-a="wnext" aria-label="Следующая неделя">${I.right}</button></div>`;
-  html += `<section class="card"><div class="week">${days.map((k,i)=>{ const g = getDay(k).gym; const m = g?(g.muscles||[]):[]; return `<button class="day ${g?'done':''} ${k===t?'today':''}" data-a="openday" data-k="${k}" aria-label="${WD_FULL[i]}, ${dayLabel(k)}${g?', тренировка':''}"><span class="wd">${WD[i]}</span><span class="dn num">${parseKey(k).getDate()}</span>${g?(m.length?bodyPair(m,'wk'):`<span class="dots"><span>✓</span></span>`):''}</button>`; }).join('')}</div>`;
+  html += `<section class="card"><div class="week">${days.map((k,i)=>{ const g = getDay(k).gym; const m = g?(g.muscles||[]):[]; return `<button class="day ${g?'done':''} ${k===t?'today':''}" data-a="openday" data-k="${k}" aria-label="${WD_FULL[i]}, ${dayLabel(k)}${g?', тренировка':''}"><span class="wd">${WD[i]}</span><span class="dn num">${parseKey(k).getDate()}</span>${g?(m.length?bodyPair(m,'wk'):`<span class="dots"><span>✓</span></span>`):''}${dayWalks(k).length?'<i class="wkdot" title="Прогулка"></i>':''}</button>`; }).join('')}</div>`;
   const wk = days.filter(k=>getDay(k).gym);
   html += `<div class="row between" style="margin-top:14px"><div><b class="num" style="font-family:var(--display);font-size:20px">${wk.length}</b> <span class="muted">${plural(wk.length,'тренировка','тренировки','тренировок')} за неделю</span></div><button class="add" data-a="openday" data-new="1" data-k="${days.includes(t)?t:days[0]}">${I.plus} ${days.includes(t)?'Сегодня':'Отметить'}</button></div></section>`;
 
+  html += walkCard(days, t);
   html += `<section class="card restcard"><span class="tb-l">${I.clock} Таймер отдыха</span><div class="rc-b">${REST_PRE.map(v=>`<button class="tb-c" data-a="tmr" data-s="${v}">${v} с</button>`).join('')}</div></section>`;
   // 28 days heatmap
   html += muscleHeat(t);
@@ -1743,6 +1840,124 @@ function lastSession(name, beforeK){
 }
 function groupsInDay(g){ const set = new Set((g.exercises||[]).map(e=>e.muscle)); return MUSCLES.filter(m=>set.has(m)); }
 
+
+/* ---------- achievements ----------
+   Computed from the diary itself (nothing extra is stored except which ones were already announced),
+   so they survive updates, sync and restore from backup. Each has 3 levels; progress never goes down
+   (streaks count the best streak ever). */
+const TIERS = [['Бронза','#C98547','#A5652C'],['Серебро','#A9B4C0','#7D8894'],['Золото','#F2BE3A','#D1930C']];
+const hasGymDay = k => { const g = (S.days[k]||{}).gym; return !!(g && ((g.exercises||[]).length || (g.muscles||[]).length)); };
+function dayTonnage(k){ const g = (S.days[k]||{}).gym; return g ? (g.exercises||[]).filter(e=>!isCardio(e)).reduce((a,e)=>a+(e.sets||[]).reduce((b,x)=>b+num(x.w)*num(x.r),0),0) : 0; }
+function dayCardioKm(k){ const g = (S.days[k]||{}).gym; return g ? (g.exercises||[]).filter(isCardio).reduce((a,e)=>a+cardioDist(e),0) : 0; }
+function achCalendar(){ const ks = Object.keys(S.days).sort(), t = today(); if (!ks.length) return []; const out = []; for (let k = ks[0]; k <= t; k = addDays(k,1)){ out.push(k); if (out.length > 4000) break; } return out; }
+let achMemo = null;
+function achievements(){
+  const sig = localSeq + '|' + stable(prof()) + '|' + S.settings.waterGoal + '|' + today();
+  if (achMemo && achMemo.sig === sig) return achMemo.list;
+  const cal = achCalendar(), p = prof(), wg = num(S.settings.waterGoal) || 2000;
+  // running value helpers → [{k, v}] best-so-far per calendar day
+  const running = (fn, mode) => { let cur = 0, best = 0, streak = 0; return cal.map(k => { const x = fn(k);
+      if (mode==='sum') cur += x; else if (mode==='max') cur = Math.max(cur, x); else if (mode==='streak'){ streak = x ? streak+1 : (k===today() ? streak : 0); best = Math.max(best, streak); cur = best; }
+      return {k, v:cur}; }); };
+  // personal records: heavier working weight than ever before on that exercise
+  const bestW = {}, prDay = {};
+  cal.forEach(k => { const g = (S.days[k]||{}).gym; if (!g) return; (g.exercises||[]).forEach(e => { if (isCardio(e)) return; const mx = Math.max(0, ...(e.sets||[]).map(x=>num(x.w))); if (!mx) return; if (bestW[e.name] !== undefined && mx > bestW[e.name]) prDay[k] = (prDay[k]||0) + 1; bestW[e.name] = Math.max(bestW[e.name]||0, mx); }); });
+  // weekly regularity: consecutive weeks with ≥ 2 workouts
+  const weekRun = (() => { let streak = 0, best = 0; const res = {}; const ws0 = cal.length ? mondayOf(cal[0]) : null; if (!ws0) return () => 0;
+      for (let ws = ws0; ws <= today(); ws = addDays(ws, 7)){ let n = 0; for (let d = 0; d < 7; d++){ const k = addDays(ws, d); if (k > today()) break; if (hasGymDay(k)){ n++; if (n === 2){ streak++; best = Math.max(best, streak); } } res[k] = best; }
+        const done = addDays(ws, 6) < today(); if (n < 2 && done) streak = 0; }
+      let last = 0; return k => { if (res[k] !== undefined) last = res[k]; return last; }; })();
+  const es = weightEntries(), w0 = es.length ? es[0].kg : 0, gain = p.goalMode==='gain', tw = num(p.targetWeight);
+  const wOf = k => num((S.days[k]||{}).weight);
+  const eaten = k => { const d = S.days[k]; return d && (d.food||[]).length ? foodTotals(d) : null; };
+  const defs = [
+    {id:'gym', ic:'dumb', c:'gym', t:'Тренировки', lv:[1,25,100], u:n=>`${fmt(n)} ${plural(n,'тренировка','тренировки','тренировок')}`, names:['Первая тренировка','25 тренировок','Сотня тренировок'], run:running(k=>hasGymDay(k)?1:0,'sum')},
+    {id:'weeks', ic:'list', c:'gym', t:'Режим', lv:[2,4,12], u:n=>`${fmt(n)} ${plural(n,'неделя','недели','недель')} подряд`, names:['2 недели по 2+ тренировки','Месяц без пропусков','3 месяца режима'], sub:'недели подряд, где было хотя бы 2 тренировки', run:cal.map(k=>({k, v:weekRun(k)}))},
+    {id:'pr', ic:'trophy', c:'gym', t:'Рекорды', lv:[1,10,30], u:n=>`${fmt(n)} ${plural(n,'рекорд','рекорда','рекордов')}`, names:['Первый рекорд','10 рекордов','30 рекордов'], sub:'рабочий вес больше, чем когда‑либо раньше', run:running(k=>prDay[k]||0,'sum')},
+    {id:'ton', ic:'weight', c:'gym', t:'Тоннаж', lv:[3000,8000,15000], u:n=>`${fmt1(Math.round(n/100)/10)} т за тренировку`, names:['3 тонны за тренировку','8 тонн','15 тонн'], sub:'сумма «вес × повторы» за одну тренировку', run:running(dayTonnage,'max')},
+    {id:'cardio', ic:'pulse', c:'gym', t:'Кардио', lv:[10,50,200], u:n=>`${fmt1(Math.round(n*10)/10)} км`, names:['10 км кардио','50 км кардио','200 км кардио'], sub:'дистанция на дорожке, велосипеде и т. д. за всё время', run:running(dayCardioKm,'sum')},
+    {id:'steps', ic:'shoe', c:'walk', t:'Шаги за день', lv:[10000,15000,20000], u:n=>`${fmt(n)} шагов`, names:['10 000 шагов','15 000 шагов','20 000 шагов'], sub:'лучшая прогулка за один день', run:running(daySteps,'max')},
+    {id:'path', ic:'dist', c:'walk', t:'Пройденный путь', lv:[42.2,100,500], u:n=>`${fmt1(Math.round(n*10)/10)} км`, names:['Марафон пешком · 42 км','100 км','500 км'], sub:'все прогулки за всё время', run:running(dayWalkKm,'sum')},
+    {id:'water', ic:'drop', c:'water', t:'Вода', lv:[3,7,30], u:n=>`${fmt(n)} ${plural(n,'день','дня','дней')} подряд`, names:['3 дня нормы воды','Неделя нормы','Месяц нормы воды'], sub:'дней подряд с выполненной нормой', run:running(k=>(dayMl(k)||0)>=wg?1:0,'streak')},
+    {id:'diary', ic:'list', c:'food', t:'Дневник еды', lv:[3,7,30], u:n=>`${fmt(n)} ${plural(n,'день','дня','дней')} подряд`, names:['3 дня записей','Неделя записей','Месяц записей'], sub:'дней подряд, когда записана еда', run:running(k=>eaten(k)?1:0,'streak')},
+    {id:'goal', ic:'target', c:'food', t:'В цель', lv:[3,7,21], u:n=>`${fmt(n)} ${plural(n,'день','дня','дней')} подряд`, names:['3 дня в цели','Неделя в цели','21 день в цели'], sub:'съедено не больше цели и не меньше 70 % от неё', run:running(k=>{ const e = eaten(k); if (!e) return 0; const g = targetOn(k); return e.kcal<=g && e.kcal>=g*0.7 ? 1 : 0; },'streak')},
+    {id:'protein', ic:'flame', c:'food', t:'Белок', lv:[5,20,60], u:n=>`${fmt(n)} ${plural(n,'день','дня','дней')}`, names:['5 дней с нормой белка','20 дней','60 дней'], sub:'дней, когда белок набран до нормы', run:running(k=>{ const e = eaten(k); return e && e.p >= macroTargets(k).p*0.95 ? 1 : 0; },'sum')},
+    {id:'wdrop', ic:gain?'up':'trend', c:'weight', t:gain?'Набор веса':'Минус килограммы', lv:[1,3,5], u:n=>`${gain?'+':'−'}${fmt1(Math.round(n*10)/10)} кг`, names:gain?['+1 кг','+3 кг','+5 кг']:['−1 кг','−3 кг','−5 кг'], sub:'от первого записанного веса', run:running(k=>{ const w = wOf(k); return w && w0 ? Math.max(0, gain ? w-w0 : w0-w) : 0; },'max')},
+    {id:'wgoal', ic:'flag', c:'weight', t:'Цель по весу', lv:[1], u:n=>`${Math.round(n*100)} %`, names:['Желаемый вес достигнут'], sub: tw ? `желаемый вес ${fmt1(tw)} кг` : 'поставь желаемый вес в настройках', run:running(k=>{ const w = wOf(k); if (!tw || !w || !w0 || tw===w0) return 0; return Math.max(0, Math.min(1, (gain ? w-w0 : w0-w) / Math.abs(tw-w0))); },'max')},
+  ];
+  const list = defs.map(d => { const v = d.run.length ? d.run[d.run.length-1].v : 0;
+    const dates = d.lv.map(th => { const hit = d.run.find(x=>x.v>=th); return hit ? hit.k : null; });
+    const level = dates.filter(Boolean).length, next = d.lv[level];
+    return Object.assign({}, d, {v, level, dates, next, pct: next ? Math.min(1, v/next) : 1, run:undefined}); });
+  achMemo = {sig, list};
+  return list;
+}
+function achBadge(a, big){ const tier = a.level ? TIERS[Math.min(a.level, 3)-1] : null;
+  return `<span class="achb ${big?'big':''} ${tier?'':'off'}" style="${tier?`--t1:${tier[1]};--t2:${tier[2]}`:''}">${MI[a.ic]||MI.trophy}${a.level&&a.lv.length>1?`<i class="achlv">${'★'.repeat(a.level)}</i>`:''}</span>`; }
+function achRecent(list){ const out = []; list.forEach(a => a.dates.forEach((k,i) => { if (k) out.push({a, i, k}); })); return out.sort((x,y)=> y.k.localeCompare(x.k) || y.i-x.i); }
+function homeAch(){
+  const list = achievements(), total = list.reduce((a,x)=>a+x.lv.length,0), got = list.reduce((a,x)=>a+x.level,0);
+  const recent = achRecent(list).slice(0,4);
+  const next = list.filter(a=>a.next!==undefined && a.v>0).sort((x,y)=>y.pct-x.pct)[0] || list.find(a=>a.next!==undefined);
+  let h = `<button class="card hcard m-ach" data-a="achopen"><div class="hc-h"><span class="hc-ic">${MI.trophy}</span><b>Достижения</b><span class="achcnt num">${got} / ${total}</span><span class="chev">${I.right}</span></div>`;
+  h += recent.length ? `<div class="achrow">${recent.map(r=>`<span class="achmini">${achBadge(Object.assign({}, r.a, {level:r.i+1}))}<small>${esc(r.a.names[r.i])}</small></span>`).join('')}</div>`
+                     : `<span class="hs">Первые награды — за тренировку, прогулку на 10 000 шагов, 3 дня нормы воды…</span>`;
+  if (next) h += `<div class="achnext"><div class="row between"><span>Дальше: <b>${esc(next.names[next.level])}</b></span><span class="num muted">${esc(next.u(next.v))}</span></div><div class="achbar"><i style="width:${Math.round(next.pct*100)}%"></i></div></div>`;
+  return h + `</button>`;
+}
+function sheetAch(){
+  const list = achievements(), got = list.reduce((a,x)=>a+x.level,0), total = list.reduce((a,x)=>a+x.lv.length,0);
+  const groups = [['gym','Зал'],['walk','Прогулки'],['food','Еда и вода'],['weight','Вес']];
+  let b = `<div class="achhero">${MI.trophy}<div><b class="num">${got} из ${total}</b><small>Каждое достижение — 3 уровня: бронза, серебро, золото. Считаются по твоему дневнику, прогресс не сгорает.</small></div></div>`;
+  groups.forEach(([c, name]) => { const items = list.filter(a => (c==='food' ? (a.c==='food'||a.c==='water') : a.c===c)); if (!items.length) return;
+    b += `<div class="sec-t">${name}</div><div class="card achlist">${items.map(a => `<div class="achitem">${achBadge(a, true)}<div class="achtx"><div class="row between" style="gap:8px"><b>${esc(a.t)}</b><span class="achpips">${a.lv.map((_,i)=>`<i class="${i<a.level?'on':''}" style="${i<a.level?`background:${TIERS[i][1]}`:''}"></i>`).join('')}</span></div>
+      <small>${esc(a.level ? a.names[a.level-1] + (a.dates[a.level-1] ? ' · ' + dayLabel(a.dates[a.level-1]) : '') : (a.sub||''))}</small>
+      ${a.next!==undefined && a.lv.length===1 ? `<div class="achbar"><i style="width:${Math.round(a.pct*100)}%"></i></div><small class="num">${tw0txt(a)}</small>` : a.next!==undefined ? `<div class="achbar"><i style="width:${Math.round(a.pct*100)}%"></i></div><small class="num">${esc(achNum(a, a.v))} из ${esc(a.u(a.next).replace(/^[−+]/,''))} → «${esc(a.names[a.level])}»</small>` : `<small class="achdone">Все уровни открыты</small>`}</div></div>`).join('')}</div>`; });
+  return {title:'Достижения', body:b};
+}
+/* announce newly reached levels once (remembered in settings, synced) */
+const ACH_F1 = new Set(['ton','cardio','path','wdrop']);
+function achNum(a, v){ if (a.id==='ton') return fmt1(Math.round(v/100)/10); return ACH_F1.has(a.id) ? fmt1(Math.round(v*10)/10) : fmt(v); }
+function tw0txt(a){ const tw = num(prof().targetWeight), es = weightEntries(); if (!tw || !es.length) return 'Поставь желаемый вес в настройках и записывай вес'; const cur = es[es.length-1].kg; return `Пройдено ${Math.round(a.v*100)} % пути · осталось ${fmt1(Math.abs(cur-tw))} кг`; }
+function achInit(){ if (!Array.isArray(S.settings.achSeen) && Object.keys(S.days).length){ const now = []; achievements().forEach(a => { for (let i=0;i<a.level;i++) now.push(a.id+':'+(i+1)); }); S.settings.achSeen = now; persistSettings(); } }
+function achCheck(){
+  if (!Object.keys(S.days).length) return;
+  const list = achievements(), now = []; list.forEach(a => { for (let i=0;i<a.level;i++) now.push(a.id+':'+(i+1)); });
+  const seen = S.settings.achSeen;
+  if (!Array.isArray(seen)){ S.settings.achSeen = now; persistSettings(); return; }   // not initialised yet: don't flood with old ones
+  const fresh = now.filter(x=>!seen.includes(x)); if (!fresh.length) return;
+  S.settings.achSeen = seen.concat(fresh); persistSettings();
+  const [id, lv] = fresh[fresh.length-1].split(':'), a = list.find(x=>x.id===id);
+  setTimeout(() => showToast(`🏆 Достижение: ${a.names[+lv-1]}${fresh.length>1?` и ещё ${fresh.length-1}`:''}`, null, true), 400);
+}
+function walkCard(days, t){
+  const inWeek = days.includes(t), key = inWeek ? t : days[0];
+  const steps = days.map(daySteps), mx = Math.max(...steps, 1), tot = steps.reduce((a,b)=>a+b,0), n = days.reduce((a,k)=>a+dayWalks(k).length,0), kc = days.reduce((a,k)=>a+walkBurn(k),0);
+  return `<section class="card walkcard m-walk"><div class="wc-h"><span class="wc-ic">${MI.shoe}</span><div style="min-width:0"><b>Прогулки</b><small>не зал — просто шаги на улице</small></div><button class="hbtn" data-a="walkopen" data-k="${key}">${I.plusW} Прогулка</button></div>
+    <div class="wc-bars">${days.map((k,i)=>`<button class="wc-b ${k===t?'today':''}" data-a="walkopen" data-k="${k}" aria-label="${WD_FULL[i]}: ${fmt(steps[i])} шагов"><i style="height:${steps[i]?Math.max(8,steps[i]/mx*100):0}%"></i><span>${WD[i]}</span></button>`).join('')}</div>
+    <div class="wc-f">${n ? `<span><b class="num">${fmt(tot)}</b> шагов · <b class="num">≈ ${fmt1(Math.round(days.reduce((a,k)=>a+dayWalkKm(k),0)*10)/10)} км</b></span><span>${n} ${plural(n,'прогулка','прогулки','прогулок')} · ≈ ${fmt(kc)} ккал</span>` : `<span class="muted">На этой неделе прогулок нет</span>`}</div>
+    ${Object.keys(S.days).some(k=>dayWalks(k).length) ? `<button class="linkbtn wc-prog" data-a="walkprog">${MI.trend} Прогресс прогулок: шаги и путь по дням</button>` : ''}</section>`;
+}
+function walkCalc(){
+  const sh = S.sheet, w = {steps:sh.steps, min:sh.min}; if (!num(w.steps)) return '<span class="hint">Введи шаги — посчитаю километры и калории.</span>';
+  const km = walkKm(w), kc = walkKcal(w, weightOn(sh.k));
+  return `≈ <b class="num">${fmt1(Math.round(km*10)/10)} км</b> · сожжено <b class="num">≈ ${fmt(kc)} ккал</b>${num(w.min)?` · темп ≈ ${fmt1(Math.round(walkSpeed(w)*10)/10)} км/ч`:''}`;
+}
+function sheetWalk(){
+  const sh = S.sheet, k = sh.k, ws = dayWalks(k), p = prof(), kg = weightOn(k), date = `${WD_FULL[wdIdx(k)]}, ${dayLabel(k)}`;
+  let b = `<div class="walkhero"><span class="wh-ic">${MI.shoe}</span><div><b>${esc(date)}</b><small>${ws.length ? `${fmt(daySteps(k))} шагов · ≈ ${fmt1(Math.round(dayWalkKm(k)*10)/10)} км · ≈ ${fmt(walkBurn(k))} ккал` : 'Вечерняя прогулка, дорога пешком — всё, что вне зала'}</small></div></div>`;
+  if (ws.length) b += `<div class="card"><div class="sec-t" style="margin:0 0 6px">За день</div><ul class="items">${ws.map(w=>`<li><span class="wl-ic">${MI.shoe}</span><div class="nm"><div class="num">${fmt(num(w.steps))} шагов</div><small class="num">≈ ${fmt1(Math.round(walkKm(w)*10)/10)} км${num(w.min)?` · ${fmt(num(w.min))} мин`:''}</small></div><span class="kcal num">${fmt(walkKcal(w, kg))}</span><span class="rowbtns"><button class="del" data-a="wkedit" data-id="${w.id}" aria-label="Изменить прогулку">${I.pen}</button><button class="del" data-a="wkdel" data-id="${w.id}" aria-label="Удалить прогулку">${I.x}</button></span></li>`).join('')}</ul></div>`;
+  b += `<div class="card params"><div class="sec-t" style="margin:0 0 8px">${sh.eid ? 'Изменить прогулку' : ws.length ? 'Ещё прогулка' : 'Новая прогулка'}</div>
+    <div class="cgrid"><div class="f"><span class="flab">${MI.shoe}Шаги</span>${nstep('wk-steps', sh.steps, 500, 'шагов', 'data-a="wkf" data-f="steps"', true)}</div>
+    <div class="f"><span class="flab">${MI.time}Время</span>${nstep('wk-min', sh.min, 5, 'мин', 'data-a="wkf" data-f="min"')}</div></div>
+    <div class="hint" style="margin:6px 0 0">Время необязательно — с ним точнее: пойму, спокойно шёл или быстро.</div>
+    <div class="calc" id="wkcalc">${walkCalc()}</div></div>
+    <button class="btn big" data-a="wksave" ${num(sh.steps)>0?'':'disabled'}>${sh.eid ? 'Сохранить' : `${I.plusW} Добавить прогулку`}</button>`;
+  if (sh.eid) b += `<button class="btn ghost" data-a="wkcancel">Отмена</button>`;
+  if (neatHasWalks()) b += `<div class="segnote">${MI.cloud}<span>В настройках выбрано «${esc((NEAT.find(x=>String(x[0])===String(p.neat))||[])[1]||'')}» — прогулки уже заложены в норму, и калории посчитаются дважды. <button class="linkbtn" data-a="wkmix">Переключить на «периодически гуляю»</button></span></div>`;
+  b += `<div class="hint">Шаги × длина шага (≈ ${fmt(strideM()*100)} см при росте ${fmt(num(p.height)||178)} см${p.sex==='f'?', женщина':', мужчина'}) → километры. Расход сверх покоя ≈ 0,4 ккал на кг веса (${fmt1(kg)} кг) на км, при быстром шаге больше — для этого и нужно время. Прогулка не считается тренировкой и не красит карту мышц, но калории прибавляются к цели дня.</div>`;
+  return {title:'Прогулка', body:b};
+}
 function sheetGym(){
   const sh = S.sheet, k = sh.key, g = getDay(k).gym, date = `${WD_FULL[wdIdx(k)]}, ${dayLabel(k)}`;
   const hasEx = !!(g && (g.exercises||[]).length);
@@ -1966,8 +2181,8 @@ function sheetSettings(){
            : `<div class="srow"><span class="flab">${MI.scale}Вес</span>${nstep('s-w', p.weight, 0.5, 'кг', 'data-a="sset" data-f="profile.weight"')}</div>`}
   </div>
   <div class="card sgroup"><h2 class="sh">${MI.walk}Активность вне зала</h2>
-    <div class="vlist">${NEAT.map(([v,n],i)=>`<button data-a="sopt" data-f="profile.neat" data-v="${v}" aria-pressed="${num(p.neat)===v}"><span class="flab">${MI[['sit','walk','steps','hammer'][i]]}${n}</span><small class="num">×${v}</small></button>`).join('')}</div>
-    <div class="hint">Тренировки не учитывай — зал добавляется отдельно по факту.</div>
+    <div class="vlist">${NEAT.map(([v,n,ic,x])=>`<button data-a="sopt" data-f="profile.neat" data-v="${v}" aria-pressed="${String(p.neat)===String(v)}"><span class="flab">${MI[ic]}${n}</span><small class="num">×${fmt1(x)}${v==='mix'?' + прогулки по факту':''}</small></button>`).join('')}</div>
+    <div class="hint">${p.neat==='mix' ? 'Обычный день считается как сидячий, а каждая записанная прогулка прибавляется по факту: «Зал» → «Прогулка».' : 'Тренировки не учитывай — зал добавляется отдельно по факту.'}</div>
   </div>
   <div class="card sgroup"><h2 class="sh">${MI.target}Цель</h2>
     ${optRow('profile.goalMode', p.goalMode, [['lose',MI.trend+'Похудеть'],['keep',MI.keep+'Держать'],['gain',MI.up+'Набрать']], 'ic')}
@@ -1978,14 +2193,14 @@ function sheetSettings(){
   <div class="card sgroup"><h2 class="sh">${MI.flame}Калории на день</h2>
     ${optRow('kcalMode', st.kcalMode, [['auto',MI.robot+'Автоматически'],['manual',MI.manual+'Вручную']], 'ic')}
     ${st.kcalMode==='manual' ? `<div class="srow"><span class="flab">${MI.target}Цель</span>${nstep('s-kc', st.kcalGoal, 50, 'ккал', 'data-a="sset" data-f="kcalGoal"')}</div>`
-      : `<div class="calcbox"><div><span>Обмен веществ и быт</span><b class="num">${fmt(base)}</b></div><div><span>+ зал сегодня</span><b class="num">${dayBurn(t)?fmt(dayBurn(t)):'0'}</b></div><div><span>${sh<0?'− на похудение':sh>0?'+ на набор':'цель: держать вес'}</span><b class="num">${sh?fmt(Math.abs(sh)):'0'}</b></div><div class="tot"><span>Цель сегодня</span><b class="num">${fmt(tg)} ккал</b></div></div>
+      : `<div class="calcbox"><div><span>Обмен веществ и быт</span><b class="num">${fmt(base)}</b></div><div><span>+ зал сегодня</span><b class="num">${dayBurn(t)?fmt(dayBurn(t)):'0'}</b></div>${walkBurn(t)||p.neat==='mix'?`<div><span>+ прогулки сегодня</span><b class="num">${walkBurn(t)?fmt(walkBurn(t)):'0'}</b></div>`:''}<div><span>${sh<0?'− на похудение':sh>0?'+ на набор':'цель: держать вес'}</span><b class="num">${sh?fmt(Math.abs(sh)):'0'}</b></div><div class="tot"><span>Цель сегодня</span><b class="num">${fmt(tg)} ккал</b></div></div>
          <div class="hint">Мифлин — Сан Жеор × активность вне зала. В дни тренировок цель растёт на сожжённое в зале, поэтому дефицит остаётся тем, что ты выбрал.</div>`}
   </div>
   <div class="card sgroup"><h2 class="sh">${MI.pie}Белки, жиры, углеводы</h2>
     <div class="srow"><span class="flab"><i class="mdot mg-p">Б</i>Белок</span>${nstep('s-pr', p.protein, 0.1, 'г/кг', 'data-a="sset" data-f="profile.protein"')}</div>
     <div class="srow"><span class="flab"><i class="mdot mg-f">Ж</i>Жиры</span>${nstep('s-fk', p.fatk, 0.1, 'г/кг', 'data-a="sset" data-f="profile.fatk"')}</div>
     <div class="macrochips"><span><i class="mdot mg-p">Б</i><b class="num">${fmt(mt.p)} г</b></span><span><i class="mdot mg-f">Ж</i><b class="num">${fmt(mt.f)} г</b></span><span><i class="mdot mg-c">У</i><b class="num">${fmt(mt.c)} г</b></span></div>
-    ${(()=>{ const gb = dayBurn(t); if (st.kcalMode==='manual' || !gb) return ''; const cb = Math.max(0,(Math.round((base+sh)/10)*10 - mt.p*4 - mt.f*9)/4); return `<div class="hint" style="margin:0">Сегодня углеводов больше из‑за зала (+${fmt(gb)} ккал ≈ +${fmt(gb/4)} г). В день без тренировки: У <b class="num">${fmt(cb)} г</b>.</div>`; })()}
+    ${(()=>{ const gb = dayBurn(t) + walkBurn(t); if (st.kcalMode==='manual' || !gb) return ''; const cb = Math.max(0,(Math.round((base+sh)/10)*10 - mt.p*4 - mt.f*9)/4); return `<div class="hint" style="margin:0">Сегодня углеводов больше из‑за ${dayBurn(t)&&walkBurn(t)?'зала и прогулки':walkBurn(t)?'прогулки':'зала'} (+${fmt(gb)} ккал ≈ +${fmt(gb/4)} г). В день без активности: У <b class="num">${fmt(cb)} г</b>.</div>`; })()}
     <div class="mguide ${S.macroHelp?'open':''}"><button data-a="macrohelp" aria-expanded="${!!S.macroHelp}">${MI.list}Памятка для новичков: что такое Б, Ж, У<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
     ${S.macroHelp ? `<div class="mg-body">
       <div class="mg-item"><span class="mg-l mg-p">Б</span><div><b>Белок</b><span class="kc">4 ккал в 1 г</span><br>Строительный материал для мышц. Сытно и помогает не терять мышцы на похудении — <b>держи его всегда</b>.<br>Где: курица, индейка, рыба, яйца, творог, греческий йогурт, мясо, фасоль.</div></div>
@@ -2018,11 +2233,11 @@ let dlns = null;
 async function initDownloads(){ try{ if (window.claude && window.claude.use) dlns = await window.claude.use('downloads'); }catch(e){ dlns = null; } }
 function csvCell(v){ v = v===null||v===undefined ? '' : String(v); return /[;"\n]/.test(v) ? '"' + v.replace(/"/g,'""') + '"' : v; }
 function buildCsv(){
-  const head = ['Дата','Съедено, ккал','Белки, г','Жиры, г','Углеводы, г','Цель, ккал','Расход, ккал','Дефицит, ккал','Вода, мл','Тренировка','Упражнения','Сожжено в зале, ккал','Вес, кг','Заметка'];
+  const head = ['Дата','Съедено, ккал','Белки, г','Жиры, г','Углеводы, г','Цель, ккал','Расход, ккал','Дефицит, ккал','Вода, мл','Тренировка','Упражнения','Сожжено в зале, ккал','Шаги (прогулки)','Прогулки, ккал','Вес, кг','Заметка'];
   const rows = Object.keys(S.days).sort().map(k => { const d = S.days[k], t = foodTotals(getDay(k)), g = d.gym;
     const eaten = (d.food||[]).length ? Math.round(t.kcal) : '';
     return [k, eaten, (d.food||[]).length?Math.round(t.p):'', (d.food||[]).length?Math.round(t.f):'', (d.food||[]).length?Math.round(t.c):'', Math.round(targetOn(k)), Math.round(spendOn(k)), eaten===''?'':Math.round(spendOn(k)-t.kcal),
-      dayMl(k)||'', g?groupsInDay(g).concat(g.exercises&&g.exercises.length?[]:(g.muscles||[])).join(', '):'', g?(g.exercises||[]).map(e=>`${e.name}: ${setsSummary(e)}`).join(' | '):'', g?Math.round(dayBurn(k)):'', num(d.weight)||'', g&&g.note?g.note:''].map(csvCell).join(';'); });
+      dayMl(k)||'', g?groupsInDay(g).concat(g.exercises&&g.exercises.length?[]:(g.muscles||[])).join(', '):'', g?(g.exercises||[]).map(e=>`${e.name}: ${setsSummary(e)}`).join(' | '):'', g?Math.round(dayBurn(k)):'', daySteps(k)||'', dayWalks(k).length?Math.round(walkBurn(k)):'', num(d.weight)||'', g&&g.note?g.note:''].map(csvCell).join(';'); });
   return '﻿' + [head.join(';')].concat(rows).join('\r\n');
 }
 async function saveLocalFile(fmtName){
@@ -2053,6 +2268,7 @@ function doImport(file){
         if (!(cur.water||[]).length && (d.water||[]).length){ cur.water = d.water; ch = true; }
         if (!cur.gym && d.gym){ cur.gym = d.gym; ch = true; }
         if (!num(cur.weight) && num(d.weight)){ cur.weight = d.weight; ch = true; }
+        if (!(cur.walks||[]).length && (d.walks||[]).length){ cur.walks = d.walks; ch = true; }
         if (ch){ merged++; persistDay(k); } } });
     if (data.settings){ const st = data.settings;
       if (JSON.stringify(S.settings.profile)===JSON.stringify(DEFAULT_SETTINGS.profile)) ['profile','kcalMode','kcalGoal','waterGoal','waterPresets'].forEach(key => { if (st[key]!==undefined) S.settings[key] = clone(st[key]); }); ['customFoods','customEx'].forEach(key => { const have = new Set((S.settings[key]||[]).map(x=>x.name)); S.settings[key] = (S.settings[key]||[]).concat((st[key]||[]).filter(x=>!have.has(x.name))); });
@@ -2130,8 +2346,8 @@ function render(){
   const view = S.tab==='home' ? viewHome() : S.tab==='food' ? viewFood() : S.tab==='water' ? viewWater() : viewGym();
   let sheet = '';
   if (S.sheet){
-    const s = S.sheet.type==='food' ? sheetFood() : S.sheet.type==='fedit' ? sheetFoodEdit() : S.sheet.type==='gym' ? sheetGym() : S.sheet.type==='cal' ? sheetCal() : S.sheet.type==='weight' ? sheetWeight() : S.sheet.type==='wedit' ? sheetWaterEdit() : S.sheet.type==='wpre' ? sheetWaterPresets() : sheetSettings();
-    const mod = S.sheet.type==='weight'?'m-weight':(S.sheet.type==='wedit'||S.sheet.type==='wpre')?'m-water':S.sheet.type==='cal'?'m-'+S.sheet.mode:(S.sheet.type==='food'||S.sheet.type==='fedit')?'m-food':S.sheet.type==='gym'?'m-gym':S.sheet.type==='settings'?'m-food':'m-'+S.tab;
+    const s = S.sheet.type==='food' ? sheetFood() : S.sheet.type==='fedit' ? sheetFoodEdit() : S.sheet.type==='gym' ? sheetGym() : S.sheet.type==='cal' ? sheetCal() : S.sheet.type==='weight' ? sheetWeight() : S.sheet.type==='wedit' ? sheetWaterEdit() : S.sheet.type==='wpre' ? sheetWaterPresets() : S.sheet.type==='walk' ? sheetWalk() : S.sheet.type==='ach' ? sheetAch() : sheetSettings();
+    const mod = S.sheet.type==='ach'?'m-ach':S.sheet.type==='walk'?'m-walk':S.sheet.type==='weight'?'m-weight':(S.sheet.type==='wedit'||S.sheet.type==='wpre')?'m-water':S.sheet.type==='cal'?'m-'+S.sheet.mode:(S.sheet.type==='food'||S.sheet.type==='fedit')?'m-food':S.sheet.type==='gym'?'m-gym':S.sheet.type==='settings'?'m-food':'m-'+S.tab;
     sheet = `<div class="overlay ${mod}" data-a="closebg"><div class="sheet" role="dialog" aria-modal="true" aria-label="${esc(s.title)}"><div class="sheet-h">${s.back?`<button class="iconbtn" data-a="${s.back}" aria-label="Назад">${I.left}</button>`:''}<h3 style="flex:1">${esc(s.title)}</h3><button class="iconbtn" data-a="close" aria-label="Закрыть">${I.x}</button></div><div class="sheet-b">${s.body}</div>${S.sheet.type==='gym'&&S.sheet.step==='detail'?timerBar():''}</div></div>`;
   }
   app.innerHTML = `<div class="wrap"><header class="top"><div class="brand"><h1>Дневник формы</h1><span class="sync ${db&&S.synced?'on':''}"><i></i>${db&&S.synced?'Сохранено в облаке':'Хранится на этом телефоне'}</span></div><button class="iconbtn" data-a="settings" aria-label="Настройки">${I.gear}</button></header>${view}</div>
@@ -2171,11 +2387,22 @@ document.addEventListener('click', ev => {
   const el = ev.target.closest('[data-a]'); if (!el) return;
   const a = el.dataset.a;
   if (a==='closebg'){ if (ev.target===el){ S.sheet=null; render(); } return; }
-  if (['gq','gdur','wkg','weml','wetime','wpv','sset','importfile','fq','fqty','feqty','man','np','em','gf','gps','gcf','gper','gset','gnote','sgoal','prof','gname','grename','gcrails','progex','mansave'].includes(a)) return;
+  if (['wkf','gq','gdur','wkg','weml','wetime','wpv','sset','importfile','fq','fqty','feqty','man','np','em','gf','gps','gcf','gper','gset','gnote','sgoal','prof','gname','grename','gcrails','progex','mansave'].includes(a)) return;
   const sh = S.sheet;
   if (a==='nstep'){ const inp = document.getElementById(el.dataset.t); if (!inp) return; const d = num(el.dataset.d); const v = Math.max(0, Math.round((num(inp.value) + d)*100)/100); inp.value = String(v); inp.dispatchEvent(new Event('input', {bubbles:true})); return; }
   switch(a){
     case 'tab': S.tab = el.dataset.id; try{ localStorage.setItem('forma.tab', S.tab); history.replaceState(null,'','#'+S.tab); }catch(e){} window.scrollTo(0,0); break;
+    case 'achopen': S.sheet = {type:'ach'}; break;
+    case 'walkunit': S.walkUnit = el.dataset.u; break;
+    case 'walkprog': { S.progCat = 'end'; S.progEx = PROG_WALK; render(); setTimeout(()=>{ const c = $('.card.chart'); if (c) c.scrollIntoView({block:'start', behavior:'smooth'}); }, 30); return; }
+    case 'walkopen': { S.sheet = {type:'walk', k:el.dataset.k || today(), steps:'', min:'', eid:null}; break; }
+    case 'wksave': { const n = Math.round(num(sh.steps)); if (!(n>0)) return; const k = sh.k, mn = num(sh.min), eid = sh.eid;
+      editDay(k, d => { const list = (d.walks||[]).slice(); if (eid){ const i = list.findIndex(x=>x.id===eid); if (i>=0) list[i] = Object.assign({}, list[i], {steps:n, min:mn||undefined}); } else list.push({id:uid(), steps:n, min:mn||undefined, t:Date.now()}); d.walks = list.map(x=>JSON.parse(JSON.stringify(x))); });
+      Object.assign(sh, {steps:'', min:'', eid:null}); showToast(eid ? 'Прогулка изменена' : `Прогулка добавлена · ${fmt(n)} шагов`); break; }
+    case 'wkedit': { const w = dayWalks(sh.k).find(x=>x.id===el.dataset.id); if (!w) return; Object.assign(sh, {eid:w.id, steps:String(w.steps), min:w.min?String(w.min):''}); render(); const b=$('.sheet-b'); const f=$('#wk-steps'); if (f) f.scrollIntoView({block:'center'}); return; }
+    case 'wkcancel': Object.assign(sh, {steps:'', min:'', eid:null}); break;
+    case 'wkdel': { const k = sh.k, before = clone(getDay(k)), id = el.dataset.id; editDay(k, d => { d.walks = (d.walks||[]).filter(x=>x.id!==id); if (!d.walks.length) delete d.walks; }); if (sh.eid===id) Object.assign(sh, {steps:'', min:'', eid:null}); showToast('Прогулка удалена', {k, day:before}); break; }
+    case 'wkmix': { setPath(S.settings, 'profile.neat', 'mix'); persistSettings(); showToast('Активность: «Сидячая работа, периодически гуляю» — прогулки прибавляются по факту'); break; }
     case 'wopen': { const t = today(); S.sheet = {type:'weight', k:t, kg:String(num((S.days[t]||{}).weight) || fmt1(weightOn(t)).replace(',','.')), range:30}; break; }
     case 'wday': { const k = addDays(sh.k, +el.dataset.d); if (k>today()) return; sh.k = k; sh.kg = String(num((S.days[k]||{}).weight) || fmt1(weightOn(k)).replace(',','.')); break; }
     case 'wpick': sh.k = el.dataset.k; sh.kg = String(num(S.days[sh.k].weight)); { const b=$('.sheet-b'); if (b) setTimeout(()=>b.scrollTop=0,0); } break;
@@ -2410,6 +2637,7 @@ document.addEventListener('input', ev => {
   else if (a==='gdur'){ const d = S.days[sh.key]; if (d&&d.gym){ d.gym.duration = num(el.value); persistDay(sh.key); } }
   else if (a==='gf'){ sh.form[el.dataset.f] = el.value; const t = $('#gtotal'); if (t) t.innerHTML = formTotal(sh.form); syncSave(); }
   else if (a==='gps'){ sh.form.sets[+el.dataset.si][el.dataset.f] = el.value; const t = $('#gtotal'); if (t) t.innerHTML = formTotal(sh.form); syncSave(); }
+  else if (a==='wkf'){ sh[el.dataset.f] = el.value; const c = $('#wkcalc'); if (c) c.innerHTML = walkCalc(); const bt = $('[data-a="wksave"]'); if (bt) bt.disabled = !(num(sh.steps)>0); }
   else if (a==='gcrails'){ sh.form.cs.forEach(c=>{ c.rails = el.checked; }); syncCardio(); }
   else if (a==='gcf'){ const si = +el.dataset.si||0; sh.form.cs[si][el.dataset.f] = el.value; syncCardio(); }
   else if (a==='gnote'){ const d = S.days[sh.key]; if (d&&d.gym){ d.gym.note = el.value; persistDay(sh.key); } }
@@ -2447,6 +2675,7 @@ loadMirror().then(ch => { if (ch) render(); return initDb(); }).then(render);
 // another tab/window of the app saved newer data → take it instead of later overwriting it
 window.addEventListener('storage', ev => { if (ev.key!=='forma.cache' || !ev.newValue) return; try{ const c = JSON.parse(ev.newValue); if ((c.seq||0) > localSeq){ applyCache(c); renderSoon(); } }catch(e){} });
 initDownloads();
+setTimeout(() => { try{ achInit(); }catch(e){} }, 2500);   // after cloud sync had a chance to bring achSeen
 })();
 </script>
 
