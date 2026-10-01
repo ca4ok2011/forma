@@ -618,7 +618,7 @@ button.hcard{cursor:pointer}
 .rests{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:10px;font-size:13px}
 .rp{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:999px;background:var(--acc-soft);color:var(--acc);font-size:12px;font-weight:700;white-space:nowrap}
 .rp svg{width:12px;height:12px}
-.mv{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.mv{display:inline-flex;align-items:center;gap:4px;white-space:normal;min-width:0;overflow-wrap:anywhere}
 .mv svg,.sline svg.lead{width:15px;height:15px;flex:none;opacity:.9}
 .sline{row-gap:4px}
 .mvs{display:flex;flex-wrap:wrap;gap:3px 10px;margin:2px 0 4px}
@@ -850,7 +850,7 @@ const unitOf = x => (x && (x.u==='ml' || (!x.u && LIQ.has(x.name)))) ? 'ml' : 'g
 const UL = u => u==='ml' ? 'мл' : 'г';
 function portionsOf(p){ if (!p || p.per!==100) return []; if (p.pcs && p.pcs.length) return p.pcs; return PORT[p.name] || []; }
 function pcsLabel(n, pl){ const v = fmt1(n); if (pl==='шт') return `${v} шт`; return n===1 ? pl : `${v} × ${pl}`; }
-function amountTxt(e){ if (!e.grams) return e.qty && e.qty!==1 ? fmt1(e.qty)+' порц.' : ''; const base = `${fmt(e.grams)} ${UL(unitOf(e))}`; return e.pcs && e.pl ? `${pcsLabel(num(e.pcs), e.pl)} · ${base}` : base; }
+function amountTxt(e){ if (!e.grams) return e.pl==='шт' ? `${fmt1(num(e.qty)||1)} шт` : e.qty && e.qty!==1 ? fmt1(e.qty)+' порц.' : ''; const base = `${fmt(e.grams)} ${UL(unitOf(e))}`; return e.pcs && e.pl ? `${pcsLabel(num(e.pcs), e.pl)} · ${base}` : base; }
 /* current pick: amount in g/ml for the chosen unit */
 const halfPortion = l => ['тарелка','пачка','плитка','лист','порция','кусок','шарик','половинка'].includes(l);
 function setPick(sh, p){ const ps = portionsOf(p); sh.pu = ps.length ? 0 : -1; sh.qty = p.per!==100 ? '1' : ps.length ? '1' : String(p.g||100); }
@@ -859,8 +859,8 @@ function pickSum(sh){ const p = sh.sel; if (!p) return ''; const amt = pickAmoun
   return `${fmt(p.kcal*k)} ккал` + (p.per===100 && (sh.pu>=0 || liq) ? `<small>${sh.pu>=0?fmt(amt)+' '+UL(unitOf(p)):''}${liq?`${sh.pu>=0?' · ':''}<span class="${hyd?'hydok':''}">${hyd?'💧 идёт в воду':'в воду не идёт'}</span>`:''}</small>` : ''); }
 function pickChips(sh){
   const p = sh.sel, ps = portionsOf(p), u = unitOf(p), q = num(sh.qty);
-  if (p.per!==100) return [0.5,1,1.5,2].map(v=>`<button class="chip" data-a="fqtyset" data-v="${v}" aria-pressed="${q===v}">${fmt1(v)} порц.</button>`).join('');
-  if (sh.pu>=0) return (halfPortion(ps[sh.pu][0])?[0.5,1,1.5,2]:[1,2,3,4]).map(v=>`<button class="chip" data-a="fqtyset" data-v="${v}" aria-pressed="${q===v}">${fmt1(v)} шт</button>`).join('');
+  if (p.per!==100) return [0.5,1,2,3].map(v=>`<button class="chip" data-a="fqtyset" data-v="${v}" aria-pressed="${q===v}">${fmt1(v)} шт</button>`).join('');
+  if (sh.pu>=0){ const pl = ps[sh.pu][0]; return (halfPortion(pl)?[0.5,1,1.5,2]:[1,2,3,4]).map(v=>`<button class="chip" data-a="fqtyset" data-v="${v}" aria-pressed="${q===v}">${pl==='шт'?`${fmt1(v)} шт`:`× ${fmt1(v)}`}</button>`).join(''); }
   return (u==='ml'?[100,200,250,330,500]:[50,100,150,200,250,300]).map(v=>`<button class="chip" data-a="fqtyset" data-v="${v}" aria-pressed="${q===v}">${v} ${UL(u)}</button>`).join('');
 }
 const MEALS = [['breakfast','Завтрак'],['lunch','Обед'],['dinner','Ужин'],['snack','Перекусы']];
@@ -1010,7 +1010,7 @@ function exParts(e, kg){
   const info = exInfo(e.name), ss = (e.sets||[]).filter(x=>num(x.w)>0||num(x.r)>0), n = ss.length;
   if (!n) return {base:0, work:0};
   if (info && (info.f||'').includes('sec')){ const secs = ss.reduce((a,x)=>a+num(x.r),0); return {base:(3.8-1)*3.5*kg/1000*5*(secs/60 + restMin(e,n)), work:0}; }
-  const needW = !!info && !/bw|sec/.test(info.f||'');
+  const needW = !!info && !/bw|sec/.test(info.f||'') && !BW_OK.has(e.name);
   if (needW && !ss.some(x=>num(x.w)>0)) return {base:0, work:0};   // weighted exercise without weight → don't guess
   const min = n*0.75 + restMin(e, n);
   const rom = ROM_X[e.name] || ROM_G[e.muscle] || 0.4, bw = (BW_X[e.name] || 0)*kg;
@@ -1049,7 +1049,7 @@ const EQ = {'barbell':'штанга','dumbbell':'гантели','cable':'бло
 
 
 /* ---------- state ---------- */
-const APP_VERSION = '2.10.0';
+const APP_VERSION = '2.10.1';
 const DEFAULT_SETTINGS = {kcalGoal:2200, kcalMode:'auto', waterGoal:2500, customFoods:[], foodOverrides:{}, customEx:[], favorites:[], waterPresets:[150,250,330,500], profile:{sex:'m',age:28,height:178,weight:78,neat:1.3,goalMode:'lose',rate:500,protein:1.8,fatk:0.9,targetWeight:0}};
 const S = {
   days:{}, settings:clone(DEFAULT_SETTINGS),
@@ -1065,7 +1065,7 @@ const blankDay = () => ({food:[], water:[], gym:null});
 const getDay = k => S.days[k] || blankDay();
 const gymEmpty = g => !g || (!(g.exercises||[]).length && !(g.muscles||[]).length && !(g.note||'').trim());
 function normDay(d){ if (d && d.gym && gymEmpty(d.gym)) d.gym = null; return d; }
-const isEmptyDay = d => !(d.food&&d.food.length) && !(d.water&&d.water.length) && !d.gym && !num(d.weight) && !(d.walks&&d.walks.length);
+const isEmptyDay = d => !d || !(d.food&&d.food.length) && !(d.water&&d.water.length) && !d.gym && !num(d.weight) && !(d.walks&&d.walks.length);
 
 /* ---------- storage ----------
    Rules that keep data from "jumping back":
@@ -1119,24 +1119,55 @@ function persistDay(k, resync){
   if (!resync){ if (S.days[k]) S.days[k]._ts = Date.now(); else { const t = readJSON('forma.tomb', {}); t[k] = Date.now(); writeJSON('forma.tomb', t); } }
   if (S.days[k]) normDay(S.days[k]);
   if (S.toast && S.toast.undo && S.toast.undo.k===k && !persistDay.undoing && Date.now()-(S.toast.at||0) > 300) hideToast();
-  cacheLocal(); writeDoc('days/'+k, () => { const d = S.days[k]; return (!d || isEmptyDay(d)) ? null : d; });
+  if (!resync && S.days[k]){ const g = readJSON('forma.gone', {}); if (g[k]){ delete g[k]; writeJSON('forma.gone', g); } }
+  cacheLocal(); writeDoc('days/'+k, () => { const d = S.days[k]; if (d && !isEmptyDay(d)) return d; const g = readJSON('forma.gone', {})[k]; return g ? {_gone:true, _ts:(readJSON('forma.tomb', {})[k]||Date.now()), _del:g._del||{}} : null; });
 }
+const goneDay = C => ({food:[], water:[], gym:null, _del:C._del||{}, _ts:C._ts||0});
+function keepOrGone(k, r, next){ if (r && !isEmptyDay(r)){ next[k] = r; return; } const g = readJSON('forma.gone', {}); g[k] = {_del:(r&&r._del)||{}}; writeJSON('forma.gone', g); }
 function unionById(a, b){ const m = new Map(); (b||[]).forEach(x => m.set(x.id, x)); (a||[]).forEach(x => m.set(x.id, x)); return [...m.values()].sort((x,y)=>(x.t||0)-(y.t||0)); }
-function mergeDay(L, C){ // both edited: keep everything from both, newer wins on conflicts
-  const newer = (L._ts||0) >= (C._ts||0) ? L : C, older = newer===L ? C : L;
+/* Both devices edited the same day: keep additions from both sides, honour deletions.
+   _del = {itemId: time deleted}; an item is dropped if it was deleted after the version that still has it.
+   _wts = time the weight was last set or cleared. */
+function mergeDay(L, C){
+  const newer = (L._ts||0) >= (C._ts||0) ? L : C, older = newer===L ? C : L, nt = newer._ts||0, ot = older._ts||0;
+  const del = Object.assign({}, older._del||{}); Object.entries(newer._del||{}).forEach(([id,t]) => { del[id] = Math.max(del[id]||0, t); });
+  const alive = (x, ts) => !(del[x.id] && del[x.id] >= ts);
+  const merge = (a, b) => { const m = new Map(); (b||[]).filter(x=>alive(x, ot)).forEach(x => m.set(x.id, x)); (a||[]).filter(x=>alive(x, nt)).forEach(x => m.set(x.id, x)); return [...m.values()].sort((x,y)=>(x.t||0)-(y.t||0)); };
   const r = clone(newer);
-  r.food = unionById(newer.food, older.food); r.water = unionById(newer.water, older.water); if ((newer.walks||[]).length || (older.walks||[]).length) r.walks = unionById(newer.walks, older.walks);
-  if (!r.gym && older.gym) r.gym = clone(older.gym);
-  else if (r.gym && older.gym){ r.gym.exercises = unionById(newer.gym.exercises, older.gym.exercises).map(e=>clone(e)); r.gym.muscles = [...new Set((newer.gym.muscles||[]).concat(older.gym.muscles||[]))]; if (!r.gym.note && older.gym.note) r.gym.note = older.gym.note; }
-  if (!num(r.weight) && num(older.weight)) r.weight = older.weight;
-  r._ts = Math.max(L._ts||0, C._ts||0);
+  r.food = merge(newer.food, older.food); r.water = merge(newer.water, older.water);
+  const wk = merge(newer.walks, older.walks); if (wk.length) r.walks = wk; else delete r.walks;
+  const ng = newer.gym, og = older.gym, ex = merge(ng && ng.exercises, og && og.exercises).map(e=>clone(e));
+  if (ng || (og && ex.length)){ r.gym = clone(ng || og); r.gym.exercises = ex; if (ng && og){ r.gym.muscles = ex.length ? groupsInDay(r.gym) : [...new Set((ng.muscles||[]).concat(og.muscles||[]))]; if (!r.gym.note && og.note) r.gym.note = og.note; } }
+  else r.gym = null;
+  const wn = newer._wts||0, wo = older._wts||0;
+  if (wo > wn){ if (num(older.weight)) r.weight = older.weight; else delete r.weight; r._wts = wo; }
+  else if (!wn && !num(r.weight) && num(older.weight)) r.weight = older.weight;
+  r._del = del; r._ts = Math.max(nt, ot);
   return r;
 }
-function editDay(k, fn){ const d = clone(getDay(k)); fn(d); if (isEmptyDay(d)) delete S.days[k]; else S.days[k] = d; persistDay(k); }
+function dayIds(d){ return [].concat((d.food||[]).map(x=>x.id), (d.water||[]).map(x=>x.id), (d.walks||[]).map(x=>x.id), ((d.gym&&d.gym.exercises)||[]).map(x=>x.id)).filter(Boolean); }
+function editDay(k, fn){
+  const before = getDay(k), d = clone(before); fn(d);
+  const now = Date.now(), after = new Set(dayIds(d)), del = Object.assign({}, d._del||{});
+  dayIds(before).forEach(id => { if (!after.has(id)) del[id] = now; });
+  after.forEach(id => { delete del[id]; });
+  const lim = now - 120*864e5; Object.keys(del).forEach(id => { if (del[id] < lim) delete del[id]; });
+  if (Object.keys(del).length) d._del = del; else delete d._del;
+  if (num(before.weight) !== num(d.weight)) d._wts = now;
+  if (isEmptyDay(d)){ delete S.days[k]; const g = readJSON('forma.gone', {}); g[k] = {_del:del}; writeJSON('forma.gone', g); } else S.days[k] = d; persistDay(k); }
 /* settings: per-field stamps */
-const SET_SKIP = new Set(['_ts']);
+const SET_SKIP = new Set(['_ts','_rm','_add']);
+const LIST_KEYS = ['customFoods','customEx','favorites','favEx','achSeen'], MAP_KEYS = ['foodOverrides'];
+const itemId = x => x && typeof x==='object' ? String(x.name) : String(x);
 function stampSettings(){
   const now = Date.now(), ts = Object.assign({}, S.settings._ts||{}), base = setBase || {};
+  const rm = Object.assign({}, S.settings._rm||{}), add = Object.assign({}, S.settings._add||{});
+  const diff = (k, a, b) => { a.forEach(id => { if (!b.has(id)) rm[k+'|'+id] = now; }); b.forEach(id => { if (!a.has(id)) add[k+'|'+id] = now; }); };
+  LIST_KEYS.forEach(k => diff(k, new Set((base[k]||[]).map(itemId)), new Set((S.settings[k]||[]).map(itemId))));
+  MAP_KEYS.forEach(k => diff(k, new Set(Object.keys(base[k]||{})), new Set(Object.keys(S.settings[k]||{}))));
+  const lim = now - 120*864e5; Object.keys(rm).forEach(x => { if (rm[x] < lim){ delete rm[x]; delete add[x]; } }); Object.keys(add).forEach(x => { if (add[x] < lim && !rm[x]) delete add[x]; });
+  if (Object.keys(rm).length) S.settings._rm = rm; else delete S.settings._rm;
+  if (Object.keys(add).length) S.settings._add = add; else delete S.settings._add;
   Object.keys(Object.assign({}, base, S.settings)).forEach(k => { if (SET_SKIP.has(k)) return;
     if (k==='profile'){ const a = base.profile||{}, b = S.settings.profile||{}; Object.keys(Object.assign({}, a, b)).forEach(f => { if (stable(a[f])!==stable(b[f])) ts['profile.'+f] = now; }); }
     else if (stable(base[k])!==stable(S.settings[k])) ts[k] = now; });
@@ -1148,6 +1179,15 @@ function mergeSettings(L, C){
   Object.keys(Object.assign({}, L, C)).forEach(k => { if (SET_SKIP.has(k) || k==='profile') return; const r = pick(k, L[k], C[k], k in L, k in C); if (r.has) out[k] = clone(r.v); });
   const lp = L.profile||{}, cp = C.profile||{}; out.profile = {};
   Object.keys(Object.assign({}, lp, cp)).forEach(f => { const r = pick('profile.'+f, lp[f], cp[f], f in lp, f in cp); if (r.has) out.profile[f] = r.v; });
+  // lists & maps: keep additions from both devices, honour deletions (_rm = {"key|item": time removed})
+  const mx = (x, y) => { const o = Object.assign({}, x||{}); Object.entries(y||{}).forEach(([i,t]) => { o[i] = Math.max(o[i]||0, t); }); return o; };
+  const rm = mx(C._rm, L._rm), add = mx(C._add, L._add), alive = key => !(rm[key] && rm[key] >= (add[key]||0));
+  LIST_KEYS.forEach(k => { if (!Array.isArray(L[k]) && !Array.isArray(C[k])) return; const a = lt[k]||0, b = ct[k]||0, newer = (a > b ? L[k] : C[k]) || [], older = (a > b ? C[k] : L[k]) || [];
+    const m = new Map(); newer.forEach(x => { const id = itemId(x); if (alive(k+'|'+id)) m.set(id, x); }); older.forEach(x => { const id = itemId(x); if (!m.has(id) && alive(k+'|'+id)) m.set(id, x); });
+    out[k] = clone([...m.values()]); });
+  MAP_KEYS.forEach(k => { if (!L[k] && !C[k]) return; const a = lt[k]||0, b = ct[k]||0, newer = (a > b ? L[k] : C[k]) || {}, older = (a > b ? C[k] : L[k]) || {}, o = {};
+    Object.keys(older).forEach(id => { if (alive(k+'|'+id)) o[id] = older[id]; }); Object.keys(newer).forEach(id => { if (alive(k+'|'+id)) o[id] = newer[id]; }); out[k] = clone(o); });
+  if (Object.keys(rm).length) out._rm = rm; if (Object.keys(add).length) out._add = add;
   out._ts = ts; return out;
 }
 function persistSettings(resync){ if (!resync) stampSettings(); setBase = clone(S.settings); cacheLocal(); writeDoc('settings/main', () => S.settings); }
@@ -1168,15 +1208,15 @@ async function initDb(){
     }
     const dirty = readDirty(), tomb = readJSON('forma.tomb', {}), next = {}, push = [];
     new Set(Object.keys(cloud).concat(Object.keys(S.days))).forEach(k => {
-      const L = S.days[k], C = cloud[k], p = 'days/'+k;
-      if (pending.has(p)){ if (L) next[k] = (C && stable(C)!==stable(L) && (C._ts||0) > (L._ts||0)) ? mergeDay(L, C) : L; return; }
+      const L = S.days[k], C0 = cloud[k], p = 'days/'+k, C = C0 && C0._gone ? goneDay(C0) : C0;
+      if (pending.has(p)){ if (L){ if (C && stable(C)!==stable(L) && (C._ts||0) > (L._ts||0)) keepOrGone(k, mergeDay(L, C), next); else next[k] = L; } return; }
       if (dirty.has(p)){
-        if (L && C){ if (stable(L)===stable(C)){ next[k] = C; unmarkDirty(p); } else { next[k] = mergeDay(L, C); push.push(k); } return; }
+        if (L && C){ if (stable(L)===stable(C)){ next[k] = C; unmarkDirty(p); } else { keepOrGone(k, mergeDay(L, C), next); push.push(k); } return; }
         if (L && !C){ next[k] = L; push.push(k); return; }
-        if (!L && C){ if ((tomb[k]||0) >= (C._ts||0)){ push.push(k); return; } next[k] = C; unmarkDirty(p); return; }
+        if (!L && C){ if ((tomb[k]||0) >= (C._ts||0)){ push.push(k); return; } if (!isEmptyDay(C)) next[k] = C; unmarkDirty(p); return; }
         unmarkDirty(p); return;
       }
-      if (C) next[k] = C;
+      if (C && !isEmptyDay(C)) next[k] = C;
     });
     Object.values(next).forEach(normDay); S.days = next; S.synced = true; cacheLocal();
     push.forEach(k => persistDay(k, true));
@@ -1279,7 +1319,7 @@ function dateNav(){
   const k = S.date, food = S.tab==='food' || S.tab==='water' || S.tab==='walk';
   return `<div class="nav"><button class="arrow" data-a="dprev" aria-label="Предыдущий день">${I.left}</button>
     <div class="label"><button data-a="${food?'calopen':'dtoday'}" ${food?'aria-label="Открыть календарь"':''}>${food?`<span class="row" style="gap:6px;justify-content:center">${relLabel(k)}<span class="muted" style="display:inline-flex">${I.cal}</span></span>`:relLabel(k)}<small>${dayLabel(k)}</small></button></div>
-    <button class="arrow" data-a="dnext" aria-label="Следующий день">${I.right}</button></div>`;
+    <button class="arrow" data-a="dnext" aria-label="Следующий день" ${k>=today()?'disabled':''}>${I.right}</button></div>`;
 }
 function macroGoals(){ return macroTargets(S.date); }
 function foodTotals(d){ return d.food.reduce((a,e)=>({kcal:a.kcal+e.kcal,p:a.p+e.p,f:a.f+e.f,c:a.c+e.c}),{kcal:0,p:0,f:0,c:0}); }
@@ -1343,8 +1383,9 @@ function sparkline(vals, w, h){
 }
 function weightTrend(days){
   const es = weightEntries(); if (!es.length) return null;
-  const last = es[es.length-1], from = addDays(today(), -days);
-  const old = es.filter(e=>e.k<=from).pop(); if (!old) return null;
+  const last = es[es.length-1], t = today(); if (last.k < addDays(t, -Math.max(3, Math.round(days/3)))) return null;
+  const from = addDays(t, -days), lo = addDays(t, -Math.round(days*1.5));
+  const old = es.filter(e=>e.k<=from && e.k>=lo).pop(); if (!old) return null;
   return old.k===last.k ? null : last.kg - old.kg;
 }
 function viewHome(){
@@ -1427,7 +1468,7 @@ function viewWater(){
     <div class="chips" style="gap:6px 12px;font-size:13px">${Object.entries(byType).map(([t,ml])=>`<span class="row" style="gap:6px">${drinkOf(t)[3]} ${drinkOf(t)[1]} <b class="num">${fmt(ml)}</b></span>`).join('')}</div>`:''}
   </section>`;
   html += `<section class="card"><h2>Что пьёшь</h2><div class="dgrid">${DRINKS.map(([id,n,c,ic])=>`<button class="dtile" data-a="drink" data-id="${id}" aria-pressed="${S.drink===id}" style="--dc:${c}"><span class="dic">${ic}</span><span>${n}</span></button>`).join('')}</div>
-    <div class="vols" style="grid-template-columns:repeat(${Math.min(4,(S.settings.waterPresets||[]).length)},1fr)">${(S.settings.waterPresets||[150,250,330,500]).map(v=>`<button class="vol" data-a="addwater" data-ml="${v}" aria-label="Добавить ${v} мл, ${volName(v)}">${volIcon(v)}<span class="num">+${v}</span></button>`).join('')}</div>
+    <div class="vols" style="grid-template-columns:repeat(${(n => n===5||n===6 ? 3 : Math.min(4,n))((S.settings.waterPresets||[]).length)},1fr)">${(S.settings.waterPresets||[150,250,330,500]).map(v=>`<button class="vol" data-a="addwater" data-ml="${v}" aria-label="Добавить ${v} мл, ${volName(v)}">${volIcon(v)}<span class="num">+${v}</span></button>`).join('')}</div>
     <button class="linkbtn" style="margin-top:6px" data-a="wpopen">${I.pen} Настроить кнопки</button>
     <div class="custom"><input class="field num" id="wml" type="text" inputmode="numeric" min="1" placeholder="Свой объём, мл"><button class="btn" data-a="addwatercustom">Добавить</button></div></section>`;
   // week bars
@@ -1517,13 +1558,13 @@ function progBars(items, unit, f){
   const top = Math.max(...items.map(x=>x.v), 0.1), step = niceStep(top/3), hi = Math.ceil(top/step)*step || 1;
   const pw = (W-L-R)/n, bw = Math.max(2, pw*0.62), y = v => T + (H-T-B)*(1-v/hi);
   let g = '';
-  for (let v=0; v<=hi+1e-9; v+=step) g += `<line class="grid" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="axis" x="${L-6}" y="${y(v)+3}" text-anchor="end">${fmt1(v)}</text>`;
+  for (let v=0; v<=hi+1e-9; v+=step) g += `<line class="grid" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="axis" x="${L-6}" y="${y(v)+3}" text-anchor="end">${v>=10000?fmtK(v):fmt1(v)}</text>`;
   const bars = items.map((it,i)=>{ const x0 = L+i*pw+(pw-bw)/2, last = i===n-1;
     let out = `<text class="axis" x="${L+i*pw+pw/2}" y="${H-6}" text-anchor="middle">${it.lab}</text>`;
     if (it.v>0){ const tp = y(it.v), r = Math.min(4, bw/2, (H-B)-tp); out += `<path class="bar ${last?'':'soft'}" d="M${x0} ${H-B} V${tp+r} Q${x0} ${tp} ${x0+r} ${tp} H${x0+bw-r} Q${x0+bw} ${tp} ${x0+bw} ${tp+r} V${H-B} Z"><title>${it.tip}: ${f(it.v)} ${unit}</title></path>`;
-      if (n<=8) out += `<text class="axis" x="${x0+bw/2}" y="${tp-5}" text-anchor="middle">${f(it.v)}</text>`; }
+      if (n<=8) out += `<text class="axis" x="${x0+bw/2}" y="${tp-5}" text-anchor="middle">${it.v>=10000?fmtK(it.v):f(it.v)}</text>`; }
     return out; }).join('');
-  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Кардио, ${unit}" style="margin-top:8px">${g}${bars}<line class="base" x1="${L}" x2="${W-R}" y1="${H-B}" y2="${H-B}"/></svg>`;
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="График, ${unit}" style="margin-top:8px">${g}${bars}<line class="base" x1="${L}" x2="${W-R}" y1="${H-B}" y2="${H-B}"/></svg>`;
 }
 function progStrength(name, kind){
   const pts = [];
@@ -1628,12 +1669,14 @@ const MEAL_ICON = {
   dinner:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>',
   snack:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7c-2-2-7-1.5-7 4 0 4 3 9 5 9 1 0 1.3-.6 2-.6s1 .6 2 .6c2 0 5-5 5-9 0-5.5-5-6-7-4z"/><path d="M12 7c0-2 1-3.5 3-4"/></svg>'
 };
-function foodKey(e){ return e.meal + '|' + e.name + '|' + (e.grams ? 'g' : 'p'); }
+function foodKey(e){ return e.meal + '|' + e.name + '|' + (e.grams ? 'g' : 'p' + Math.round(num(e.kcal)/(num(e.qty)||1))); }
 function combine(list){
   const r1 = x => Math.round(x*10)/10, a = list[0];
   const out = {id:a.id, name:a.name, meal:a.meal, grams:null, qty:null, kcal:0, p:0, f:0, c:0, t:Math.min(...list.map(x=>x.t||Date.now())), ids:list.map(x=>x.id)};
   list.forEach(x => { out.kcal += x.kcal; out.p += x.p; out.f += x.f; out.c += x.c; if (x.grams) out.grams = (out.grams||0) + num(x.grams); else out.qty = (out.qty||0) + (x.qty ? num(x.qty) : 1); });
   if (list.some(x=>x.u==='ml')) out.u = 'ml';
+  if (a.hyd !== undefined) out.hyd = a.hyd;
+  if (!out.grams && a.pl) out.pl = a.pl;
   if (out.grams && list.every(x=>x.pcs && x.pl===a.pl)){ out.pcs = list.reduce((s,x)=>s+num(x.pcs),0); out.pl = a.pl; }
   out.kcal = Math.round(out.kcal); out.p = r1(out.p); out.f = r1(out.f); out.c = r1(out.c);
   return out;
@@ -1641,13 +1684,13 @@ function combine(list){
 function groupFood(items){ const m = new Map(); items.forEach(e => { const k = foodKey(e); if (!m.has(k)) m.set(k, []); m.get(k).push(e); }); return [...m.values()].map(combine); }
 function mergeFood(d){ d.food = groupFood(d.food).map(x => { const y = Object.assign({}, x); delete y.ids; return y; }); }
 function feBase(e){ return e.pcs && e.pl ? num(e.pcs) : e.grams ? e.grams : (e.qty||1); }
-function feUnit(e){ return e.pcs && e.pl ? 'шт' : e.grams ? UL(unitOf(e)) : 'порц.'; }
+function feUnit(e){ return e.pcs && e.pl ? (e.pl==='шт'?'шт':'×') : e.grams ? UL(unitOf(e)) : 'порц.'; }
 function sheetFoodEdit(){
   const sh = S.sheet, e = sh.entry, byG = !!e.grams, base = feBase(e), q = num(sh.qty), k = base ? q/base : 0;
   const mealName = (MEALS.find(m=>m[0]===sh.meal)||MEALS[0])[1];
   const b = `<div class="seg" role="group" aria-label="Приём пищи">${MEALS.map(([id,n])=>`<button data-a="femeal" data-id="${id}" aria-pressed="${sh.meal===id}">${n}</button>`).join('')}</div>
     <div class="pick"><b class="row" style="gap:10px">${fi(e.name,'lg')}${esc(e.name)}</b>
-      <div class="f">${e.pcs&&e.pl?(e.pl==='шт'?'Сколько штук':`Сколько (${esc(e.pl)})`):byG?(unitOf(e)==='ml'?'Сколько миллилитров':'Сколько грамм'):'Сколько порций'}${nstep('feqty', sh.qty, e.pcs&&e.pl?1:byG?(unitOf(e)==='ml'?50:10):0.5, feUnit(e), 'data-a="feqty"')}</div>
+      <div class="f">${e.pcs&&e.pl?(e.pl==='шт'?'Сколько штук':`Сколько (${esc(e.pl)})`):byG?(unitOf(e)==='ml'?'Сколько миллилитров':'Сколько грамм'):'Сколько порций'}${nstep('feqty', sh.qty, e.pcs&&e.pl?(halfPortion(e.pl)?0.5:1):byG?(unitOf(e)==='ml'?50:10):0.5, feUnit(e), 'data-a="feqty"')}</div>
       <div class="hint num" id="femac">${fmt(e.kcal*k)} ккал · Б ${fmt1(e.p*k)} · Ж ${fmt1(e.f*k)} · У ${fmt1(e.c*k)}</div>
       <div class="hint">Было: ${esc(amountTxt(e)||fmt1(base)+' порц.')} · ${fmt(e.kcal)} ккал</div>
       <button class="btn big" data-a="fesave">Сохранить в «${mealName}»</button>
@@ -1677,26 +1720,26 @@ function sheetFood(){
       <div class="hint">Цифры бери с упаковки. Белки, жиры и углеводы можно не заполнять.${np.per===100?' Если укажешь вес штуки, продукт можно будет добавлять поштучно.':''}</div>
       <div class="row" style="flex-wrap:wrap;gap:8px"><button class="btn ghost" style="flex:1 1 140px" data-a="npsave">${np.editing?'Сохранить':'Сохранить'}</button><button class="btn" style="flex:1 1 180px" data-a="npsaveadd">Сохранить и съесть</button></div>
       ${np.editing?`<button class="btn ghost" data-a="npcancel">Отменить изменение</button>`:''}</div>`;
-    b += mine.length ? `<div class="sec-t">Сохранённые · ${mine.length}</div><ul class="myp">${mine.map((p,i)=>`<li><button data-a="fsel" data-i="${i}"><span class="row" style="gap:8px">${fi(p.name,'sm')}${esc(p.name)}</span><small class="num">${fmt(p.kcal)} ккал / ${p.per===100?'100 '+UL(unitOf(p)):'порция'}${portionsOf(p).length?` · 1 шт ≈ ${fmt(portionsOf(p)[0][1])} ${UL(unitOf(p))}`:''} · Б ${fmt1(p.p)} · Ж ${fmt1(p.f)} · У ${fmt1(p.c)}</small></button><button class="del" data-a="npedit" data-i="${i}" aria-label="Изменить"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button><button class="del" data-a="npdel" data-i="${i}" aria-label="Удалить">${I.x}</button></li>`).join('')}</ul>` : `<div class="hint" style="padding:0 4px">Здесь будут твои продукты — они также появятся в поиске.</div>`;
+    b += mine.length ? `<div class="sec-t">Сохранённые · ${mine.length}</div><ul class="myp">${mine.map((p,i)=>`<li><button data-a="fsel" data-i="${i}"><span class="row" style="gap:8px">${fi(p.name,'sm')}${esc(p.name)}</span><small class="num">${fmt(p.kcal)} ккал / ${p.per===100?'100 '+UL(unitOf(p)):'1 шт'}${portionsOf(p).length?` · 1 шт ≈ ${fmt(portionsOf(p)[0][1])} ${UL(unitOf(p))}`:''} · Б ${fmt1(p.p)} · Ж ${fmt1(p.f)} · У ${fmt1(p.c)}</small></button><button class="del" data-a="npedit" data-i="${i}" aria-label="Изменить"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button><button class="del" data-a="npdel" data-i="${i}" aria-label="Удалить">${I.x}</button></li>`).join('')}</ul>` : `<div class="hint" style="padding:0 4px">Здесь будут твои продукты — они также появятся в поиске.</div>`;
   } else if (sh.mode==='search'){
     if (sh.sel){
       const p = sh.sel, per100 = p.per===100;
       const isCustom = (S.settings.customFoods||[]).some(x=>x.name===p.name);
       const hasOv = !isCustom && (S.settings.foodOverrides||{})[p.name];
       b += `<div class="pick"><div class="row between"><b class="row" style="gap:10px">${fi(p.name,'lg')}${esc(p.name)}${p.edited?' <small class="muted" style="font-weight:600">· изменён</small>':''}</b><div class="row" style="gap:2px"><button class="del fav ${favs().includes(p.name)?'on':''}" data-a="ffav" aria-label="${favs().includes(p.name)?'Убрать из избранного':'В избранное'}" aria-pressed="${favs().includes(p.name)}">${HEARTI(favs().includes(p.name))}</button><button class="del" data-a="emopen" aria-label="Изменить продукт" aria-pressed="${!!sh.em}">${I.pen}</button><button class="del" data-a="fclear" aria-label="Выбрать другой продукт">${I.x}</button></div></div>
-        <div class="hint">${per100?'На 100 '+UL(unitOf(p)):'На порцию'}: ${fmt(p.kcal)} ккал · Б ${fmt1(p.p)} · Ж ${fmt1(p.f)} · У ${fmt1(p.c)}</div>
+        <div class="hint">${per100?'На 100 '+UL(unitOf(p)):'На 1 шт'}: ${fmt(p.kcal)} ккал · Б ${fmt1(p.p)} · Ж ${fmt1(p.f)} · У ${fmt1(p.c)}</div>
         ${sh.em?`<div class="em"><label class="f">Название<input class="field" id="emn" data-a="em" data-f="name" value="${esc(sh.em.name)}" autocomplete="off" placeholder="Например: Протеин Optimum, шоколад"></label>
           <div class="hint" style="color:var(--ink);font-weight:700">БЖУ ${per100?'на 100 '+UL(unitOf(p)):'на порцию'} — как на упаковке</div>
           <div class="grid4"><label class="f">Белки<input class="field num" id="emp" type="text" inputmode="decimal" min="0" step="0.1" data-a="em" data-f="p" value="${esc(sh.em.p)}"></label>
           <label class="f">Жиры<input class="field num" id="emf" type="text" inputmode="decimal" min="0" step="0.1" data-a="em" data-f="f" value="${esc(sh.em.f)}"></label>
           <label class="f">Углев.<input class="field num" id="emc" type="text" inputmode="decimal" min="0" step="0.1" data-a="em" data-f="c" value="${esc(sh.em.c)}"></label>
-          <div class="f">Ккал<b class="num" id="emk" style="font-size:18px;color:var(--ink);padding-top:9px">${fmt(emKcal(sh.em))}</b></div></div>
+          <div class="f">Ккал<b class="num" id="emk" style="font-size:18px;color:var(--ink);padding-top:9px">${fmt(emKcalFor(sh.sel, sh.em))}</b></div></div>
           <div class="hint">Калории пересчитываются из БЖУ (белки и углеводы по 4, жиры по 9 ккал на грамм).</div>
           <div class="emact"><button class="btn" data-a="emsave" id="emsave" ${emState(p,sh.em,isCustom).save?'':'disabled'}>${isCustom?'Сохранить изменения':'Изменить этот продукт'}</button><button class="btn ghost" data-a="emnew" id="emnew" ${emState(p,sh.em,isCustom).neu?'':'disabled'}>${I.plus} Сохранить как новый</button></div>
           <div class="hint" id="emhint" style="margin:0">${emHint(p, sh.em, isCustom)}</div>
           <div class="row" style="flex-wrap:wrap;gap:8px">${hasOv?`<button class="btn ghost" style="flex:1 1 140px" data-a="emreset">Вернуть стандартные</button>`:''}<button class="btn ghost" style="flex:1 1 auto" data-a="emclose">Отмена</button></div></div>`:''}
         ${per100 && portionsOf(p).length ? `<div class="seg ucho" role="group" aria-label="Как считать" style="grid-template-columns:repeat(${portionsOf(p).length+1<=3?portionsOf(p).length+1:2},1fr)">${portionsOf(p).map(([l,a],i)=>`<button data-a="fpu" data-i="${i}" aria-pressed="${sh.pu===i}">${esc(l)}<small>${fmt(a)} ${UL(unitOf(p))}</small></button>`).join('')}<button data-a="fpu" data-i="-1" aria-pressed="${sh.pu<0}">${unitOf(p)==='ml'?'в мл':'в граммах'}<small>точно</small></button></div>` : ''}
-        <div class="qrow"><div class="f" style="flex:1 1 190px">${!per100?'Сколько порций':sh.pu>=0?(portionsOf(p)[sh.pu][0]==='шт'?'Сколько штук':`Сколько: ${esc(portionsOf(p)[sh.pu][0])}`):unitOf(p)==='ml'?'Сколько миллилитров':'Сколько грамм'}${nstep('fqty', sh.qty, !per100?0.5:sh.pu>=0?(halfPortion(portionsOf(p)[sh.pu][0])?0.5:1):unitOf(p)==='ml'?50:10, !per100?'порц.':sh.pu>=0?'шт':UL(unitOf(p)), 'data-a="fqty"')}</div>
+        <div class="qrow"><div class="f" style="flex:1 1 190px">${!per100?'Сколько штук':sh.pu>=0?(portionsOf(p)[sh.pu][0]==='шт'?'Сколько штук':`Сколько: ${esc(portionsOf(p)[sh.pu][0])}`):unitOf(p)==='ml'?'Сколько миллилитров':'Сколько грамм'}${nstep('fqty', sh.qty, !per100?0.5:sh.pu>=0?(halfPortion(portionsOf(p)[sh.pu][0])?0.5:1):unitOf(p)==='ml'?50:10, !per100?'шт':sh.pu>=0?(portionsOf(p)[sh.pu][0]==='шт'?'шт':'×'):UL(unitOf(p)), 'data-a="fqty"')}</div>
         <div class="sum"><span class="hint">Итого</span><b class="num" id="fsum">${pickSum(sh)}</b></div></div>
         <div class="chips" id="fchips">${pickChips(sh)}</div>
         <button class="btn" data-a="fadd">Добавить в «${mealName}»</button></div>`;
@@ -1734,6 +1777,8 @@ function frequentFoods(all){
   Object.keys(S.days).filter(k=>k>=from).forEach(k => new Set((S.days[k].food||[]).map(e=>e.name)).forEach(n => cnt[n] = (cnt[n]||0)+1));
   return Object.entries(cnt).filter(([n,c])=>c>=2).sort((a,b)=>b[1]-a[1]).map(([n,c])=>({p:all.find(x=>x.name===n), c})).filter(x=>x.p).slice(0,12);
 }
+const normS = t => String(t||'').toLowerCase().replace(/ё/g,'е').replace(/\s+/g,' ').trim();
+function matchQ(name, q){ const n = normS(name), ws = normS(q).split(' ').filter(Boolean); return ws.length && ws.every(w => n.includes(w)); }
 function foodResults(){
   const sh = S.sheet, q = sh.q.trim().toLowerCase();
   const custom = (S.settings.customFoods||[]).map(p=>Object.assign({custom:true},p));
@@ -1753,7 +1798,7 @@ function foodResults(){
     const list = cat==='Мои продукты' ? custom : baseFoods().filter(p=>p.cat===cat);
     html += `<div class="sec-t" style="margin-top:12px">Вся база · ${FOODS.length} продуктов</div><div class="catrow" role="group" aria-label="Категории">${cats.map(c=>`<button class="chip" data-a="fcat" data-c="${esc(c)}" aria-pressed="${c===cat}">${esc(c)}</button>`).join('')}</div><ul class="results">${list.map(p=>resRow(p)).join('')}</ul>`;
   } else {
-    const res = all.filter(p=>p.name.toLowerCase().includes(q)).sort((a,b)=>((b.name.toLowerCase().startsWith(q)?1:0)-(a.name.toLowerCase().startsWith(q)?1:0)) || (a.name.length-b.name.length));
+    const nq = normS(q), res = all.filter(p=>matchQ(p.name, q)).sort((a,b)=>((normS(b.name).startsWith(nq)?1:0)-(normS(a.name).startsWith(nq)?1:0)) || (a.name.length-b.name.length));
     html += res.length ? `<ul class="results">${res.slice(0,60).map(p=>resRow(p)).join('')}</ul>` : '';
     html += `<div class="hint" style="display:flex;flex-direction:column;gap:10px;align-items:flex-start;margin-top:10px">${res.length?'Нет нужного?':`Не нашёл «${esc(sh.q)}».`}<button class="btn" data-a="npfromq">Создать продукт «${esc(sh.q.trim())}»</button></div>`;
   }
@@ -1761,17 +1806,25 @@ function foodResults(){
 }
 function resRow(p, note){
   const i = allFoods().findIndex(x=>x.name===p.name);
-  return `<li><button data-a="fsel" data-i="${i}"><span class="row" style="gap:10px;min-width:0">${fi(p.name,'sm')}<span>${esc(p.name)}${p.custom?' <small>· мой</small>':''}${p.edited?' <small>· изменён</small>':''}${favs().includes(p.name)?' <small class="star-s">'+HEARTI(true)+'</small>':''}${note?`<br><small>${note}</small>`:''}</span></span><small class="num" style="flex:none;text-align:right">${fmt(p.kcal)} ккал / ${p.per===100?'100 '+UL(unitOf(p)):'порция'}${portionsOf(p).length?`<br><span class="muted">${esc(portionsOf(p)[0][0])} ≈ ${fmt(portionsOf(p)[0][1])} ${UL(unitOf(p))}</span>`:''}</small></button></li>`;
+  return `<li><button data-a="fsel" data-i="${i}"><span class="row" style="gap:10px;min-width:0">${fi(p.name,'sm')}<span>${esc(p.name)}${p.custom?' <small>· мой</small>':''}${p.edited?' <small>· изменён</small>':''}${favs().includes(p.name)?' <small class="star-s">'+HEARTI(true)+'</small>':''}${note?`<br><small>${note}</small>`:''}</span></span><small class="num" style="flex:none;text-align:right">${fmt(p.kcal)} ккал / ${p.per===100?'100 '+UL(unitOf(p)):'1 шт'}${portionsOf(p).length?`<br><span class="muted">${esc(portionsOf(p)[0][0])} ≈ ${fmt(portionsOf(p)[0][1])} ${UL(unitOf(p))}</span>`:''}</small></button></li>`;
 }
 
 function emKcal(em){ return num(em.p)*4 + num(em.f)*9 + num(em.c)*4; }
+/* new calories = old calories + change from edited macros (so alcohol/fibre calories of the original aren't lost) */
+function emKcalFor(p, em){ const r1 = x => Math.round(num(x)*10)/10; if (r1(em.p)===r1(p.p) && r1(em.f)===r1(p.f) && r1(em.c)===r1(p.c)) return num(p.kcal); return Math.max(0, num(p.kcal) + emKcal(em) - emKcal(p)); }
 function dayKcal(k){ const d = S.days[k]; return d && d.food && d.food.length ? d.food.reduce((a,e)=>a+e.kcal,0) : null; }
 /* drinks logged in «Еда» also count toward the water goal (computed, not copied — edits/deletes stay in sync).
    Alcohol, soups, sauces and oils don't count. */
 const HYD = {'Энергетик':'soda','Энергетик без сахара':'soda','Кола':'soda','Кола без сахара':'soda','Квас':'other','Сок апельсиновый':'juice','Сок яблочный':'juice','Смузи фруктовый':'juice','Морс':'compote','Компот':'compote',
   'Молоко 1,5%':'milk','Молоко 2,5%':'milk','Молоко 3,2%':'milk','Кефир 1%':'milk','Кефир 2,5%':'milk','Ряженка 4%':'milk','Молоко растительное (овсяное)':'milk','Протеиновый коктейль на молоке':'milk',
   'Кофе с молоком без сахара':'coffee','Капучино':'coffee','Латте':'coffee','Раф':'coffee','Какао на молоке':'coffee','Чай с сахаром':'tea'};
-function hydType(e){ if (HYD[e.name]) return HYD[e.name]; const cf = (S.settings.customFoods||[]).find(x=>x.name===e.name); return cf && cf.u==='ml' && !/пиво|вино|водк|коньяк|виски|ром\b|джин|сидр|ликёр|ликер|шампан/i.test(e.name) ? 'other' : null; }
+const ALC_RE = /пив|вин[оа]|водк|коньяк|виски|(^|[^а-яё])ром([^а-яё]|$)|джин|сидр|ликёр|ликер|шампан|текил|бренди|настойк|сангри|глинтвейн|мартини|эль([^а-яё]|$)|лагер|стаут|портвейн|абсент|самбук|граппа|ракия|чача|саке|медовух|коктейль алког/i;
+function hydType(e){
+  if (e.hyd !== undefined) return e.hyd || null;                       // stored on the entry / custom product
+  if (HYD[e.name]) return HYD[e.name];
+  const cf = (S.settings.customFoods||[]).find(x=>x.name===e.name);
+  if (cf && cf.hyd !== undefined) return cf.hyd || null;
+  const src = cf || e; return src && unitOf(src)==='ml' && !ALC_RE.test(e.name) ? 'other' : null; }
 function foodDrinks(d){ return (d && d.food || []).filter(e => num(e.grams)>0 && unitOf(e)==='ml' && hydType(e)).map(e => ({id:'f:'+e.id, type:hydType(e), ml:Math.round(num(e.grams)), t:e.t||0, food:true, name:e.name})); }
 function dayWater(k){ const d = S.days[k]; return d ? (d.water||[]).concat(foodDrinks(d)) : []; }
 function dayMl(k){ const w = dayWater(k); return w.length ? w.reduce((a,e)=>a+e.ml,0) : null; }
@@ -1876,6 +1929,7 @@ function barChart(range, mode){
 const EXMAP = new Map(); CATALOG.forEach(x=>EXMAP.set(x.n,x));
 function exInfo(name){ return EXMAP.get(name) || null; }
 /* dumbbells: weight is entered per dumbbell; how many are in use (1 or 2) multiplies the load */
+const BW_OK = new Set(['Выпады','Болгарские сплит-приседания','Ягодичный мостик','Подъём на носки стоя']);   // fine without extra weight
 const DB_ONE = new Set(['Тяга гантели одной рукой','Концентрированный подъём']);
 function isDb(name){ const i = exInfo(name); return i ? i.eq==='dumbbell' : /гантел/i.test(name||''); }
 const dbMul = e => (e && isDb(e.name) && num(e.dbn)===2) ? 2 : 1;   // old entries without the setting keep their numbers
@@ -2014,12 +2068,17 @@ function sheetAch(){
 const ACH_F1 = new Set(['ton','cardio','path','wdrop']);
 function achNum(a, v){ if (a.id==='ton') return fmt1(Math.round(v/100)/10); return ACH_F1.has(a.id) ? fmt1(Math.round(v*10)/10) : fmt(v); }
 function tw0txt(a){ const tw = num(prof().targetWeight), es = weightEntries(); if (!tw || !es.length) return 'Поставь желаемый вес в настройках и записывай вес'; const cur = es[es.length-1].kg; return `Пройдено ${Math.round(a.v*100)} % пути · осталось ${fmt1(Math.abs(cur-tw))} кг`; }
-function achInit(){ if (!Array.isArray(S.settings.achSeen) && Object.keys(S.days).length){ const now = []; achievements().forEach(a => { for (let i=0;i<a.level;i++) now.push(a.id+':'+(i+1)); }); S.settings.achSeen = now; persistSettings(); } }
+let achReady = false;
+function achInit(){
+  if (db && !S.synced){ setTimeout(() => { try{ achInit(); }catch(e){} }, 2000); return; }   // wait for cloud: it may already know what was announced
+  achReady = true;
+  if (!Array.isArray(S.settings.achSeen)){ const now = []; if (Object.keys(S.days).length) achievements().forEach(a => { for (let i=0;i<a.level;i++) now.push(a.id+':'+(i+1)); }); S.settings.achSeen = now; persistSettings(); } }
 function achCheck(){
   if (!Object.keys(S.days).length) return;
   const list = achievements(), now = []; list.forEach(a => { for (let i=0;i<a.level;i++) now.push(a.id+':'+(i+1)); });
-  const seen = S.settings.achSeen;
-  if (!Array.isArray(seen)){ S.settings.achSeen = now; persistSettings(); return; }   // not initialised yet: don't flood with old ones
+  if (S.toast && S.toast.undo && Date.now()-(S.toast.at||0) < 4500){ setTimeout(() => { try{ achCheck(); }catch(e){} }, 4600-(Date.now()-(S.toast.at||0))); return; }   // don't kill «Отменить»
+  const seen = Array.isArray(S.settings.achSeen) ? S.settings.achSeen : achReady ? [] : null;
+  if (!seen){ S.settings.achSeen = now; persistSettings(); return; }   // not initialised yet: don't flood with old ones
   const fresh = now.filter(x=>!seen.includes(x)); if (!fresh.length) return;
   S.settings.achSeen = seen.concat(fresh); persistSettings();
   const [id, lv] = fresh[fresh.length-1].split(':'), a = list.find(x=>x.id===id);
@@ -2129,8 +2188,8 @@ function exRow(x, done, key){
 }
 function gSearch(q){
   q = q.trim().toLowerCase(); if (!q) return '';
-  const ru = CATALOG.filter(x=>x.n.toLowerCase().includes(q));
-  const custom = (S.settings.customEx||[]).filter(c=>c.name.toLowerCase().includes(q));
+  const ru = CATALOG.filter(x=>matchQ(x.n, q));
+  const custom = (S.settings.customEx||[]).filter(c=>matchQ(c.name, q));
   const g = getDay(S.sheet.key).gym, done = new Set(((g&&g.exercises)||[]).map(e=>e.name));
   let h = '';
   if (ru.length || custom.length) h += `<ul class="exlist" style="margin-top:8px">${ru.map(x=>exRow({n:x.n,g:x.g,pm:x.pm,sm:x.sm,img:x.img,eq:x.eq}, done, S.sheet.key)).join('')}${custom.map(c=>`<li><button data-a="gpickex" data-n="${esc(c.name)}" data-g="${esc(c.muscle)}"><span class="ex-t"><b>${esc(c.name)}</b><small>моё · ${esc(c.muscle)}</small></span><span class="chev">${I.right}</span></button></li>`).join('')}</ul>`;
@@ -2155,6 +2214,9 @@ function progressTip(name, key){
 }
 // unsaved edits survive going back / closing / reloading until saved
 let DRAFTS = {}; try{ DRAFTS = JSON.parse(localStorage.getItem('forma.drafts')||'{}') || {}; }catch(e){}
+let draftT = null; function queueDrafts(){ clearTimeout(draftT); draftT = setTimeout(saveDrafts, 300); }
+window.addEventListener('pagehide', () => { try{ saveDrafts(); }catch(e){} });
+document.addEventListener('visibilitychange', () => { if (document.visibilityState==='hidden'){ try{ saveDrafts(); }catch(e){} } });
 function saveDrafts(){ try{ const lim = addDays(today(),-1); Object.keys(DRAFTS).forEach(k=>{ if (k.slice(0,10) < lim) delete DRAFTS[k]; }); localStorage.setItem('forma.drafts', JSON.stringify(DRAFTS)); }catch(e){} }
 function dropDraft(key, name, id){ delete DRAFTS[key+'|'+name]; if (id) delete DRAFTS[key+'|id:'+id]; saveDrafts(); }
 function newForm(name, group, ei){
@@ -2247,24 +2309,25 @@ function gymDetailStep(){
 function segHas(x){ return Object.entries(x).some(([k,v])=>k!=='rails' && num(v)>0); }
 function cardioTotal(f){
   const segs = f.cs.filter(segHas); if (f.cs.length<2) return '';
-  const e = {name:f.name, muscle:'Кардио', sets:segs}, kc = exKcal(e), sum = cardioParts(e).filter(p=>['seg','min','km','m','fl','jumps'].includes(p[0])).map(p=>p[1]).join(' · ');
+  const e = {name:f.name, muscle:'Кардио', sets:segs}, kc = exKcal(e, formKg()), sum = cardioParts(e).filter(p=>['seg','min','km','m','fl','jumps'].includes(p[0])).map(p=>p[1]).join(' · ');
   return segs.length ? `<div class="ctot"><span>Итого</span><b class="num">${esc(sum)}${kc?` · ≈ ${fmt(kc)} ккал`:''}</b></div>` : '';
 }
 function cardioCalc(f, si){
   if (si===undefined) si = 0;
-  const kg = bodyKg(), x = f.cs[si]||{}, parts = [];
+  const kg = formKg(), x = f.cs[si]||{}, parts = [];
   if (f.cs.length>1){ const kc = netCardio(f.name, x, kg); const km = f.name==='Беговая дорожка' && num(x.spd) && setMin(x) ? `≈ ${fmt1(Math.round(tmKm(x)*100)/100)} км · ` : ''; return setMin(x) ? `<span class="muted">${km}≈ <b class="num">${fmt(kc)} ккал</b></span>` : '<span class="hint">Заполни время отрезка</span>'; }
   if (f.name==='Беговая дорожка' && num(x.spd) && setMin(x)) parts.push(`Дистанция <b class="num">≈ ${fmt1(Math.round(tmKm(x)*100)/100)} км</b>`);
   const gross = setKcal(f.name, x, kg), kc = netCardio(f.name, x, kg); if (gross) parts.push(`Сожжено <b class="num">≈ ${fmt(kc)} ккал</b>`);
   return parts.length ? parts.join(' · ') + `<div class="hint">Чистый расход сверх покоя: всего ≈ ${fmt(gross)} ккал минус ≈ ${fmt(3.5*kg/1000*5*setMin(x))} ккал обмена веществ за это время${x.rails&&RAILS.includes(f.name)?', минус 20% за поручни':''}. Вес ${fmt1(kg)} кг${num(x.hr)>=80?', считаю по пульсу (формула Keytel)':f.name==='Беговая дорожка'?', таблица нагрузок Compendium по скорости + ACSM для наклона':f.name==='Гребной тренажёр'&&num(x.m)?', мощность по темпу (формула Concept2)':''}.</div>` : '<span class="hint">Заполни время' + (f.name==='Беговая дорожка'?' и скорость':'') + ' — посчитаю дистанцию и калории.</span>';
 }
 function formSets(f){ return f.per ? f.sets.map(s=>({w:s.w, r:s.r})) : Array.from({length:Math.max(1,Math.round(num(f.n)))}, ()=>({w:f.w, r:f.r})); }
-function needsWeight(f){ if (f.cardio) return false; const info = exInfo(f.name); if (!info) return false; return !/bw|sec/.test(info.f||''); }
+function needsWeight(f){ if (f.cardio) return false; const info = exInfo(f.name); if (!info) return false; return !/bw|sec/.test(info.f||'') && !BW_OK.has(f.name); }
 function saveHint(f){ const ss = formSets(f); return !ss.some(x=>num(x.r)>0) ? 'Укажи повторения, чтобы сохранить' : 'Укажи вес, чтобы сохранить'; }
 function formCanSave(f){ if (f.cardio) return true; const ss = formSets(f); if (!ss.some(x=>num(x.r)>0)) return false; return !needsWeight(f) || ss.every(x=>num(x.w)>0); }
 function syncCardio(){ const f = S.sheet && S.sheet.form; if (!f || !f.cs) return; f.cs.forEach((_,i)=>{ const c = $('#gcalc-'+i); if (c) c.innerHTML = cardioCalc(f, i); }); const t = $('#gctot'); if (t) t.innerHTML = cardioTotal(f); }
 function syncSave(){ const f = S.sheet && S.sheet.form, bt = $('[data-a="gsave"]'); if (!f || !bt) return; const ok = formCanSave(f); bt.disabled = !ok; const h = $('#gneedw'); if (h) h.style.display = ok ? 'none' : ''; else if (!ok && !f.cardio){ bt.insertAdjacentHTML('afterend','<div class="hint" id="gneedw" style="text-align:center;margin-top:-4px"></div>'); } const h2 = $('#gneedw'); if (h2 && !ok) h2.textContent = saveHint(f); }
-function formTotal(f){ const ss = formSets(f); const t = ss.reduce((a,s)=>a+num(s.w)*num(s.r),0); const kc = exKcal({name:f.name, muscle:f.g, sets:ss, rests:f.rests, dbn:f.dbn}); return `${ss.length} ${plural(ss.length,'подход','подхода','подходов')}` + (kc?` · сожжено <b class="num">≈ ${fmt(kc)} ккал</b>`:'') + (kc&&!f.cardio?`<div class="hint">Чистый расход сверх покоя: подходы (≈ 2¼ мин на подход с отдыхом) плюс работа — вес × повторы × амплитуда. Больше вес — больше ккал. Таймер отдыха на калории не влияет.</div>`:''); }
+function formKg(){ return S.sheet && S.sheet.key ? weightOn(S.sheet.key) : bodyKg(); }
+function formTotal(f){ const ss = formSets(f); const kc = exKcal({name:f.name, muscle:f.g, sets:ss, rests:f.rests, dbn:f.dbn}, formKg()); return `${ss.length} ${plural(ss.length,'подход','подхода','подходов')}` + (kc?` · сожжено <b class="num">≈ ${fmt(kc)} ккал</b>`:'') + (kc&&!f.cardio?`<div class="hint">Чистый расход сверх покоя: подходы (≈ 2¼ мин на подход с отдыхом) плюс работа — вес × повторы × амплитуда. Больше вес — больше ккал. Таймер отдыха на калории не влияет.</div>`:''); }
 function saveForm(){
   const sh = S.sheet, f = sh.form;
   const e = {id: uid(), name:f.name, muscle:f.g, sets: f.cardio ? f.cs.filter(segHas).map(c=>Object.assign({}, c)) : formSets(f).filter(s=>num(s.w)>0||num(s.r)>0)};
@@ -2305,7 +2368,7 @@ function sheetSettings(){
     ${optRow('profile.goalMode', p.goalMode, [['lose',MI.trend+'Похудеть'],['keep',MI.keep+'Держать'],['gain',MI.up+'Набрать']], 'ic')}
     ${p.goalMode!=='keep' ? `<div class="sub">${p.goalMode==='lose'?'Дефицит в день':'Профицит в день'}</div>${optRow('profile.rate', p.rate, p.goalMode==='lose'?[[300,'300'],[500,'500'],[750,'750']]:[[200,'200'],[300,'300'],[500,'500']])}
       <div class="hint">${p.goalMode==='lose'?`≈ −${fmt1(num(p.rate)*7/7700)} кг в неделю. 500 ккал — комфортный темп.`:`≈ +${fmt1(num(p.rate)*7/7700)} кг в неделю.`}</div>` : ''}
-    <div class="srow"><span class="flab">${MI.flag}Желаемый вес</span>${nstep('s-tw', p.targetWeight||'', 0.5, 'кг', 'data-a="sset" data-f="profile.targetWeight"')}</div>
+    <div class="srow"><span class="flab">${MI.flag}Желаемый вес</span>${nstep('s-tw', p.targetWeight||'', 0.5, 'кг', `data-a="sset" data-f="profile.targetWeight" data-base="${Math.round(w*2)/2}" placeholder="${fmt1(Math.round(w*2)/2)}"`)}</div>
   </div>
   <div class="card sgroup"><h2 class="sh">${MI.flame}Калории на день</h2>
     ${optRow('kcalMode', st.kcalMode, [['auto',MI.robot+'Автоматически'],['manual',MI.manual+'Вручную']], 'ic')}
@@ -2323,7 +2386,7 @@ function sheetSettings(){
       <div class="mg-item"><span class="mg-l mg-p">Б</span><div><b>Белок</b><span class="kc">4 ккал в 1 г</span><br>Строительный материал для мышц. Сытно и помогает не терять мышцы на похудении — <b>держи его всегда</b>.<br>Где: курица, индейка, рыба, яйца, творог, греческий йогурт, мясо, фасоль.</div></div>
       <div class="mg-item"><span class="mg-l mg-f">Ж</span><div><b>Жиры</b><span class="kc">9 ккал в 1 г</span><br>Нужны для гормонов и усвоения витаминов. Самые калорийные: ложка масла ≈ 90 ккал. Совсем убирать нельзя.<br>Где: масло, орехи, авокадо, сыр, жирная рыба, желтки.</div></div>
       <div class="mg-item"><span class="mg-l mg-c">У</span><div><b>Углеводы</b><span class="kc">4 ккал в 1 г</span><br>Топливо для тренировок и мозга. Их норма — остаток калорий, поэтому в дни зала она растёт.<br>Где: крупы, хлеб, макароны, картофель, фрукты, сладкое.</div></div>
-      <div class="mg-note"><p><b>«г/кг»</b> — граммы на каждый килограмм твоего веса. Белок 1,8 г/кг при весе ${fmt1(w)} кг = ${fmt(w*1.8)} г в день.</p><p><b>Не путай</b> граммы белка с граммами продукта: в 100 г куриной грудки ≈ 23 г белка, а не 100.</p><p><b>Сколько ставить:</b> белок 1,6–2,2 г/кг, жиры 0,8–1 г/кг. Если не уверен — не трогай, стандарт уже подходит.</p><p><b>Главное</b> — попасть в калории и белок. Жиры и углеводы могут гулять ± 20 %.</p></div>
+      <div class="mg-note"><p><b>«г/кг»</b> — граммы на каждый килограмм твоего веса. Белок ${fmt1(num(p.protein)||1.8)} г/кг при весе ${fmt1(w)} кг = ${fmt(w*(num(p.protein)||1.8))} г в день.</p><p><b>Не путай</b> граммы белка с граммами продукта: в 100 г куриной грудки ≈ 23 г белка, а не 100.</p><p><b>Сколько ставить:</b> белок 1,6–2,2 г/кг, жиры 0,8–1 г/кг. Если не уверен — не трогай, стандарт уже подходит.</p><p><b>Главное</b> — попасть в калории и белок. Жиры и углеводы могут гулять ± 20 %.</p></div>
     </div>` : ''}</div>
     <div class="hint">Белок и жиры — по твоему весу (${fmt1(w)} кг × г/кг). Углеводы — всё, что осталось от калорий цели.</div>
   </div>
@@ -2332,7 +2395,7 @@ function sheetSettings(){
     ${Math.round(w*30/50)*50!==num(st.waterGoal)?`<button class="linkbtn" data-a="swaterauto">По весу: ${fmt(Math.round(w*30/50)*50)} мл (30 мл на кг)</button>`:''}
   </div>
   <div class="card sgroup m-walk"><h2 class="sh">${MI.shoe}Прогулки</h2>
-    <div class="srow"><span>Цель в день</span>${nstep('s-wkg', st.walkGoal||10000, 500, 'шагов', 'data-a="sset" data-f="walkGoal"')}</div>
+    <div class="srow"><span>Цель в день, шагов</span>${nstep('s-wkg', st.walkGoal||10000, 500, '', 'data-a="sset" data-f="walkGoal"')}</div>
   </div>
   <div class="card sgroup"><h2 class="sh">${MI.time}Таймер отдыха</h2>
     <div class="srow"><span class="flab">${MI.pulse}Звук в конце</span>${optRow('restSound', st.restSound||'on', [['on','Вкл'],['off','Выкл']])}</div>
@@ -2351,7 +2414,7 @@ function setPath(obj, path, val){ const ks = path.split('.'); let o = obj; ks.sl
 /* ---------- export / import ---------- */
 let dlns = null;
 async function initDownloads(){ try{ if (window.claude && window.claude.use) dlns = await window.claude.use('downloads'); }catch(e){ dlns = null; } }
-function csvCell(v){ v = v===null||v===undefined ? '' : String(v); return /[;"\n]/.test(v) ? '"' + v.replace(/"/g,'""') + '"' : v; }
+function csvCell(v){ v = v===null||v===undefined ? '' : typeof v==='number' ? String(v).replace('.',',') : String(v); return /[;"\n]/.test(v) ? '"' + v.replace(/"/g,'""') + '"' : v; }
 function buildCsv(){
   const head = ['Дата','Съедено, ккал','Белки, г','Жиры, г','Углеводы, г','Цель, ккал','Расход, ккал','Дефицит, ккал','Вода, мл','Тренировка','Упражнения','Сожжено в зале, ккал','Шаги (прогулки)','Прогулки, ккал','Вес, кг','Заметка'];
   const rows = Object.keys(S.days).sort().map(k => { const d = S.days[k], t = foodTotals(getDay(k)), g = d.gym;
@@ -2381,7 +2444,11 @@ function doImport(file){
     let data; try{ data = JSON.parse(rd.result); }catch(e){ showToast('Это не файл резервной копии'); return; }
     if (!data || data.app!=='forma' || typeof data.days!=='object'){ showToast('Это не файл резервной копии дневника'); return; }
     let added = 0, merged = 0;
-    Object.entries(data.days).forEach(([k, d]) => { if (!/^\d{4}-\d{2}-\d{2}$/.test(k) || !d) return;
+    const okArr = (x, f) => Array.isArray(x) ? x.filter(e => e && typeof e==='object' && f(e)) : [];
+    const clean = d => { if (!d || typeof d!=='object') return null; const o = {food: okArr(d.food, e=>typeof e.name==='string' && isFinite(num(e.kcal))), water: okArr(d.water, e=>num(e.ml)>0), gym: d.gym && typeof d.gym==='object' && Array.isArray(d.gym.exercises||[]) ? d.gym : null};
+      if (num(d.weight)>0) o.weight = num(d.weight); const w = okArr(d.walks, e=>num(e.steps)>0); if (w.length) o.walks = w; return isEmptyDay(o) ? null : o; };
+    try{
+    Object.entries(data.days).forEach(([k, d0]) => { const d = clean(d0); if (!/^\d{4}-\d{2}-\d{2}$/.test(k) || !d) return;
       if (!S.days[k]){ S.days[k] = Object.assign(blankDay(), d); added++; persistDay(k); }
       else { const cur = S.days[k]; let ch = false;
         if (!(cur.food||[]).length && (d.food||[]).length){ cur.food = d.food; ch = true; }
@@ -2393,7 +2460,10 @@ function doImport(file){
     if (data.settings){ const st = data.settings;
       if (JSON.stringify(S.settings.profile)===JSON.stringify(DEFAULT_SETTINGS.profile)) ['profile','kcalMode','kcalGoal','waterGoal','waterPresets'].forEach(key => { if (st[key]!==undefined) S.settings[key] = clone(st[key]); }); ['customFoods','customEx'].forEach(key => { const have = new Set((S.settings[key]||[]).map(x=>x.name)); S.settings[key] = (S.settings[key]||[]).concat((st[key]||[]).filter(x=>!have.has(x.name))); });
       S.settings.favorites = [...new Set((S.settings.favorites||[]).concat(st.favorites||[]))]; S.settings.favEx = [...new Set((S.settings.favEx||[]).concat(st.favEx||[]))];
-      ['restSound','restVibe'].forEach(key => { if (S.settings[key]===undefined && st[key]!==undefined) S.settings[key] = st[key]; }); S.settings.foodOverrides = Object.assign({}, st.foodOverrides||{}, S.settings.foodOverrides||{}); persistSettings(); }
+      ['restSound','restVibe','walkGoal'].forEach(key => { if (S.settings[key]===undefined && st[key]!==undefined) S.settings[key] = st[key]; }); S.settings.foodOverrides = Object.assign({}, st.foodOverrides||{}, S.settings.foodOverrides||{});
+      if (Array.isArray(st.achSeen)) S.settings.achSeen = [...new Set((S.settings.achSeen||[]).concat(st.achSeen))];
+      persistSettings(); }
+    }catch(err){ render(); showToast('Копия повреждена — восстановлено только то, что удалось прочитать', null, true); return; }
     render(); showToast(`Восстановлено: ${added} ${plural(added,'день','дня','дней')}${merged?`, дополнено ${merged}`:''}. Существующие записи не тронуты.`);
   };
   rd.readAsText(file);
@@ -2509,18 +2579,19 @@ document.addEventListener('click', ev => {
   if (a==='closebg'){ if (ev.target===el){ S.sheet=null; render(); } return; }
   if (['wkf','gq','gdur','wkg','weml','wetime','wpv','sset','importfile','fq','fqty','feqty','man','np','em','gf','gps','gcf','gper','gset','gnote','sgoal','prof','gname','grename','gcrails','progex','mansave'].includes(a)) return;
   const sh = S.sheet;
-  if (a==='nstep'){ const inp = document.getElementById(el.dataset.t); if (!inp) return; const d = num(el.dataset.d); const v = Math.max(0, Math.round((num(inp.value) + d)*100)/100); inp.value = String(v); inp.dispatchEvent(new Event('input', {bubbles:true})); return; }
+  if (a==='nstep'){ const inp = document.getElementById(el.dataset.t); if (!inp) return; const d = num(el.dataset.d); const cur = inp.value.trim()==='' && inp.dataset.base ? num(inp.dataset.base) : num(inp.value); const v = Math.max(0, Math.round((cur + (inp.value.trim()==='' && inp.dataset.base ? 0 : d))*100)/100); inp.value = String(v).replace('.',','); inp.dispatchEvent(new Event('input', {bubbles:true})); return; }
   switch(a){
     case 'tab': S.tab = el.dataset.id; try{ localStorage.setItem('forma.tab', S.tab); history.replaceState(null,'','#'+S.tab); }catch(e){} window.scrollTo(0,0); break;
     case 'achopen': S.sheet = {type:'ach'}; break;
-    case 'wkday': S.date = el.dataset.k; S.walkWeek = mondayOf(el.dataset.k); window.scrollTo(0,0); break;
+    case 'wkday': if (el.dataset.k > today()) return; S.date = el.dataset.k; S.walkWeek = mondayOf(el.dataset.k); window.scrollTo(0,0); break;
     case 'wkwprev': S.walkWeek = addDays(S.walkWeek||mondayOf(today()), -7); break;
     case 'wkwnext': { const n = addDays(S.walkWeek||mondayOf(today()), 7); if (n <= mondayOf(today())) S.walkWeek = n; break; }
     case 'wkedit2': { const w = dayWalks(el.dataset.k).find(x=>x.id===el.dataset.id); if (!w) return; S.sheet = {type:'walk', k:el.dataset.k, steps:String(w.steps), min:w.min?String(w.min):'', eid:w.id}; break; }
     case 'walkunit': S.walkUnit = el.dataset.u; break;
     case 'walkprog': { S.progCat = 'end'; S.progEx = PROG_WALK; render(); setTimeout(()=>{ const c = $('.card.chart'); if (c) c.scrollIntoView({block:'start', behavior:'smooth'}); }, 30); return; }
-    case 'walkopen': { S.sheet = {type:'walk', k:el.dataset.k || today(), steps:'', min:'', eid:null}; break; }
-    case 'wksave': { const n = Math.round(num(sh.steps)); if (!(n>0)) return; const k = sh.k, mn = num(sh.min), eid = sh.eid;
+    case 'walkopen': { if ((el.dataset.k||today()) > today()){ showToast('Это будущий день'); return; } S.sheet = {type:'walk', k:el.dataset.k || today(), steps:'', min:'', eid:null}; break; }
+    case 'wksave': { const n = Math.round(num(sh.steps)); if (!(n>0)) return; if (n>100000){ showToast('Слишком много шагов — проверь число'); return; } const k = sh.k, mn = num(sh.min), eid = sh.eid;
+      if (String(sh.min||'').trim()!=='' && !(mn>0 && mn<=1440)){ showToast('Время — от 1 до 1440 минут'); return; }
       editDay(k, d => { const list = (d.walks||[]).slice(); if (eid){ const i = list.findIndex(x=>x.id===eid); if (i>=0) list[i] = Object.assign({}, list[i], {steps:n, min:mn||undefined}); } else list.push({id:uid(), steps:n, min:mn||undefined, t:Date.now()}); d.walks = list.map(x=>JSON.parse(JSON.stringify(x))); });
       Object.assign(sh, {steps:'', min:'', eid:null}); showToast(eid ? 'Прогулка изменена' : `Прогулка добавлена · ${fmt(n)} шагов`); break; }
     case 'wkedit': { const w = dayWalks(sh.k).find(x=>x.id===el.dataset.id); if (!w) return; Object.assign(sh, {eid:w.id, steps:String(w.steps), min:w.min?String(w.min):''}); render(); const b=$('.sheet-b'); const f=$('#wk-steps'); if (f) f.scrollIntoView({block:'center'}); return; }
@@ -2537,11 +2608,11 @@ document.addEventListener('click', ev => {
     case 'settings': S.sheet = {type:'settings'}; break;
     case 'close': S.sheet = null; break;
     case 'dprev': S.date = addDays(S.date,-1); S.walkWeek = mondayOf(S.date); break;
-    case 'dnext': S.date = addDays(S.date,1); S.walkWeek = mondayOf(S.date); break;
+    case 'dnext': if (S.date >= today()) return; S.date = addDays(S.date,1); S.walkWeek = mondayOf(S.date); break;
     case 'dtoday': S.date = today(); break;
     case 'calopen': S.sheet = {type:'cal', mode:S.tab, month:(S.tab==='gym'?(S.week===mondayOf(today())?today():addDays(S.week,3)):S.date).slice(0,7), range:7}; break;
     case 'calmon': { const [y,m] = sh.month.split('-').map(Number); const d = new Date(y, m-1+(+el.dataset.d), 1); sh.month = `${d.getFullYear()}-${pad(d.getMonth()+1)}`; break; }
-    case 'calpick': { const k = el.dataset.k; if (sh.mode==='gym'){ S.week = mondayOf(k); const g = getDay(k).gym; S.sheet = {type:'gym', key:k, step: g && ((g.exercises||[]).length || g.note || (g.muscles||[]).length) ? 'day' : 'group', picker:false, confirmDel:false}; break; } S.date = k; S.walkWeek = mondayOf(k); S.sheet = null; window.scrollTo(0,0); break; }
+    case 'calpick': { const k = el.dataset.k; if (k > today()){ showToast('Это будущий день — запись появится, когда он наступит'); return; } if (sh.mode==='gym'){ S.week = mondayOf(k); const g = getDay(k).gym; S.sheet = {type:'gym', key:k, step: g && ((g.exercises||[]).length || g.note || (g.muscles||[]).length) ? 'day' : 'group', picker:false, confirmDel:false}; break; } S.date = k; S.walkWeek = mondayOf(k); S.sheet = null; window.scrollTo(0,0); break; }
     case 'calrange': sh.range = +el.dataset.r; break;
     case 'progper': S.progPer = el.dataset.p; break;
     case 'wmper': S.wmPer = el.dataset.p; break;
@@ -2551,13 +2622,15 @@ document.addEventListener('click', ev => {
     case 'emnew': {
       const p = sh.sel; if (!p || !sh.em) return; const r1 = x => Math.round(x*10)/10, n = (sh.em.name||'').trim();
       const isC = (S.settings.customFoods||[]).some(x=>x.name===p.name); if (!emState(p, sh.em, isC).neu){ showToast('Задай новое название'); $('#emn')?.focus(); return; }
-      const vals = {p:r1(num(sh.em.p)), f:r1(num(sh.em.f)), c:r1(num(sh.em.c))}; vals.kcal = Math.round(emKcal(vals));
-      const prod = Object.assign({name:n, per:p.per===100?100:1, g:p.g||(p.per===100?100:1), icon:foodIcon(p.name)}, unitOf(p)==='ml'&&p.per===100?{u:'ml'}:{}, portionsOf(p).length?{pcs:portionsOf(p).map(x=>x.slice())}:{}, vals);
+      const vals = {p:r1(num(sh.em.p)), f:r1(num(sh.em.f)), c:r1(num(sh.em.c))}; vals.kcal = Math.round(emKcalFor(p, vals)*10)/10;
+      const hy = p.per===100 && unitOf(p)==='ml' ? (hydType(p) || 0) : undefined;
+      const prod = Object.assign({name:n, per:p.per===100?100:1, g:p.g||(p.per===100?100:1), icon:foodIcon(p.name)}, unitOf(p)==='ml'&&p.per===100?{u:'ml'}:{}, portionsOf(p).length?{pcs:portionsOf(p).map(x=>x.slice())}:{}, hy!==undefined?{hyd:hy}:{}, vals);
       S.settings.customFoods = [prod].concat(S.settings.customFoods||[]); persistSettings();
       sh.em = null; sh.sel = allFoods().find(x=>x.name===n) || prod; showToast(`Новый продукт «${n}» сохранён в «Мои продукты»`); return; }
     case 'emsave': case 'emreset': {
       const p = sh.sel; if (!p) return; const r1 = x => Math.round(x*10)/10;
-      const vals = {p:r1(num(sh.em.p)), f:r1(num(sh.em.f)), c:r1(num(sh.em.c))}; vals.kcal = Math.round(emKcal(vals));
+      const base0 = FOODS.find(x=>x.name===p.name) || p, src = a==='emreset' ? base0 : sh.em;
+      const vals = {p:r1(num(src.p)), f:r1(num(src.f)), c:r1(num(src.c))}; vals.kcal = Math.round(emKcalFor(a==='emreset'?base0:p, vals)*10)/10;
       const list = S.settings.customFoods||[]; const ci = list.findIndex(x=>x.name===p.name);
       if (a==='emsave' && !emState(p, sh.em, ci>=0).save){ showToast(ci>=0 ? 'Проверь название' : 'Стандартный продукт нельзя переименовать — сохрани как новый'); return; }
       const nn = (sh.em.name||'').trim();
@@ -2577,11 +2650,15 @@ document.addEventListener('click', ev => {
     case 'npdel': { const list = S.settings.customFoods||[]; const p = list[+el.dataset.i]; if (!p) return; const before = clone(list); S.settings.customFoods = list.filter((_,i)=>i!==+el.dataset.i); persistSettings(); showToast(`«${p.name}» удалён из моих продуктов`, {foods:before}); return; }
     case 'npsave': case 'npsaveadd': {
       const np = sh.np, name = np.name.trim(), kcal = num(np.kcal);
-      if (!name || kcal<=0){ showToast('Укажи название и калории'); return; }
+      if (!name || String(np.kcal).trim()==='' || kcal<0){ showToast('Укажи название и калории (можно 0)'); return; }
+      if (name!==np.editing && (S.settings.customFoods||[]).some(x=>x.name===name)){ showToast(`«${name}» уже есть в твоих продуктах — назови иначе`); return; }
       if (baseFoods().some(x=>x.name===name)){ showToast(`«${name}» уже есть в базе — назови иначе (например, с брендом)`); return; }
       const prod = {name, kcal:Math.round(kcal*10)/10, p:num(np.p), f:num(np.f), c:num(np.c), per:np.per===100?100:1, g:np.per===100?(num(np.pc)||100):1};
       if (np.per===100 && np.u==='ml') prod.u = 'ml';
-      if (np.per===100 && num(np.pc)>0) prod.pcs = [[np.u==='ml'?'шт':'шт', num(np.pc)]];
+      const old = (S.settings.customFoods||[]).find(x=>x.name===np.editing);
+      if (old && old.icon) prod.icon = old.icon;
+      if (old && old.hyd !== undefined && np.u==='ml') prod.hyd = old.hyd;
+      if (np.per===100 && num(np.pc)>0) prod.pcs = old && old.pcs && old.pcs[0] && num(old.pcs[0][1])===num(np.pc) ? old.pcs.map(x=>x.slice()) : [['шт', num(np.pc)]];
       const list = (S.settings.customFoods||[]).filter(x => x.name!==name && x.name!==np.editing);
       S.settings.customFoods = [prod].concat(list); persistSettings();
       sh.np = blankNp();
@@ -2592,13 +2669,15 @@ document.addEventListener('click', ev => {
     case 'fsel': { const p = allFoods()[+el.dataset.i]; if (!p) return; sh.sel = p; sh.em = null; sh.mode = 'search'; setPick(sh, p); render(); const b=$('.sheet-b'); if (b) b.scrollTop=0; const f=$('#fqty'); if (f) f.select(); return; }
     case 'fclear': sh.sel = null; break;
     case 'fqtyset': sh.qty = el.dataset.v; break;
-    case 'fpu': { const i = +el.dataset.i, ps = portionsOf(sh.sel), amt = pickAmount(sh); sh.pu = i; sh.qty = String(i>=0 ? Math.max(0.5, Math.round(amt/ps[i][1]*2)/2) : Math.round(amt)); break; }
-    case 'fadd': { const p = sh.sel, q = num(sh.qty); if (!p || q<=0) return; const amt = p.per===100 ? pickAmount(sh) : q, k = p.per===100 ? amt/100 : q; const r = x => Math.round(x*10)/10;
+    case 'fpu': { const i = +el.dataset.i, ps = portionsOf(sh.sel), amt = pickAmount(sh); sh.pu = i; sh.qty = String(i>=0 ? Math.max(0.5, Math.round(amt/ps[i][1]*2)/2) : Math.round(amt)).replace('.',','); break; }
+    case 'fadd': { const p = sh.sel, q = num(sh.qty); if (!p) return; if (q<=0){ showToast('Укажи количество больше нуля'); $('#fqty')?.focus(); return; } if (q>(p.per===100 && sh.pu<0 ? 10000 : 100)){ showToast('Слишком много — проверь количество'); return; } const amt = p.per===100 ? pickAmount(sh) : q, k = p.per===100 ? amt/100 : q; const r = x => Math.round(x*10)/10;
       const ps = portionsOf(p), e = {id:uid(), name:p.name, meal:sh.meal, grams:p.per===100?Math.round(amt*10)/10:null, qty:p.per===100?null:q, kcal:Math.round(p.kcal*k), p:r(p.p*k), f:r(p.f*k), c:r(p.c*k), t:Date.now()};
-      if (p.per===100 && unitOf(p)==='ml') e.u = 'ml';
+      if (p.per===100 && unitOf(p)==='ml'){ e.u = 'ml'; e.hyd = hydType(p) || 0; }
+      if (p.per!==100) e.pl = 'шт';
+      if (S.date!==today()) e.t = parseKey(S.date).getTime()+13*3600e3;
       if (p.per===100 && sh.pu>=0 && ps[sh.pu]){ e.pcs = q; e.pl = ps[sh.pu][0]; }
       const before = clone(getDay(S.date)); editDay(S.date, d=>{ d.food.push(e); mergeFood(d); }); S.sheet=null; showToast(`${p.name} · ${fmt(e.kcal)} ккал добавлено${e.u==='ml'&&hydType(e)?` · +${fmt(e.grams)} мл к воде`:''}`, {k:S.date, day:before}); return; }
-    case 'fmanadd': { const m = sh.man; const kcal = num(m.kcal); if (!m.name.trim() || kcal<=0){ showToast('Укажи название и калории'); return; }
+    case 'fmanadd': { const m = sh.man; const kcal = num(m.kcal); if (!m.name.trim() || String(m.kcal).trim()==='' || kcal<0){ showToast('Укажи название и калории (можно 0)'); return; }
       const e = {id:uid(), name:m.name.trim(), meal:sh.meal, grams:null, qty:1, kcal:Math.round(kcal), p:num(m.p), f:num(m.f), c:num(m.c), t:Date.now()};
       const before = clone(getDay(S.date)); editDay(S.date, d=>{ d.food.push(e); mergeFood(d); });
       if (m.save){ S.settings.customFoods = (S.settings.customFoods||[]).filter(x=>x.name!==e.name).concat([{name:e.name,kcal:e.kcal,p:e.p,f:e.f,c:e.c,g:1,per:1}]); persistSettings(); }
@@ -2614,7 +2693,7 @@ document.addEventListener('click', ev => {
     case 'fesave': { const e = sh.entry, byG = !!e.grams, base = feBase(e), q = num(sh.qty); if (q<=0){ showToast('Укажи количество больше нуля'); return; }
       const k = q/base, r1 = x => Math.round(x*10)/10, pcsMode = !!(e.pcs && e.pl);
       const ne = {id:e.id, name:e.name, meal:sh.meal, grams:byG?(pcsMode?r1(e.grams*k):q):null, qty:byG?null:q, kcal:Math.round(e.kcal*k), p:r1(e.p*k), f:r1(e.f*k), c:r1(e.c*k), t:e.t};
-      if (unitOf(e)==='ml') ne.u = 'ml'; if (pcsMode){ ne.pcs = q; ne.pl = e.pl; }
+      if (unitOf(e)==='ml'){ ne.u = 'ml'; const h0 = e.ids ? getDay(S.date).food.find(x=>e.ids.includes(x.id)) : null; if (h0 && h0.hyd !== undefined) ne.hyd = h0.hyd; } if (pcsMode){ ne.pcs = q; ne.pl = e.pl; }
       editDay(S.date, d=>{ d.food = d.food.filter(x=>!e.ids.includes(x.id)); d.food.push(ne); mergeFood(d); });
       S.sheet = null; showToast(`${e.name}: ${amountTxt(ne)||fmt1(q)+' порц.'} · ${fmt(ne.kcal)} ккал`); return; }
     case 'fedel': { const k = S.date, before = clone(getDay(k)), ids = sh.entry.ids; editDay(k, d=>d.food=d.food.filter(x=>!ids.includes(x.id))); S.sheet = null; showToast('Запись удалена', {k, day:before}); return; }
@@ -2622,7 +2701,7 @@ document.addEventListener('click', ev => {
     // water
     case 'drink': S.drink = el.dataset.id; break;
     case 'addwater': addWater(num(el.dataset.ml)); return;
-    case 'addwatercustom': { const v = num($('#wml').value); if (v<=0||v>5000){ showToast('Введи объём от 1 до 5000 мл'); return; } addWater(v); return; }
+    case 'addwatercustom': { const v = Math.round(num($('#wml').value)); if (v<1||v>5000){ showToast('Введи объём от 1 до 5000 мл'); return; } addWater(v); return; }
     case 'editwater': { const e = getDay(S.date).water.find(x=>x.id===el.dataset.id); if (!e) return; const dt = new Date(e.t); S.sheet = {type:'wedit', id:e.id, kind:e.type, ml:String(e.ml), time:`${pad(dt.getHours())}:${pad(dt.getMinutes())}`}; break; }
     case 'wetype': sh.kind = el.dataset.id; break;
     case 'wesave': { const ml = Math.round(num(sh.ml)); if (ml<=0){ showToast('Укажи объём больше нуля'); return; } const [hh,mm] = (sh.time||'12:00').split(':').map(Number); const t = parseKey(S.date); t.setHours(hh||0, mm||0, 0, 0);
@@ -2631,10 +2710,10 @@ document.addEventListener('click', ev => {
     case 'wpopen': S.sheet = {type:'wpre', list:(S.settings.waterPresets||[150,250,330,500]).map(String)}; break;
     case 'wpadd': sh.list.push('200'); break;
     case 'wpdel': sh.list.splice(+el.dataset.i,1); break;
-    case 'wpsave': { const l = sh.list.map(v=>Math.round(num(v))).filter(v=>v>0); if (l.length<2){ showToast('Нужно хотя бы 2 кнопки'); return; } S.settings.waterPresets = l; persistSettings(); S.sheet = null; showToast('Кнопки сохранены'); return; }
+    case 'wpsave': { const l = [...new Set(sh.list.map(v=>Math.round(num(v))).filter(v=>v>0))]; if (l.some(v=>v>3000)){ showToast('Кнопка может быть до 3000 мл'); return; } if (l.length<2){ showToast('Нужно хотя бы 2 кнопки'); return; } S.settings.waterPresets = l; persistSettings(); S.sheet = null; showToast('Кнопки сохранены'); return; }
     case 'delwater': { const k = S.date, before = clone(getDay(k)); editDay(k, d=>d.water=d.water.filter(e=>e.id!==el.dataset.id)); showToast('Запись удалена', {k, day:before}); return; }
     // gym
-    case 'openday': { const g = getDay(el.dataset.k).gym; S.sheet = {type:'gym', key:el.dataset.k, step: !el.dataset.new && g && ((g.exercises||[]).length || g.note || (g.muscles||[]).length) ? 'day' : 'group', confirmDel:false}; break; }
+    case 'openday': { if (el.dataset.k > today()){ showToast('Это будущий день — тренировку можно записать, когда он наступит'); return; } const g = getDay(el.dataset.k).gym; S.sheet = {type:'gym', key:el.dataset.k, step: !el.dataset.new && g && ((g.exercises||[]).length || g.note || (g.muscles||[]).length) ? 'day' : 'group', confirmDel:false}; break; }
     case 'ggroup': sh.step = 'group'; break;
     case 'gback-day': sh.step = 'day'; sh.form = null; break;
     case 'gback-group': sh.step = 'group'; sh.gq = ''; break;
@@ -2647,9 +2726,9 @@ document.addEventListener('click', ev => {
       if (ei>=0 && sh.form.cardio && !sh.form.segNote){ const f = sh.form, saved = (g.exercises[ei].sets||[]).length; if (f.cs.length <= saved){ f.cs.push(Object.assign({}, f.cs[f.cs.length-1]||{})); f.segNote = true; } }
       sh.photo = false; sh.step = 'detail'; render(); const b=$('.sheet-b'); if (b) b.scrollTop=0; if (sh.form.segNote) setTimeout(()=>{ const n = document.querySelector('.cseg.new'); if (n) n.scrollIntoView({block:'center'}); }, 30); return; }
     case 'gcustom': { sh.form = Object.assign(newForm('', sh.group, -1), {custom:true}); sh.photo = false; sh.step = 'detail'; render(); const b=$('.sheet-b'); if (b) b.scrollTop=0; setTimeout(()=>$('#gname')?.focus(), 50); return; }
-    case 'gedit': { sh.renaming = false; sh.delMine = false; const e = getDay(sh.key).gym.exercises[+el.dataset.ei]; sh.group = e.muscle; sh.photo = false; sh.form = newForm(e.name, e.muscle, +el.dataset.ei); sh.step = 'detail'; render(); const b=$('.sheet-b'); if (b) b.scrollTop=0; return; }
+    case 'gedit': { sh.renaming = false; sh.delMine = false; const e = getDay(sh.key).gym.exercises[+el.dataset.ei]; { const dk = sh.key+'|id:'+e.id; if (DRAFTS[dk] && DRAFTS[dk].segNote){ delete DRAFTS[dk]; saveDrafts(); } } sh.group = e.muscle; sh.photo = false; sh.form = newForm(e.name, e.muscle, +el.dataset.ei); sh.step = 'detail'; render(); const b=$('.sheet-b'); if (b) b.scrollTop=0; return; }
     case 'gstep': { const f = sh.form, id = el.dataset.f, d = num(el.dataset.d); let v = Math.max(id==='n'?1:0, Math.round((num(f[id]) + d)*100)/100); if (id==='n') v = Math.min(20, v); f[id] = String(v); break; }
-    case 'glast': { const last = lastSession(sh.form.name, sh.key); if (last){ const ei = sh.form.ei; sh.form = Object.assign(buildForm(sh.form.name, sh.form.g, -1), {ei, rests: sh.form.rests, custom: sh.form.custom}); DRAFTS[sh.key+'|'+sh.form.name] = sh.form; } break; }
+    case 'glast': { const last = lastSession(sh.form.name, sh.key); if (last){ const ei = sh.form.ei; sh.form = Object.assign(buildForm(sh.form.name, sh.form.g, -1), {ei, rests: sh.form.rests, custom: sh.form.custom}); { const ex = ei>=0 ? ((getDay(sh.key).gym||{}).exercises||[])[ei] : null; DRAFTS[sh.key+'|'+(ex ? 'id:'+ex.id : sh.form.name)] = sh.form; saveDrafts(); } } break; }
     case 'gpsstep': { const st = sh.form.sets[+el.dataset.si], k = el.dataset.f; st[k] = String(Math.max(0, Math.round((num(st[k]) + num(el.dataset.d))*100)/100)); break; }
     case 'gpsadd': { const f = sh.form, l = f.sets[f.sets.length-1]; f.sets.push(l?Object.assign({},l):{w:'',r:''}); f.n = f.sets.length; break; }
     case 'gpsdel': { const f = sh.form; if (f.sets.length>1){ f.sets.splice(+el.dataset.si,1); f.n = f.sets.length; } break; }
@@ -2671,6 +2750,7 @@ document.addEventListener('click', ev => {
       if (n!==old && (exInfo(n) || (S.settings.customEx||[]).some(c=>c.name===n))){ showToast('Упражнение с таким названием уже есть'); return; }
       if (n!==old){ S.settings.customEx = (S.settings.customEx||[]).map(c=>c.name===old ? Object.assign({}, c, {name:n}) : c); persistSettings();
         Object.keys(S.days).forEach(k => { const g = S.days[k].gym; if (g && (g.exercises||[]).some(e=>e.name===old)) editDay(k, d => d.gym.exercises.forEach(e=>{ if (e.name===old) e.name = n; })); });
+        if ((S.settings.favEx||[]).includes(old)){ S.settings.favEx = S.settings.favEx.map(x=>x===old?n:x); persistSettings(); }
         if (S.progEx===old) S.progEx = n; sh.form.name = n; }
       sh.renaming = false; render(); showToast(`Переименовано в «${n}»`); return; }
     case 'gmydel': sh.delMine = true; sh.renaming = false; break;
@@ -2679,7 +2759,7 @@ document.addEventListener('click', ev => {
       const wasEdit = sh.form.ei>=0; sh.delMine = false; sh.form = null; sh.step = wasEdit ? 'day' : 'list'; render(); showToast(`«${n}» удалено из моих упражнений`); return; }
     case 'grclr': if (sh.form){ sh.form.rests = []; if (S.timer && S.timer.ref && S.timer.ref.form===sh.form) S.timer.ref = null; } break;
         case 'gtip': { const tip = progressTip(sh.form.name, sh.key); if (!tip) return; Object.assign(sh.form, {w:String(tip.w), r:String(tip.r), n:tip.n, per:false}); break; }
-    case 'grepeat': { const src = S.days[el.dataset.k].gym; let skipped = 0; editDay(sh.key, d=>{ if (!d.gym) d.gym = {muscles:[], exercises:[], note:''}; const have = new Set(d.gym.exercises.map(e=>e.name)); (src.exercises||[]).forEach(e=>{ if (have.has(e.name)){ skipped++; return; } d.gym.exercises.push(Object.assign(clone(e), {id:uid()})); }); d.gym.muscles = groupsInDay(d.gym); });
+    case 'grepeat': { const src = S.days[el.dataset.k].gym; let skipped = 0; editDay(sh.key, d=>{ if (!d.gym) d.gym = {muscles:[], exercises:[], note:''}; const have = new Set(d.gym.exercises.map(e=>e.name)); (src.exercises||[]).forEach(e=>{ if (have.has(e.name)){ skipped++; return; } const c = Object.assign(clone(e), {id:uid()}); delete c.rests; d.gym.exercises.push(c); }); d.gym.muscles = groupsInDay(d.gym); });
       sh.step = 'day'; render(); showToast(skipped ? `Скопировано, ${skipped} ${plural(skipped,'упражнение уже было','упражнения уже были','упражнений уже были')} — пропустил` : 'Тренировка скопирована — поправь веса, если нужно'); return; }
     case 'tmr': { const sec = num(el.dataset.s); if (S.timer){ restLog(S.timer.ref, (Date.now()-S.timer.start)/1000); }
       S.timer = {start: Date.now(), end: Date.now()+sec*1000, total: sec}; S.timer.ref = restTarget(); if (S.timer.ref) restLog(S.timer.ref, sec); primeAudio(); restShow(); break; }
@@ -2761,16 +2841,16 @@ document.addEventListener('input', ev => {
   else if (a==='fqty'){ sh.qty = el.value; const q = num(el.value); $('#fsum').innerHTML = pickSum(sh); document.querySelectorAll('[data-a="fqtyset"]').forEach(c=>c.setAttribute('aria-pressed', String(num(c.dataset.v)===q))); }
   else if (a==='man'){ sh.man[el.dataset.f] = el.value; }
   else if (a==='np'){ sh.np[el.dataset.f] = el.value; }
-  else if (a==='em'){ sh.em[el.dataset.f] = el.value; const o = $('#emk'); if (o) o.textContent = fmt(emKcal(sh.em)); syncEm(); }
-  else if (a==='gname'){ if (sh.form) sh.form.name = el.value; }
+  else if (a==='em'){ sh.em[el.dataset.f] = el.value; const o = $('#emk'); if (o) o.textContent = fmt(emKcalFor(sh.sel, sh.em)); syncEm(); }
+  else if (a==='gname'){ if (sh.form){ const was = isDb(sh.form.name); sh.form.name = el.value; queueDrafts(); if (isDb(el.value)!==was){ const pos = el.selectionStart; render(); const i = $('#gname'); if (i){ i.focus(); try{ i.setSelectionRange(pos,pos); }catch(e){} } } } }
   else if (a==='grename'){ sh.rn = el.value; }
   else if (a==='gq'){ const was = !!sh.gq; sh.gq = el.value; if (was !== !!sh.gq){ render(); const i = $('#gq'); if (i){ i.focus(); try{ i.setSelectionRange(i.value.length, i.value.length); }catch(e){} } } else { const r = $('#gqres'); if (r) r.innerHTML = gSearch(el.value); } }
   else if (a==='gdur'){ const d = S.days[sh.key]; if (d&&d.gym){ d.gym.duration = num(el.value); persistDay(sh.key); } }
-  else if (a==='gf'){ sh.form[el.dataset.f] = el.value; const t = $('#gtotal'); if (t) t.innerHTML = formTotal(sh.form); syncSave(); }
-  else if (a==='gps'){ sh.form.sets[+el.dataset.si][el.dataset.f] = el.value; const t = $('#gtotal'); if (t) t.innerHTML = formTotal(sh.form); syncSave(); }
+  else if (a==='gf'){ sh.form[el.dataset.f] = el.value; queueDrafts(); const t = $('#gtotal'); if (t) t.innerHTML = formTotal(sh.form); syncSave(); }
+  else if (a==='gps'){ sh.form.sets[+el.dataset.si][el.dataset.f] = el.value; queueDrafts(); const t = $('#gtotal'); if (t) t.innerHTML = formTotal(sh.form); syncSave(); }
   else if (a==='wkf'){ sh[el.dataset.f] = el.value; const c = $('#wkcalc'); if (c) c.innerHTML = walkCalc(); const bt = $('[data-a="wksave"]'); if (bt) bt.disabled = !(num(sh.steps)>0); }
   else if (a==='gcrails'){ sh.form.cs.forEach(c=>{ c.rails = el.checked; }); syncCardio(); }
-  else if (a==='gcf'){ const si = +el.dataset.si||0; sh.form.cs[si][el.dataset.f] = el.value; syncCardio(); }
+  else if (a==='gcf'){ const si = +el.dataset.si||0; sh.form.cs[si][el.dataset.f] = el.value; queueDrafts(); syncCardio(); }
   else if (a==='gnote'){ const d = S.days[sh.key]; if (d&&d.gym){ d.gym.note = el.value; persistDay(sh.key); } }
   else if (a==='sset'){ const v = num(el.value); const allowZero = el.dataset.f==='profile.targetWeight'; if (el.value.trim()==='' && !allowZero) return; if (v>0 || (allowZero && (el.value.trim()==='' || v>=0))){ setPath(S.settings, el.dataset.f, el.value.trim()===''?0:v); persistSettings(); clearTimeout(window.__srt); window.__srt = setTimeout(()=>renderSoon(), 700); } }
   else if (a==='sgoal'){ const v = num(el.value); if (v>0){ S.settings[el.dataset.f] = Math.round(v); persistSettings(); } }
@@ -2793,7 +2873,7 @@ document.addEventListener('keydown', ev => {
 });
 // keep "today" fresh if the page stays open past midnight
 let lastToday = today();
-setInterval(() => { const t = today(); if (t!==lastToday){ if (S.date===lastToday) S.date = t; if (S.week===mondayOf(lastToday)) S.week = mondayOf(t); lastToday = t; renderSoon(); } }, 60000);
+setInterval(() => { const t = today(); if (t!==lastToday){ if (S.date===lastToday) S.date = t; if (S.week===mondayOf(lastToday)) S.week = mondayOf(t); if (S.walkWeek===mondayOf(lastToday)) S.walkWeek = mondayOf(t); lastToday = t; renderSoon(); } }, 60000);
 
 /* before the first run of a new app version, keep an untouched copy of the data (rescue point if an update ever misbehaves) */
 function preUpdateSnapshot(){ try{ const prev = localStorage.getItem('forma.ver'); if (prev === APP_VERSION) return; const c = localStorage.getItem('forma.cache'); if (c && c.length > 20) localStorage.setItem('forma.preupdate', JSON.stringify({from:prev||'?', to:APP_VERSION, at:new Date().toISOString(), cache:c})); localStorage.setItem('forma.ver', APP_VERSION); }catch(e){} }
@@ -2811,7 +2891,7 @@ preUpdateSnapshot();
     if (multi){ if (!e.touches.length) multi = false; e.preventDefault(); lastTap = 0; return; }   // end of a pinch: never a tap
     if (moved){ lastTap = 0; return; }                                                                 // scroll, not a tap
     const now = Date.now(), t = e.target, typing = t && (t.tagName==='INPUT' || t.tagName==='TEXTAREA' || t.tagName==='SELECT' || t.isContentEditable);
-    if (!typing && now - lastTap < 350){ e.preventDefault(); const c = t && t.closest && t.closest('button,[data-a],label,a'); if (c) c.click(); lastTap = 0; return; }   // 2nd quick tap: no zoom, still a click
+    if (!typing && now - lastTap < 350){ e.preventDefault(); const c = t && t.closest && t.closest('button,a,label,[role="button"],[data-a]:not([data-a="closebg"]):not(.overlay)'); if (c && !c.classList.contains('overlay') && !(c.disabled)) c.click(); lastTap = 0; return; }   // 2nd quick tap: no zoom, still a click
     lastTap = now; }, opt);
   document.addEventListener('dblclick', e => e.preventDefault(), opt);
   window.addEventListener('wheel', e => { if (e.ctrlKey || e.metaKey) e.preventDefault(); }, opt);
