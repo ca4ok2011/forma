@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="icons/icon-512.png" width="120" alt="Дневник формы">
+  <img src="icons/icon-512.png?v=8884ba3a" width="140" alt="Дневник формы" style="border-radius:28px">
 </p>
 
 <h1 align="center">Дневник формы</h1>
