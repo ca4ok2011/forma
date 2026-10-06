@@ -312,6 +312,8 @@ img,svg{-webkit-user-drag:none}
 .media img{width:100%;height:100%;object-fit:cover;display:block}
 .media-ic{height:100%;display:grid;place-items:center;background:var(--acc-soft)}
 .ex-name{margin:0;font-size:19px;line-height:1.25}
+.en{font-size:.72em;font-weight:500;color:var(--muted);white-space:normal;letter-spacing:0}
+.ex-name .en{display:block;font-size:13px;margin-top:2px}
 .myhead{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .myact{display:flex;gap:6px;flex:none}
 .myact svg{width:18px;height:18px}
@@ -387,10 +389,11 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
 .mealhead{display:flex;align-items:center;gap:12px}
 .mealhead small{display:block;font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
 .mealhead b{font-family:var(--display);font-weight:500;font-size:19px}
-.modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.modes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
 .mode{--mc:var(--water);border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:10px 4px 9px;display:flex;flex-direction:column;align-items:center;gap:6px;font-weight:700;font-size:12.5px;color:var(--muted);min-width:0}
 .mode.md-my{--mc:var(--food)}
 .mode.md-manual{--mc:var(--gym)}
+.mode.md-dish{--mc:#C9871A}
 .mode-ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:var(--mc);background:color-mix(in srgb,var(--mc) 15%,transparent)}
 .mode-ic svg{width:19px;height:19px}
 .mode[aria-pressed="true"]{border-color:var(--mc);color:var(--ink);background:color-mix(in srgb,var(--mc) 9%,var(--surface))}
@@ -409,6 +412,73 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield}
 .seg.sex button[data-v="f"]{--sexc:#E0508F}
 .seg.sex button[data-v="m"][aria-pressed="true"]{background:linear-gradient(135deg,#5AA8F5,#2567D1)}
 .seg.sex button[data-v="f"][aria-pressed="true"]{background:linear-gradient(135deg,#F585B5,#D63F80)}
+.ghsteps{margin:0;padding-left:20px;font-size:13.5px;line-height:1.5;color:var(--ink)}
+.ghsteps a{color:var(--acc);font-weight:700}
+.ghok{display:flex;gap:10px;align-items:center}
+.tplb{border:0;background:var(--surface);color:var(--muted);border-radius:10px;width:36px;height:34px;display:grid;place-items:center}
+.tplb svg{width:17px;height:17px}
+.emptyb{display:flex;flex-direction:column;gap:8px}
+.repeat svg{width:16px;height:16px}
+.sec-t svg{width:15px;height:15px;vertical-align:-2px;margin-right:6px}
+.tpll{list-style:none;margin:0;padding:0;background:var(--surface);border-radius:14px;overflow:hidden}
+.tpll li{display:flex;align-items:center;gap:8px;padding:10px 6px 10px 14px;border-top:1px solid var(--line)}
+.tpll li:first-child{border-top:0}
+.tpll .nm{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.tpll .nm small{color:var(--muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.btn.sm{padding:8px 12px;font-size:13px;flex:none;width:auto;min-height:0;display:inline-flex;align-items:center;gap:4px}
+.dshi{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.dshi li{display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"ic nm x" "a a a";gap:6px 10px;align-items:center;background:var(--surface);border-radius:12px;padding:8px 6px 8px 10px}
+.dshi li>.fi{grid-area:ic}.dshi li>.nm{grid-area:nm;min-width:0}.dshi li>.del{grid-area:x}.dshi .dsh-a{grid-area:a}
+.dshi .nm small{color:var(--muted);font-size:12.5px}
+.dshres{list-style:none;margin:6px 0 0;padding:0;background:var(--surface);border-radius:12px;overflow:hidden}
+.dshres li+li{border-top:1px solid var(--line)}
+.dshres button{width:100%;display:flex;align-items:center;gap:8px;background:none;border:0;padding:10px 12px;text-align:left;color:var(--ink);font:inherit}
+.dshres button span{flex:1;min-width:0}.dshres small{color:var(--muted);font-size:12px;flex:none}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dsh-por{margin-top:4px}
+.sug .sug-h{display:flex;gap:12px;align-items:flex-start}
+.sug .sug-h>div{flex:1}
+.sug h2{margin:0 0 2px}
+.sug .sug-h small{color:var(--muted);font-size:13px}.sug .sug-h small b{color:var(--ink)}
+.sugic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--food-soft,var(--acc-soft));color:var(--food,var(--acc));flex:none}
+.sugic svg{width:20px;height:20px}
+.sugl{list-style:none;margin:12px 0 10px;padding:0;display:flex;flex-direction:column;gap:8px}
+.sugl li{display:flex;align-items:center;gap:10px;background:var(--surface);border-radius:14px;padding:10px 10px 10px 12px}
+.sugl .nm{flex:1;min-width:0}
+.sugl .nm{display:flex;flex-direction:column;gap:4px}.sugl .sgi{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;line-height:1.25}.sugl .sgi .fi{flex:none}
+.ico-i svg{width:15px;height:15px;vertical-align:-3px}
+.sugl .nm small{color:var(--muted);font-size:12.5px}
+.sugplus{font-style:normal;color:var(--muted);font-weight:800}
+.sh .hsic,.hsic{color:#FF2D55}.sh .hsic svg,.hsic svg{width:18px;height:18px;color:#FF2D55;stroke:#FF2D55}
+.hsst{font-size:13.5px;color:var(--muted)}.hsst b{color:var(--ink)}
+.hssum{background:none;border:0;padding:4px 0;font-weight:800;color:var(--acc);font-size:14px}
+.hsguide .ghsteps{margin-top:8px}.hsguide .ghsteps li{margin-bottom:8px}
+.hsguide code{font-size:12.5px;background:var(--soft,rgba(127,127,127,.14));padding:1px 5px;border-radius:6px;white-space:nowrap}
+.hsrow{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.hscp{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;border:1.5px solid var(--acc);background:var(--acc-soft);color:var(--acc);border-radius:10px;padding:6px 10px;font-weight:800;font-size:12.5px}
+.hscp svg{width:15px;height:15px}
+.ghok>div{display:flex;flex-direction:column;gap:2px}
+.ghok small{color:var(--muted);font-size:12.5px}
+.ghdot{width:10px;height:10px;border-radius:50%;background:var(--good);flex:none;box-shadow:0 0 0 4px color-mix(in srgb,var(--good) 20%,transparent)}
+.ghdot.bad{background:var(--warn);box-shadow:0 0 0 4px color-mix(in srgb,var(--warn) 20%,transparent)}
+.ghbad{color:var(--warn)}
+.fqrow{display:flex;gap:8px;align-items:stretch}
+.fqrow .field{flex:1;min-width:0}
+.scanbtn{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:60px;border:1.5px solid var(--acc);background:var(--acc-soft);color:var(--acc);border-radius:14px;font-weight:800;font-size:11px}
+.scanbtn svg{width:22px;height:22px}
+.bchint{display:flex;gap:8px;align-items:flex-start}.bchint svg{flex:none;width:18px;height:18px;margin-top:1px}
+.scan{position:fixed;inset:0;z-index:100;background:#000;color:#fff}
+.scan video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scan-shade{position:absolute;inset:0;background:radial-gradient(ellipse 46% 22% at 50% 45%,transparent 98%,rgba(0,0,0,.55) 100%)}
+.scan-frame{position:absolute;left:8%;right:8%;top:34%;height:22%;border:3px solid #B8FF3C;border-radius:18px;box-shadow:0 0 24px rgba(184,255,60,.5)}
+.scan-frame i{position:absolute;left:6%;right:6%;top:50%;height:2px;background:#FF4D4D;box-shadow:0 0 10px #FF4D4D;animation:scanline 1.6s ease-in-out infinite}
+@keyframes scanline{0%,100%{transform:translateY(-38px)}50%{transform:translateY(38px)}}
+.scan-top{position:absolute;left:0;right:0;top:0;padding:calc(env(safe-area-inset-top,0px) + 16px) 16px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(rgba(0,0,0,.7),transparent)}
+.scan-top b{font-size:17px}
+.scan-top .iconbtn{background:rgba(255,255,255,.15);color:#fff;border:0}
+.scan-bot{position:absolute;left:0;right:0;bottom:0;padding:16px 16px calc(env(safe-area-inset-bottom,0px) + 18px);display:flex;flex-direction:column;gap:12px;background:linear-gradient(transparent,rgba(0,0,0,.85) 30%)}
+.scan-msg{text-align:center;font-size:14px;opacity:.9}
+.scan-man{display:flex;gap:8px}.scan-man .field{flex:1;min-width:0;background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.2)}.scan-man .btn{flex:none}
 .achcnt{margin-left:auto;font-weight:800;color:var(--ach);font-size:14px}
 .m-ach .hc-h .chev{margin-left:6px}
 .achrow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
@@ -607,6 +677,9 @@ button.hcard{cursor:pointer}
 .tip b{display:block;font-family:var(--display);font-weight:500;font-size:17px}
 .tip span{font-size:12px;color:var(--muted)}
 .tip .add{background:var(--good);color:#fff;flex:none}
+.asnote{display:flex;gap:8px;align-items:flex-start;margin:8px 0 0}.asnote svg{flex:none;width:16px;height:16px;margin-top:2px;color:var(--gym)}
+.tipb{display:flex;align-items:center;gap:4px;flex:none}
+.tipx{border:0;background:none;color:var(--muted);width:32px;height:32px;display:grid;place-items:center;border-radius:10px}
 .prb{font-size:11px;font-weight:800;color:#E8A300;white-space:nowrap}
 .tpls{display:flex;flex-direction:column;gap:8px}
 .tpl{display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:10px;text-align:left;width:100%}
@@ -948,9 +1021,18 @@ function walkSpeed(w){ const km = walkKm(w), mn = num(w.min); return mn>0 && km>
 function walkMin(w){ return num(w.min) || walkKm(w)/4.8*60; }
 function walkKcal(w, kg){ return walkKm(w) * (kg || bodyKg()) * lerpTab(WALK_C, walkSpeed(w)); }
 function dayWalks(k){ return (S.days[k]||{}).walks || []; }
-function walkBurn(k){ return dayWalks(k).reduce((a,w)=>a+walkKcal(w, weightOn(k)), 0); }
-function daySteps(k){ return dayWalks(k).reduce((a,w)=>a+num(w.steps), 0); }
-function dayWalkKm(k){ return dayWalks(k).reduce((a,w)=>a+walkKm(w), 0); }
+/* Steps from Apple Health (day.hs = {n, t}, x = hidden by the user). They are the whole day's steps and already include
+   the walks logged by hand, so only the part above those walks is added. The first HS_BASE steps of a day are ordinary
+   household movement that the «sedentary» activity factor (×1.2) already covers — calories start after them. */
+const HS_BASE = 3000;
+function dayHs(k){ const h = (S.days[k]||{}).hs; return h && !h.x && num(h.n)>0 ? Math.round(num(h.n)) : 0; }
+function manSteps(k){ return dayWalks(k).reduce((a,w)=>a+num(w.steps), 0); }
+function hsExtra(k){ return Math.max(0, dayHs(k) - manSteps(k)); }
+function hsKcal(k){ const x = Math.max(0, hsExtra(k) - HS_BASE); return x ? walkKcal({steps:x}, weightOn(k)) : 0; }
+function hasWalk(k){ return dayWalks(k).length>0 || dayHs(k)>0; }
+function walkBurn(k){ return dayWalks(k).reduce((a,w)=>a+walkKcal(w, weightOn(k)), 0) + hsKcal(k); }
+function daySteps(k){ return Math.max(manSteps(k), dayHs(k)); }
+function dayWalkKm(k){ return dayWalks(k).reduce((a,w)=>a+walkKm(w), 0) + hsExtra(k)*strideM()/1000; }
 function baseSpend(k){ return bmrOn(k)*neat(); }
 function spendOn(k){ return baseSpend(k) + dayBurn(k) + walkBurn(k); }
 function goalShift(){ const p = prof(); return p.goalMode==='lose' ? -num(p.rate) : p.goalMode==='gain' ? num(p.rate) : 0; }
@@ -1003,7 +1085,7 @@ function setKcal(name, x, kg){
 /* Strength: time part (MET 3.5 over sets + rest) + work part (load × g × ROM × reps, muscle efficiency ~15%, +30% eccentric/stabilisation) */
 const ROM_G = {'Грудь':0.4,'Спина':0.45,'Ноги':0.5,'Ягодицы':0.35,'Плечи':0.5,'Бицепс':0.4,'Трицепс':0.35,'Пресс':0.3,'Икры':0.1,'Предплечья':0.08};
 const ROM_X = {'Шраги со штангой':0.08,'Становая тяга':0.55,'Сумо-тяга':0.45,'Ягодичный мост со штангой':0.3,'Ягодичный мостик':0.3,'Фермерская прогулка':0.05,'Жим ногами':0.45,'Тяга к подбородку':0.4};
-const BW_X = {'Отжимания':0.65,'Отжимания на брусьях':0.9,'Отжимания на брусьях (трицепс)':0.9,'Подтягивания':0.95,'Гиперэкстензия':0.5,'Скручивания':0.3,'Подъём ног в висе':0.35,'Ролик для пресса':0.5,'Русский твист':0.2,
+const BW_X = {'Отжимания':0.65,'Отжимания на брусьях':0.9,'Отжимания на брусьях (трицепс)':0.9,'Подтягивания':0.95,'Римский стул / гиперэкстензия':0.5,'Подтягивания в гравитроне (широкий хват)':0.95,'Подтягивания в гравитроне (узкий хват)':0.95,'Отжимания на брусьях в гравитроне':0.9,'Скручивания в тренажёре':0.2,'Разгибание спины в тренажёре':0.3,'Скручивания':0.3,'Подъём ног в висе':0.35,'Ролик для пресса':0.5,'Русский твист':0.2,
   'Приседания со штангой':0.8,'Выпады':0.8,'Болгарские сплит-приседания':0.8,'Гакк-приседания':0.8,'Становая тяга':0.5,'Румынская тяга':0.4,'Сумо-тяга':0.5,'Ягодичный мост со штангой':0.3,'Ягодичный мостик':0.3,'Подъём на носки стоя':1};
 function restMin(e, n){ return n*1.5; }  // fixed pace per set; logged rests are informational and don't change kcal
 function exParts(e, kg){
@@ -1012,11 +1094,11 @@ function exParts(e, kg){
   const info = exInfo(e.name), ss = (e.sets||[]).filter(x=>num(x.w)>0||num(x.r)>0), n = ss.length;
   if (!n) return {base:0, work:0};
   if (info && (info.f||'').includes('sec')){ const secs = ss.reduce((a,x)=>a+num(x.r),0); return {base:(3.8-1)*3.5*kg/1000*5*(secs/60 + restMin(e,n)), work:0}; }
-  const needW = !!info && !/bw|sec/.test(info.f||'') && !BW_OK.has(e.name);
+  const needW = !!info && !/bw|sec|assist/.test(info.f||'') && !BW_OK.has(e.name);
   if (needW && !ss.some(x=>num(x.w)>0)) return {base:0, work:0};   // weighted exercise without weight → don't guess
   const min = n*0.75 + restMin(e, n);
   const rom = ROM_X[e.name] || ROM_G[e.muscle] || 0.4, bw = (BW_X[e.name] || 0)*kg;
-  const dm = dbMul(e), joules = ss.reduce((a,x)=>a + (num(x.w)*dm+bw)*9.81*rom*num(x.r), 0);
+  const dm = dbMul(e), as = isAssist(e.name), joules = ss.reduce((a,x)=>a + (as ? Math.max(0, bw - num(x.w)) : num(x.w)*dm+bw)*9.81*rom*num(x.r), 0);
   return {base: (3.5-1)*3.5*kg/1000*5*min, work: joules*1.3/0.15/4184};
 }
 function exKcal(e, kg){ const p = exParts(e, kg); return p.base + p.work; }
@@ -1026,7 +1108,7 @@ function gymKcal(g, kg){
   return {total: per.reduce((a,b)=>a+b,0), per};
 }
 function dayBurn(k){ const d = S.days[k]; if (!d || !d.gym) return 0; return gymKcal(d.gym, weightOn(k)).total; }
-function isPR(e, k){ if (isCardio(e)) return false; const pb = bestBefore(e.name, k); if (!pb) return false; const mx = Math.max(0, ...(e.sets||[]).map(x=>num(x.w))); return mx > pb.w; }
+function isPR(e, k){ if (isCardio(e)) return false; const pb = bestBefore(e.name, k); if (!pb) return false; const mx = Math.max(0, ...(e.sets||[]).filter(x=>num(x.r)>0).map(x=>ldW(e, x, k))); return mx > pb.w; }
 function kcalTxt(v){ return v ? `≈ ${fmt(v)} ккал` : ''; }
 function cardioSummary(e){ return cardioParts(e).map(x=>x[1]).join(' · '); }
 function cardioParts(e){
@@ -1044,14 +1126,14 @@ function prevCardio(name, beforeK){
   return null;
 }
 const MUSCLE_SHORT = {'Грудь':'Гр','Спина':'Сп','Ноги':'Нг','Ягодицы':'Яг','Плечи':'Пл','Бицепс':'Би','Трицепс':'Тр','Пресс':'Пр','Икры':'Ик','Предплечья':'Пп','Кардио':'Кд'};
-const CATALOG = [{"g": "Грудь", "n": "Жим штанги лёжа", "img": "ex/barbell-bench-press-medium-grip.webp", "pm": ["chest"], "sm": ["shoulders", "triceps"], "f": "", "cue": "Опусти гриф к середине груди, лопатки сведены, ноги упираются в пол. Выжимай вверх на выдохе.", "eq": "barbell"}, {"g": "Грудь", "n": "Жим гантелей лёжа", "img": "ex/dumbbell-bench-press.webp", "pm": ["chest"], "sm": ["shoulders", "triceps"], "f": "", "cue": "Гантели опускай до уровня груди, локти под углом ~45° к корпусу. Вверху не стукай гантели.", "eq": "dumbbell"}, {"g": "Грудь", "n": "Жим штанги на наклонной скамье", "img": "ex/barbell-incline-bench-press-medium-grip.webp", "pm": ["chest"], "sm": ["shoulders", "triceps"], "f": "", "cue": "Наклон 30–45°. Гриф опускай к верху груди — так больше работает верх грудных.", "eq": "barbell"}, {"g": "Грудь", "n": "Жим гантелей на наклонной скамье", "img": "ex/incline-dumbbell-press.webp", "pm": ["chest"], "sm": ["shoulders", "triceps"], "f": "", "cue": "Наклон 30–45°, гантели опускай к верхней части груди, лопатки прижаты к скамье.", "eq": "dumbbell"}, {"g": "Грудь", "n": "Разводка гантелей", "img": "ex/dumbbell-flyes.webp", "pm": ["chest"], "sm": [], "f": "", "cue": "Руки слегка согнуты и не разгибаются. Разводи до растяжения груди, своди по дуге.", "eq": "dumbbell"}, {"g": "Грудь", "n": "Кроссовер", "img": "ex/cable-crossover.webp", "pm": ["chest"], "sm": ["shoulders"], "f": "", "cue": "Небольшой наклон вперёд, своди руки перед собой по дуге и задержись на секунду.", "eq": "cable"}, {"g": "Грудь", "n": "Бабочка (пек-дек)", "img": "ex/butterfly.webp", "pm": ["chest"], "sm": [], "f": "", "cue": "Спина прижата к спинке, своди руки усилием груди, возвращай медленно.", "eq": "machine"}, {"g": "Грудь", "n": "Жим в тренажёре", "img": "ex/leverage-chest-press.webp", "pm": ["chest"], "sm": ["shoulders", "triceps"], "f": "", "cue": "Рукояти на уровне середины груди, выжимай без рывков, не разгибай локти до щелчка.", "eq": "machine"}, {"g": "Грудь", "n": "Отжимания на брусьях", "img": "ex/dips-chest-version.webp", "pm": ["chest"], "sm": ["shoulders", "triceps"], "f": "bw", "cue": "Наклонись вперёд и разведи локти — так нагрузка уходит в грудь. Опускайся до растяжения.", "eq": "other"}, {"g": "Грудь", "n": "Отжимания", "img": "ex/pushups.webp", "pm": ["chest"], "sm": ["shoulders", "triceps"], "f": "bw", "cue": "Тело прямое от макушки до пяток, опускайся почти до пола, локти под 45°.", "eq": "body only"}, {"g": "Спина", "n": "Подтягивания", "img": "ex/pullups.webp", "pm": ["lats"], "sm": ["biceps", "middle back"], "f": "bw", "cue": "Тянись грудью к перекладине, сводя лопатки. Опускайся полностью, без раскачки.", "eq": "body only"}, {"g": "Спина", "n": "Тяга верхнего блока", "img": "ex/wide-grip-lat-pulldown.webp", "pm": ["lats"], "sm": ["biceps", "middle back", "shoulders"], "f": "", "cue": "Тяни рукоять к верху груди, локти вниз и назад, корпус чуть отклонён.", "eq": "cable"}, {"g": "Спина", "n": "Тяга штанги в наклоне", "img": "ex/bent-over-barbell-row.webp", "pm": ["middle back"], "sm": ["biceps", "lats", "shoulders"], "f": "", "cue": "Наклон ~45°, спина ровная. Тяни гриф к низу живота, сводя лопатки.", "eq": "barbell"}, {"g": "Спина", "n": "Тяга гантели одной рукой", "img": "ex/one-arm-dumbbell-row.webp", "pm": ["middle back"], "sm": ["biceps", "lats", "shoulders"], "f": "", "cue": "Опора коленом и рукой на скамью, тяни гантель к поясу локтем вдоль корпуса.", "eq": "dumbbell"}, {"g": "Спина", "n": "Тяга горизонтального блока", "img": "ex/seated-cable-rows.webp", "pm": ["middle back"], "sm": ["biceps", "lats", "shoulders"], "f": "", "cue": "Спина ровная, тяни рукоять к животу, в конце сведи лопатки. Корпус не раскачивай.", "eq": "cable"}, {"g": "Спина", "n": "Т-тяга", "img": "ex/t-bar-row-with-handle.webp", "pm": ["middle back"], "sm": ["biceps", "lats"], "f": "", "cue": "Наклон вперёд с ровной спиной, тяни к груди-животу, локти вдоль корпуса.", "eq": "barbell"}, {"g": "Спина", "n": "Становая тяга", "img": "ex/barbell-deadlift.webp", "pm": ["lower back"], "sm": ["calves", "forearms", "glutes", "hamstrings", "lats", "middle back", "quadriceps", "traps"], "f": "", "cue": "Гриф у голеней, спина ровная. Встаёшь за счёт ног и таза, гриф скользит вдоль ног.", "eq": "barbell"}, {"g": "Спина", "n": "Гиперэкстензия", "img": "ex/hyperextensions-back-extensions.webp", "pm": ["lower back"], "sm": ["glutes", "hamstrings"], "f": "bw", "cue": "Опускайся с ровной спиной, поднимайся до прямой линии тела, без переразгибания.", "eq": "other"}, {"g": "Спина", "n": "Шраги со штангой", "img": "ex/barbell-shrug.webp", "pm": ["traps"], "sm": [], "f": "", "cue": "Поднимай плечи строго вверх к ушам, задержись, опускай медленно. Руки прямые.", "eq": "barbell"}, {"g": "Ноги", "n": "Приседания со штангой", "img": "ex/barbell-squat.webp", "pm": ["quadriceps"], "sm": ["calves", "glutes", "hamstrings", "lower back"], "f": "", "cue": "Штанга на трапециях, колени в сторону носков. Садись до параллели, спина ровная.", "eq": "barbell"}, {"g": "Ноги", "n": "Жим ногами", "img": "ex/leg-press.webp", "pm": ["quadriceps"], "sm": ["calves", "glutes", "hamstrings"], "f": "", "cue": "Стопы на ширине плеч, опускай платформу до угла ~90° в коленях, поясница прижата.", "eq": "machine"}, {"g": "Ноги", "n": "Выпады", "img": "ex/dumbbell-lunges.webp", "pm": ["quadriceps"], "sm": ["calves", "glutes", "hamstrings"], "f": "", "cue": "Длинный шаг вперёд, оба колена под 90°, заднее почти касается пола.", "eq": "dumbbell"}, {"g": "Ноги", "n": "Разгибание ног", "img": "ex/leg-extensions.webp", "pm": ["quadriceps"], "sm": [], "f": "", "cue": "Разгибай ноги до конца, задержись вверху, опускай медленно.", "eq": "machine"}, {"g": "Ноги", "n": "Сгибание ног", "img": "ex/lying-leg-curls.webp", "pm": ["hamstrings"], "sm": [], "f": "", "cue": "Таз прижат к скамье, сгибай ноги к ягодицам, без рывков.", "eq": "machine"}, {"g": "Ноги", "n": "Румынская тяга", "img": "ex/romanian-deadlift.webp", "pm": ["hamstrings"], "sm": ["calves", "glutes", "lower back"], "f": "", "cue": "Колени чуть согнуты, отводи таз назад, гриф скользит по бёдрам до растяжения задней поверхности.", "eq": "barbell"}, {"g": "Ноги", "n": "Болгарские сплит-приседания", "img": "ex/split-squat-with-dumbbells.webp", "pm": ["quadriceps"], "sm": ["glutes", "hamstrings"], "f": "", "cue": "Задняя нога на скамье, опускайся вертикально вниз на передней ноге.", "eq": "dumbbell"}, {"g": "Ноги", "n": "Гакк-приседания", "img": "ex/hack-squat.webp", "pm": ["quadriceps"], "sm": ["calves", "glutes", "hamstrings"], "f": "", "cue": "Спина прижата к спинке, опускайся до параллели, колени по направлению носков.", "eq": "machine"}, {"g": "Ягодицы", "n": "Ягодичный мост со штангой", "img": "ex/barbell-hip-thrust.webp", "pm": ["glutes"], "sm": ["calves", "hamstrings"], "f": "", "cue": "Лопатки на скамье, толкай таз вверх до прямой линии, сожми ягодицы вверху.", "eq": "barbell"}, {"g": "Ягодицы", "n": "Ягодичный мостик", "img": "ex/barbell-glute-bridge.webp", "pm": ["glutes"], "sm": ["calves", "hamstrings"], "f": "", "cue": "Лёжа на полу, поднимай таз вверх, задержись на секунду вверху.", "eq": "barbell"}, {"g": "Ягодицы", "n": "Отведение ноги в кроссовере", "img": "ex/one-legged-cable-kickback.webp", "pm": ["glutes"], "sm": ["hamstrings"], "f": "", "cue": "Манжета на лодыжке, отводи прямую ногу назад, корпус неподвижен.", "eq": "cable"}, {"g": "Ягодицы", "n": "Отведение бедра в тренажёре", "img": "ex/thigh-abductor.webp", "pm": ["abductors"], "sm": ["glutes"], "f": "", "cue": "Разводи ноги в стороны усилием ягодиц, возвращай медленно.", "eq": "machine"}, {"g": "Ягодицы", "n": "Сумо-тяга", "img": "ex/sumo-deadlift.webp", "pm": ["hamstrings"], "sm": ["adductors", "forearms", "glutes", "lower back", "middle back", "quadriceps", "traps"], "f": "", "cue": "Широкая стойка, хват между ног. Толкай пол ногами, таз вперёд вверху.", "eq": "barbell"}, {"g": "Плечи", "n": "Жим штанги стоя", "img": "ex/standing-military-press.webp", "pm": ["shoulders"], "sm": ["triceps"], "f": "", "cue": "Гриф от груди вверх над головой, корпус напряжён, не прогибайся в пояснице.", "eq": "barbell"}, {"g": "Плечи", "n": "Жим гантелей сидя", "img": "ex/dumbbell-shoulder-press.webp", "pm": ["shoulders"], "sm": ["triceps"], "f": "", "cue": "Гантели от уровня ушей вверх, спина прижата к спинке.", "eq": "dumbbell"}, {"g": "Плечи", "n": "Махи гантелями в стороны", "img": "ex/side-lateral-raise.webp", "pm": ["shoulders"], "sm": [], "f": "", "cue": "Поднимай через стороны до уровня плеч, локти чуть согнуты и выше кистей.", "eq": "dumbbell"}, {"g": "Плечи", "n": "Махи в наклоне", "img": "ex/seated-bent-over-rear-delt-raise.webp", "pm": ["shoulders"], "sm": [], "f": "", "cue": "Наклон к бёдрам, разводи гантели в стороны задней дельтой, без рывков.", "eq": "dumbbell"}, {"g": "Плечи", "n": "Подъём гантелей перед собой", "img": "ex/front-dumbbell-raise.webp", "pm": ["shoulders"], "sm": [], "f": "", "cue": "Поднимай прямые руки перед собой до уровня плеч, не раскачивайся.", "eq": "dumbbell"}, {"g": "Плечи", "n": "Тяга к подбородку", "img": "ex/upright-barbell-row.webp", "pm": ["shoulders"], "sm": ["traps"], "f": "", "cue": "Тяни гриф вдоль тела до груди, локти выше кистей.", "eq": "barbell"}, {"g": "Плечи", "n": "Тяга каната к лицу", "img": "ex/face-pull.webp", "pm": ["shoulders"], "sm": ["middle back"], "f": "", "cue": "Тяни канат к лицу, разводя концы и локти в стороны.", "eq": "cable"}, {"g": "Бицепс", "n": "Подъём штанги на бицепс", "img": "ex/barbell-curl.webp", "pm": ["biceps"], "sm": ["forearms"], "f": "", "cue": "Локти прижаты к корпусу и неподвижны, поднимай без раскачки.", "eq": "barbell"}, {"g": "Бицепс", "n": "Подъём гантелей на бицепс", "img": "ex/dumbbell-bicep-curl.webp", "pm": ["biceps"], "sm": ["forearms"], "f": "", "cue": "Поднимай с разворотом кисти ладонью вверх, опускай до полного разгибания.", "eq": "dumbbell"}, {"g": "Бицепс", "n": "Молотки", "img": "ex/hammer-curls.webp", "pm": ["biceps"], "sm": ["forearms"], "f": "", "cue": "Хват ладонями друг к другу, локти прижаты. Работает бицепс и плечевая мышца.", "eq": "dumbbell"}, {"g": "Бицепс", "n": "Сгибания на скамье Скотта", "img": "ex/preacher-curl.webp", "pm": ["biceps"], "sm": [], "f": "", "cue": "Руки лежат на подушке, опускай до почти полного разгибания, без рывков.", "eq": "barbell"}, {"g": "Бицепс", "n": "Концентрированный подъём", "img": "ex/concentration-curls.webp", "pm": ["biceps"], "sm": ["forearms"], "f": "", "cue": "Локоть упирается во внутреннюю часть бедра, поднимай медленно и сжимай вверху.", "eq": "dumbbell"}, {"g": "Трицепс", "n": "Французский жим", "img": "ex/ez-bar-skullcrusher.webp", "pm": ["triceps"], "sm": ["forearms"], "f": "", "cue": "Лёжа, опускай гриф ко лбу, сгибая только локти. Плечи неподвижны.", "eq": "e-z curl bar"}, {"g": "Трицепс", "n": "Разгибание на блоке", "img": "ex/triceps-pushdown.webp", "pm": ["triceps"], "sm": [], "f": "", "cue": "Локти прижаты к корпусу, разгибай руки вниз до конца.", "eq": "cable"}, {"g": "Трицепс", "n": "Разгибание на блоке с канатом", "img": "ex/triceps-pushdown-rope-attachment.webp", "pm": ["triceps"], "sm": [], "f": "", "cue": "Внизу разводи концы каната в стороны для полного сокращения.", "eq": "cable"}, {"g": "Трицепс", "n": "Жим узким хватом", "img": "ex/close-grip-barbell-bench-press.webp", "pm": ["triceps"], "sm": ["chest", "shoulders"], "f": "", "cue": "Хват чуть уже плеч, локти вдоль корпуса, гриф к низу груди.", "eq": "barbell"}, {"g": "Трицепс", "n": "Разгибание из-за головы", "img": "ex/cable-rope-overhead-triceps-extension.webp", "pm": ["triceps"], "sm": [], "f": "", "cue": "Локти смотрят вперёд и неподвижны, разгибай руки над головой.", "eq": "cable"}, {"g": "Трицепс", "n": "Отжимания на брусьях (трицепс)", "img": "ex/dips-triceps-version.webp", "pm": ["triceps"], "sm": ["chest", "shoulders"], "f": "bw", "cue": "Корпус вертикально, локти назад вдоль тела.", "eq": "body only"}, {"g": "Пресс", "n": "Скручивания", "img": "ex/crunches.webp", "pm": ["abdominals"], "sm": [], "f": "bw", "cue": "Отрывай лопатки от пола, скругляя спину. Поясница прижата.", "eq": "body only"}, {"g": "Пресс", "n": "Подъём ног в висе", "img": "ex/hanging-leg-raise.webp", "pm": ["abdominals"], "sm": [], "f": "bw", "cue": "Поднимай ноги подкручивая таз, без раскачки корпуса.", "eq": "body only"}, {"g": "Пресс", "n": "Планка", "img": "ex/plank.webp", "pm": ["abdominals"], "sm": [], "f": "bw,sec", "cue": "Тело прямое, живот и ягодицы напряжены, не проваливай поясницу.", "eq": "body only"}, {"g": "Пресс", "n": "Ролик для пресса", "img": "ex/ab-roller.webp", "pm": ["abdominals"], "sm": ["shoulders"], "f": "bw", "cue": "Выкатывай ролик вперёд с напряжённым прессом, возвращайся без прогиба в пояснице.", "eq": "other"}, {"g": "Пресс", "n": "Скручивания на блоке", "img": "ex/cable-crunch.webp", "pm": ["abdominals"], "sm": [], "f": "", "cue": "На коленях, тяни канат вниз, скругляя спину усилием пресса.", "eq": "cable"}, {"g": "Пресс", "n": "Русский твист", "img": "ex/russian-twist.webp", "pm": ["abdominals"], "sm": ["lower back"], "f": "bw", "cue": "Сидя с отклоном назад, поворачивай корпус из стороны в сторону.", "eq": "body only"}, {"g": "Икры", "n": "Подъём на носки стоя", "img": "ex/standing-calf-raises.webp", "pm": ["calves"], "sm": [], "f": "", "cue": "Поднимайся на носки максимально высоко, опускай пятки ниже платформы.", "eq": "machine"}, {"g": "Икры", "n": "Подъём на носки сидя", "img": "ex/seated-calf-raise.webp", "pm": ["calves"], "sm": [], "f": "", "cue": "Колени под валиком, поднимай пятки, работает камбаловидная мышца.", "eq": "machine"}, {"g": "Икры", "n": "Носки в жиме ногами", "img": "ex/calf-press-on-the-leg-press-machine.webp", "pm": ["calves"], "sm": [], "f": "", "cue": "Носки на краю платформы, толкай её пальцами ног, ноги прямые.", "eq": "machine"}, {"g": "Предплечья", "n": "Сгибание запястий", "img": "ex/palms-up-barbell-wrist-curl-over-a-bench.webp", "pm": ["forearms"], "sm": [], "f": "", "cue": "Предплечья на скамье, сгибай только запястья ладонями вверх.", "eq": "barbell"}, {"g": "Предплечья", "n": "Разгибание запястий", "img": "ex/palms-down-wrist-curl-over-a-bench.webp", "pm": ["forearms"], "sm": [], "f": "", "cue": "Ладони вниз, поднимай кисти за счёт разгибателей предплечья.", "eq": "barbell"}, {"g": "Предплечья", "n": "Фермерская прогулка", "img": "ex/farmer-s-walk.webp", "pm": ["forearms"], "sm": ["abdominals", "glutes", "hamstrings", "lower back", "quadriceps", "traps"], "f": "", "cue": "Тяжёлые гантели в руках, иди ровно, плечи назад. Вес = одна гантель, повторы = шаги.", "eq": "other"}, {"g": "Кардио", "n": "Беговая дорожка", "img": "ex/running-treadmill.webp", "pm": ["quadriceps"], "sm": ["calves", "glutes", "hamstrings"], "f": "cardio", "cue": "Наклон 1–2% имитирует бег на улице. Для жиросжигания — быстрый шаг в гору.", "eq": "machine"}, {"g": "Кардио", "n": "Велотренажёр", "img": "ex/bicycling-stationary.webp", "pm": ["quadriceps"], "sm": ["calves", "glutes", "hamstrings"], "f": "cardio", "cue": "Седло на уровне таза, колено почти выпрямлено внизу. Каденс 80–100 об/мин.", "eq": "machine"}, {"g": "Кардио", "n": "Эллипс", "img": "ex/elliptical-trainer.webp", "pm": ["quadriceps"], "sm": ["calves", "glutes", "hamstrings"], "f": "cardio", "cue": "Держи спину ровно, толкай педали всей стопой, не повисай на поручнях.", "eq": "machine"}, {"g": "Кардио", "n": "Гребной тренажёр", "img": "ex/rowing-stationary.webp", "pm": ["quadriceps"], "sm": ["biceps", "calves", "glutes", "hamstrings", "lower back", "middle back"], "f": "cardio", "cue": "Сначала ноги, потом корпус, потом руки. Демпфер 3–5 для большинства.", "eq": "machine"}, {"g": "Кардио", "n": "Степпер", "img": "ex/stairmaster.webp", "pm": ["quadriceps"], "sm": ["calves", "glutes", "hamstrings"], "f": "cardio", "cue": "Не опирайся на поручни всем весом, ставь всю стопу на ступень.", "eq": "machine"}, {"g": "Кардио", "n": "Скакалка", "img": "ex/rope-jumping.webp", "pm": ["quadriceps"], "sm": ["calves", "hamstrings"], "f": "cardio", "cue": "Прыгай на носках невысоко, вращай скакалку кистями, а не всей рукой.", "eq": "other"}];
+const CATALOG = [{"g": "Грудь", "n": "Жим штанги лёжа", "img": "ex/barbell-bench-press-medium-grip.webp", "pm": ["chest"], "sm": ["shoulders", "triceps"], "f": "", "cue": "Опусти гриф к середине груди, лопатки сведены, ноги упираются в пол. Выжимай вверх на выдохе.", "eq": "barbell", "en": "Barbell Bench Press"}, {"g": "Грудь", "n": "Жим лёжа в Смите", "img": "ex/smith-machine-bench-press.webp", "pm": ["chest"], "sm": ["shoulders", "triceps"], "f": "", "cue": "Поставь скамью так, чтобы гриф опускался к середине груди. Сними гриф поворотом кистей, опускай подконтрольно и выжимай вверх.", "eq": "machine", "al": "smith machine смит", "en": "Smith Machine Bench Press"}, {"g": "Грудь", "n": "Жим гантелей лёжа", "img": "ex/dumbbell-bench-press.webp", "pm": ["chest"], "sm": ["shoulders", "triceps"], "f": "", "cue": "Гантели опускай до уровня груди, локти под углом ~45° к корпусу. Вверху не стукай гантели.", "eq": "dumbbell", "en": "Dumbbell Bench Press"}, {"g": "Грудь", "n": "Жим штанги на наклонной скамье", "img": "ex/barbell-incline-bench-press-medium-grip.webp", "pm": ["chest"], "sm": ["shoulders", "triceps"], "f": "", "cue": "Наклон 30–45°. Гриф опускай к верху груди — так больше работает верх грудных.", "eq": "barbell", "en": "Incline Barbell Bench Press"}, {"g": "Грудь", "n": "Жим гантелей на наклонной скамье", "img": "ex/incline-dumbbell-press.webp", "pm": ["chest"], "sm": ["shoulders", "triceps"], "f": "", "cue": "Наклон 30–45°, гантели опускай к верхней части груди, лопатки прижаты к скамье.", "eq": "dumbbell", "en": "Incline Dumbbell Press"}, {"g": "Грудь", "n": "Разводка гантелей", "img": "ex/dumbbell-flyes.webp", "pm": ["chest"], "sm": [], "f": "", "cue": "Руки слегка согнуты и не разгибаются. Разводи до растяжения груди, своди по дуге.", "eq": "dumbbell", "en": "Dumbbell Fly"}, {"g": "Грудь", "n": "Кроссовер", "img": "ex/cable-crossover.webp", "pm": ["chest"], "sm": ["shoulders"], "f": "", "cue": "Небольшой наклон вперёд, своди руки перед собой по дуге и задержись на секунду.", "eq": "cable", "en": "Cable Crossover"}, {"g": "Грудь", "n": "Бабочка (пек-дек)", "img": "ex/butterfly.webp", "pm": ["chest"], "sm": [], "f": "", "cue": "Спина прижата к спинке, своди руки усилием груди, возвращай медленно.", "eq": "machine", "en": "Pec Deck / Butterfly"}, {"g": "Грудь", "n": "Жим в тренажёре", "img": "ex/leverage-chest-press.webp", "pm": ["chest"], "sm": ["shoulders", "triceps"], "f": "", "cue": "Рукояти на уровне середины груди, выжимай без рывков, не разгибай локти до щелчка.", "eq": "machine", "en": "Chest Press Machine"}, {"g": "Грудь", "n": "Отжимания на брусьях", "img": "ex/dips-chest-version.webp", "pm": ["chest"], "sm": ["shoulders", "triceps"], "f": "bw", "cue": "Наклонись вперёд и разведи локти — так нагрузка уходит в грудь. Опускайся до растяжения.", "eq": "other", "en": "Chest Dips"}, {"g": "Грудь", "n": "Отжимания на брусьях в гравитроне", "img": "ex/dips-chest-version.webp", "pm": ["chest"], "sm": ["shoulders", "triceps"], "f": "assist", "cue": "Встань коленями на платформу. Наклонись вперёд и разведи локти — так работает грудь. Противовес помогает: чем он меньше, тем тяжелее.", "eq": "machine", "al": "dip chin assist гравитрон брусья", "en": "Assisted Dips"}, {"g": "Грудь", "n": "Отжимания", "img": "ex/pushups.webp", "pm": ["chest"], "sm": ["shoulders", "triceps"], "f": "bw", "cue": "Тело прямое от макушки до пяток, опускайся почти до пола, локти под 45°.", "eq": "body only", "en": "Push-Ups"}, {"g": "Спина", "n": "Подтягивания", "img": "ex/pullups.webp", "pm": ["lats"], "sm": ["biceps", "middle back"], "f": "bw", "cue": "Тянись грудью к перекладине, сводя лопатки. Опускайся полностью, без раскачки.", "eq": "body only", "en": "Pull-Ups"}, {"g": "Спина", "n": "Подтягивания в гравитроне (широкий хват)", "img": "ex/pullups.webp", "pm": ["lats"], "sm": ["biceps", "middle back"], "f": "assist", "cue": "Колени на платформе, хват широкий. Тянись грудью к рукоятям, сводя лопатки, опускайся полностью. Противовес помогает: чем он меньше, тем тяжелее.", "eq": "machine", "al": "dip chin assist гравитрон", "en": "Assisted Pull-Ups, Wide Grip"}, {"g": "Спина", "n": "Подтягивания в гравитроне (узкий хват)", "img": "ex/chin-up.webp", "pm": ["lats"], "sm": ["biceps", "middle back"], "f": "assist", "cue": "Колени на платформе, хват узкий. Тянись грудью к рукоятям, сводя лопатки, опускайся полностью. Противовес помогает: чем он меньше, тем тяжелее.", "eq": "machine", "al": "dip chin assist гравитрон", "en": "Assisted Chin-Ups, Close Grip"}, {"g": "Спина", "n": "Тяга верхнего блока", "img": "ex/wide-grip-lat-pulldown.webp", "pm": ["lats"], "sm": ["biceps", "middle back", "shoulders"], "f": "", "cue": "Тяни рукоять к верху груди, локти вниз и назад, корпус чуть отклонён.", "eq": "cable", "en": "Lat Pulldown"}, {"g": "Спина", "n": "Тяга штанги в наклоне", "img": "ex/bent-over-barbell-row.webp", "pm": ["middle back"], "sm": ["biceps", "lats", "shoulders"], "f": "", "cue": "Наклон ~45°, спина ровная. Тяни гриф к низу живота, сводя лопатки.", "eq": "barbell", "en": "Bent-Over Barbell Row"}, {"g": "Спина", "n": "Тяга гантели одной рукой", "img": "ex/one-arm-dumbbell-row.webp", "pm": ["middle back"], "sm": ["biceps", "lats", "shoulders"], "f": "", "cue": "Опора коленом и рукой на скамью, тяни гантель к поясу локтем вдоль корпуса.", "eq": "dumbbell", "en": "One-Arm Dumbbell Row"}, {"g": "Спина", "n": "Тяга горизонтального блока", "img": "ex/seated-cable-rows.webp", "pm": ["middle back"], "sm": ["biceps", "lats", "shoulders"], "f": "", "cue": "Спина ровная, тяни рукоять к животу, в конце сведи лопатки. Корпус не раскачивай.", "eq": "cable", "en": "Seated Cable Row"}, {"g": "Спина", "n": "Т-тяга", "img": "ex/t-bar-row-with-handle.webp", "pm": ["middle back"], "sm": ["biceps", "lats"], "f": "", "cue": "Наклон вперёд с ровной спиной, тяни к груди-животу, локти вдоль корпуса.", "eq": "barbell", "en": "T-Bar Row"}, {"g": "Спина", "n": "Становая тяга", "img": "ex/barbell-deadlift.webp", "pm": ["lower back"], "sm": ["calves", "forearms", "glutes", "hamstrings", "lats", "middle back", "quadriceps", "traps"], "f": "", "cue": "Гриф у голеней, спина ровная. Встаёшь за счёт ног и таза, гриф скользит вдоль ног.", "eq": "barbell", "en": "Deadlift"}, {"g": "Спина", "n": "Римский стул / гиперэкстензия", "img": "ex/hyperextensions-back-extensions.webp", "pm": ["lower back"], "sm": ["glutes", "hamstrings"], "f": "bw", "cue": "Опускайся с ровной спиной, поднимайся до прямой линии тела, без переразгибания.", "eq": "other", "al": "roman chair гиперэкстензия", "en": "Roman Chair / Back Extension"}, {"g": "Спина", "n": "Разгибание спины в тренажёре", "img": "", "pm": ["lower back"], "sm": ["glutes", "hamstrings"], "f": "", "cue": "Сядь спиной к упору, ноги зафиксированы. Разгибайся назад до прямой линии корпуса, плавно, без рывков и переразгибания.", "eq": "machine", "al": "low back lower back abdominal crunch поясница", "en": "Lower Back Machine"}, {"g": "Спина", "n": "Шраги со штангой", "img": "ex/barbell-shrug.webp", "pm": ["traps"], "sm": [], "f": "", "cue": "Поднимай плечи строго вверх к ушам, задержись, опускай медленно. Руки прямые.", "eq": "barbell", "en": "Barbell Shrug"}, {"g": "Ноги", "n": "Приседания со штангой", "img": "ex/barbell-squat.webp", "pm": ["quadriceps"], "sm": ["calves", "glutes", "hamstrings", "lower back"], "f": "", "cue": "Штанга на трапециях, колени в сторону носков. Садись до параллели, спина ровная.", "eq": "barbell", "en": "Barbell Squat"}, {"g": "Ноги", "n": "Жим ногами", "img": "ex/leg-press.webp", "pm": ["quadriceps"], "sm": ["calves", "glutes", "hamstrings"], "f": "", "cue": "Стопы на ширине плеч, опускай платформу до угла ~90° в коленях, поясница прижата.", "eq": "machine", "en": "Leg Press"}, {"g": "Ноги", "n": "Выпады", "img": "ex/dumbbell-lunges.webp", "pm": ["quadriceps"], "sm": ["calves", "glutes", "hamstrings"], "f": "", "cue": "Длинный шаг вперёд, оба колена под 90°, заднее почти касается пола.", "eq": "dumbbell", "en": "Dumbbell Lunges"}, {"g": "Ноги", "n": "Разгибание ног", "img": "ex/leg-extensions.webp", "pm": ["quadriceps"], "sm": [], "f": "", "cue": "Разгибай ноги до конца, задержись вверху, опускай медленно.", "eq": "machine", "en": "Leg Extension"}, {"g": "Ноги", "n": "Сгибание ног", "img": "ex/lying-leg-curls.webp", "pm": ["hamstrings"], "sm": [], "f": "", "cue": "Таз прижат к скамье, сгибай ноги к ягодицам, без рывков.", "eq": "machine", "al": "leg curl", "en": "Leg Curl"}, {"g": "Ноги", "n": "Румынская тяга", "img": "ex/romanian-deadlift.webp", "pm": ["hamstrings"], "sm": ["calves", "glutes", "lower back"], "f": "", "cue": "Колени чуть согнуты, отводи таз назад, гриф скользит по бёдрам до растяжения задней поверхности.", "eq": "barbell", "en": "Romanian Deadlift"}, {"g": "Ноги", "n": "Болгарские сплит-приседания", "img": "ex/split-squat-with-dumbbells.webp", "pm": ["quadriceps"], "sm": ["glutes", "hamstrings"], "f": "", "cue": "Задняя нога на скамье, опускайся вертикально вниз на передней ноге.", "eq": "dumbbell", "en": "Bulgarian Split Squat"}, {"g": "Ноги", "n": "Гакк-приседания", "img": "ex/hack-squat.webp", "pm": ["quadriceps"], "sm": ["calves", "glutes", "hamstrings"], "f": "", "cue": "Спина прижата к спинке, опускайся до параллели, колени по направлению носков.", "eq": "machine", "en": "Hack Squat"}, {"g": "Ягодицы", "n": "Ягодичный мост со штангой", "img": "ex/barbell-hip-thrust.webp", "pm": ["glutes"], "sm": ["calves", "hamstrings"], "f": "", "cue": "Лопатки на скамье, толкай таз вверх до прямой линии, сожми ягодицы вверху.", "eq": "barbell", "en": "Barbell Hip Thrust"}, {"g": "Ягодицы", "n": "Ягодичный мостик", "img": "ex/barbell-glute-bridge.webp", "pm": ["glutes"], "sm": ["calves", "hamstrings"], "f": "", "cue": "Лёжа на полу, поднимай таз вверх, задержись на секунду вверху.", "eq": "barbell", "en": "Glute Bridge"}, {"g": "Ягодицы", "n": "Отведение ноги в кроссовере", "img": "ex/one-legged-cable-kickback.webp", "pm": ["glutes"], "sm": ["hamstrings"], "f": "", "cue": "Манжета на лодыжке, отводи прямую ногу назад, корпус неподвижен.", "eq": "cable", "en": "Cable Kickback"}, {"g": "Ягодицы", "n": "Отведение бедра в тренажёре", "img": "ex/thigh-abductor.webp", "pm": ["abductors"], "sm": ["glutes"], "f": "", "cue": "Разводи ноги в стороны усилием ягодиц, возвращай медленно.", "eq": "machine", "en": "Hip Abduction Machine"}, {"g": "Ягодицы", "n": "Сумо-тяга", "img": "ex/sumo-deadlift.webp", "pm": ["hamstrings"], "sm": ["adductors", "forearms", "glutes", "lower back", "middle back", "quadriceps", "traps"], "f": "", "cue": "Широкая стойка, хват между ног. Толкай пол ногами, таз вперёд вверху.", "eq": "barbell", "en": "Sumo Deadlift"}, {"g": "Плечи", "n": "Жим штанги стоя", "img": "ex/standing-military-press.webp", "pm": ["shoulders"], "sm": ["triceps"], "f": "", "cue": "Гриф от груди вверх над головой, корпус напряжён, не прогибайся в пояснице.", "eq": "barbell", "en": "Overhead Press"}, {"g": "Плечи", "n": "Жим гантелей сидя", "img": "ex/dumbbell-shoulder-press.webp", "pm": ["shoulders"], "sm": ["triceps"], "f": "", "cue": "Гантели от уровня ушей вверх, спина прижата к спинке.", "eq": "dumbbell", "en": "Seated Dumbbell Shoulder Press"}, {"g": "Плечи", "n": "Махи гантелями в стороны", "img": "ex/side-lateral-raise.webp", "pm": ["shoulders"], "sm": [], "f": "", "cue": "Поднимай через стороны до уровня плеч, локти чуть согнуты и выше кистей.", "eq": "dumbbell", "en": "Lateral Raise"}, {"g": "Плечи", "n": "Махи в наклоне", "img": "ex/seated-bent-over-rear-delt-raise.webp", "pm": ["shoulders"], "sm": [], "f": "", "cue": "Наклон к бёдрам, разводи гантели в стороны задней дельтой, без рывков.", "eq": "dumbbell", "en": "Bent-Over Rear Delt Raise"}, {"g": "Плечи", "n": "Подъём гантелей перед собой", "img": "ex/front-dumbbell-raise.webp", "pm": ["shoulders"], "sm": [], "f": "", "cue": "Поднимай прямые руки перед собой до уровня плеч, не раскачивайся.", "eq": "dumbbell", "en": "Front Raise"}, {"g": "Плечи", "n": "Тяга к подбородку", "img": "ex/upright-barbell-row.webp", "pm": ["shoulders"], "sm": ["traps"], "f": "", "cue": "Тяни гриф вдоль тела до груди, локти выше кистей.", "eq": "barbell", "en": "Upright Row"}, {"g": "Плечи", "n": "Тяга каната к лицу", "img": "ex/face-pull.webp", "pm": ["shoulders"], "sm": ["middle back"], "f": "", "cue": "Тяни канат к лицу, разводя концы и локти в стороны.", "eq": "cable", "en": "Face Pull"}, {"g": "Бицепс", "n": "Подъём штанги на бицепс", "img": "ex/barbell-curl.webp", "pm": ["biceps"], "sm": ["forearms"], "f": "", "cue": "Локти прижаты к корпусу и неподвижны, поднимай без раскачки.", "eq": "barbell", "en": "Barbell Curl"}, {"g": "Бицепс", "n": "Подъём гантелей на бицепс", "img": "ex/dumbbell-bicep-curl.webp", "pm": ["biceps"], "sm": ["forearms"], "f": "", "cue": "Поднимай с разворотом кисти ладонью вверх, опускай до полного разгибания.", "eq": "dumbbell", "en": "Dumbbell Curl"}, {"g": "Бицепс", "n": "Молотки", "img": "ex/hammer-curls.webp", "pm": ["biceps"], "sm": ["forearms"], "f": "", "cue": "Хват ладонями друг к другу, локти прижаты. Работает бицепс и плечевая мышца.", "eq": "dumbbell", "en": "Hammer Curl"}, {"g": "Бицепс", "n": "Сгибания на скамье Скотта", "img": "ex/preacher-curl.webp", "pm": ["biceps"], "sm": [], "f": "", "cue": "Руки лежат на подушке, опускай до почти полного разгибания, без рывков.", "eq": "barbell", "en": "Preacher Curl"}, {"g": "Бицепс", "n": "Концентрированный подъём", "img": "ex/concentration-curls.webp", "pm": ["biceps"], "sm": ["forearms"], "f": "", "cue": "Локоть упирается во внутреннюю часть бедра, поднимай медленно и сжимай вверху.", "eq": "dumbbell", "en": "Concentration Curl"}, {"g": "Трицепс", "n": "Французский жим", "img": "ex/ez-bar-skullcrusher.webp", "pm": ["triceps"], "sm": ["forearms"], "f": "", "cue": "Лёжа, опускай гриф ко лбу, сгибая только локти. Плечи неподвижны.", "eq": "e-z curl bar", "en": "Skull Crusher"}, {"g": "Трицепс", "n": "Разгибание на блоке", "img": "ex/triceps-pushdown.webp", "pm": ["triceps"], "sm": [], "f": "", "cue": "Локти прижаты к корпусу, разгибай руки вниз до конца.", "eq": "cable", "en": "Triceps Pushdown"}, {"g": "Трицепс", "n": "Разгибание на блоке с канатом", "img": "ex/triceps-pushdown-rope-attachment.webp", "pm": ["triceps"], "sm": [], "f": "", "cue": "Внизу разводи концы каната в стороны для полного сокращения.", "eq": "cable", "en": "Rope Pushdown"}, {"g": "Трицепс", "n": "Жим вниз в тренажёре", "img": "ex/dip-machine.webp", "pm": ["triceps"], "sm": ["chest", "shoulders"], "f": "", "cue": "Сядь, локти вдоль корпуса. Выжимай рукояти вниз до полного разгибания рук, плечи не поднимай.", "eq": "machine", "al": "triceps press трицепс-пресс", "en": "Triceps Press / Dip Machine"}, {"g": "Трицепс", "n": "Жим узким хватом", "img": "ex/close-grip-barbell-bench-press.webp", "pm": ["triceps"], "sm": ["chest", "shoulders"], "f": "", "cue": "Хват чуть уже плеч, локти вдоль корпуса, гриф к низу груди.", "eq": "barbell", "en": "Close-Grip Bench Press"}, {"g": "Трицепс", "n": "Разгибание из-за головы", "img": "ex/cable-rope-overhead-triceps-extension.webp", "pm": ["triceps"], "sm": [], "f": "", "cue": "Локти смотрят вперёд и неподвижны, разгибай руки над головой.", "eq": "cable", "en": "Overhead Triceps Extension"}, {"g": "Трицепс", "n": "Отжимания на брусьях (трицепс)", "img": "ex/dips-triceps-version.webp", "pm": ["triceps"], "sm": ["chest", "shoulders"], "f": "bw", "cue": "Корпус вертикально, локти назад вдоль тела.", "eq": "body only", "en": "Triceps Dips"}, {"g": "Пресс", "n": "Скручивания", "img": "ex/crunches.webp", "pm": ["abdominals"], "sm": [], "f": "bw", "cue": "Отрывай лопатки от пола, скругляя спину. Поясница прижата.", "eq": "body only", "en": "Crunches"}, {"g": "Пресс", "n": "Подъём ног в висе", "img": "ex/hanging-leg-raise.webp", "pm": ["abdominals"], "sm": [], "f": "bw", "cue": "Поднимай ноги подкручивая таз, без раскачки корпуса.", "eq": "body only", "en": "Hanging Leg Raise"}, {"g": "Пресс", "n": "Планка", "img": "ex/plank.webp", "pm": ["abdominals"], "sm": [], "f": "bw,sec", "cue": "Тело прямое, живот и ягодицы напряжены, не проваливай поясницу.", "eq": "body only", "en": "Plank"}, {"g": "Пресс", "n": "Ролик для пресса", "img": "ex/ab-roller.webp", "pm": ["abdominals"], "sm": ["shoulders"], "f": "bw", "cue": "Выкатывай ролик вперёд с напряжённым прессом, возвращайся без прогиба в пояснице.", "eq": "other", "en": "Ab Wheel Rollout"}, {"g": "Пресс", "n": "Скручивания на блоке", "img": "ex/cable-crunch.webp", "pm": ["abdominals"], "sm": [], "f": "", "cue": "На коленях, тяни канат вниз, скругляя спину усилием пресса.", "eq": "cable", "en": "Cable Crunch"}, {"g": "Пресс", "n": "Скручивания в тренажёре", "img": "ex/ab-crunch-machine.webp", "pm": ["abdominals"], "sm": [], "f": "", "cue": "Зафиксируй ноги, возьмись за рукояти. Скручивайся вперёд усилием пресса, а не рук, и плавно возвращайся.", "eq": "machine", "al": "abdominal crunch", "en": "Abdominal Crunch Machine"}, {"g": "Пресс", "n": "Русский твист", "img": "ex/russian-twist.webp", "pm": ["abdominals"], "sm": ["lower back"], "f": "bw", "cue": "Сидя с отклоном назад, поворачивай корпус из стороны в сторону.", "eq": "body only", "en": "Russian Twist"}, {"g": "Икры", "n": "Подъём на носки стоя", "img": "ex/standing-calf-raises.webp", "pm": ["calves"], "sm": [], "f": "", "cue": "Поднимайся на носки максимально высоко, опускай пятки ниже платформы.", "eq": "machine", "en": "Standing Calf Raise"}, {"g": "Икры", "n": "Подъём на носки сидя", "img": "ex/seated-calf-raise.webp", "pm": ["calves"], "sm": [], "f": "", "cue": "Колени под валиком, поднимай пятки, работает камбаловидная мышца.", "eq": "machine", "en": "Seated Calf Raise"}, {"g": "Икры", "n": "Носки в жиме ногами", "img": "ex/calf-press-on-the-leg-press-machine.webp", "pm": ["calves"], "sm": [], "f": "", "cue": "Носки на краю платформы, толкай её пальцами ног, ноги прямые.", "eq": "machine", "en": "Leg Press Calf Raise"}, {"g": "Предплечья", "n": "Сгибание запястий", "img": "ex/palms-up-barbell-wrist-curl-over-a-bench.webp", "pm": ["forearms"], "sm": [], "f": "", "cue": "Предплечья на скамье, сгибай только запястья ладонями вверх.", "eq": "barbell", "en": "Wrist Curl"}, {"g": "Предплечья", "n": "Разгибание запястий", "img": "ex/palms-down-wrist-curl-over-a-bench.webp", "pm": ["forearms"], "sm": [], "f": "", "cue": "Ладони вниз, поднимай кисти за счёт разгибателей предплечья.", "eq": "barbell", "en": "Reverse Wrist Curl"}, {"g": "Предплечья", "n": "Фермерская прогулка", "img": "ex/farmer-s-walk.webp", "pm": ["forearms"], "sm": ["abdominals", "glutes", "hamstrings", "lower back", "quadriceps", "traps"], "f": "", "cue": "Тяжёлые гантели в руках, иди ровно, плечи назад. Вес = одна гантель, повторы = шаги.", "eq": "other", "en": "Farmer's Walk"}, {"g": "Кардио", "n": "Беговая дорожка", "img": "ex/running-treadmill.webp", "pm": ["quadriceps"], "sm": ["calves", "glutes", "hamstrings"], "f": "cardio", "cue": "Наклон 1–2% имитирует бег на улице. Для жиросжигания — быстрый шаг в гору.", "eq": "machine", "en": "Treadmill"}, {"g": "Кардио", "n": "Велотренажёр", "img": "ex/bicycling-stationary.webp", "pm": ["quadriceps"], "sm": ["calves", "glutes", "hamstrings"], "f": "cardio", "cue": "Седло на уровне таза, колено почти выпрямлено внизу. Каденс 80–100 об/мин.", "eq": "machine", "en": "Exercise Bike"}, {"g": "Кардио", "n": "Эллипс", "img": "ex/elliptical-trainer.webp", "pm": ["quadriceps"], "sm": ["calves", "glutes", "hamstrings"], "f": "cardio", "cue": "Держи спину ровно, толкай педали всей стопой, не повисай на поручнях.", "eq": "machine", "en": "Elliptical"}, {"g": "Кардио", "n": "Гребной тренажёр", "img": "ex/rowing-stationary.webp", "pm": ["quadriceps"], "sm": ["biceps", "calves", "glutes", "hamstrings", "lower back", "middle back"], "f": "cardio", "cue": "Сначала ноги, потом корпус, потом руки. Демпфер 3–5 для большинства.", "eq": "machine", "en": "Rowing Machine"}, {"g": "Кардио", "n": "Степпер", "img": "ex/stairmaster.webp", "pm": ["quadriceps"], "sm": ["calves", "glutes", "hamstrings"], "f": "cardio", "cue": "Не опирайся на поручни всем весом, ставь всю стопу на ступень.", "eq": "machine", "en": "Stair Climber"}, {"g": "Кардио", "n": "Скакалка", "img": "ex/rope-jumping.webp", "pm": ["quadriceps"], "sm": ["calves", "hamstrings"], "f": "cardio", "cue": "Прыгай на носках невысоко, вращай скакалку кистями, а не всей рукой.", "eq": "other", "en": "Jump Rope"}];
 const EXERCISES = {}; MUSCLES.forEach(m => EXERCISES[m] = CATALOG.filter(x=>x.g===m).map(x=>x.n));
 const DBM = {abdominals:['Пресс',['abs']], abductors:['Отводящие бедра',['glutes']], adductors:['Приводящие бедра',['quads']], biceps:['Бицепс',['bi']], calves:['Икры',['calves','shin']], chest:['Грудь',['chest']], forearms:['Предплечья',['fore','bfore']], glutes:['Ягодицы',['glutes']], hamstrings:['Бицепс бедра',['hams']], lats:['Широчайшие',['back']], 'lower back':['Поясница',['lowback']], 'middle back':['Середина спины',['back']], neck:['Шея',['traps']], quadriceps:['Квадрицепс',['quads']], shoulders:['Дельты',['delts','rdelts']], traps:['Трапеции',['traps']], triceps:['Трицепс',['tri']]};
 const EQ = {'barbell':'штанга','dumbbell':'гантели','cable':'блок','machine':'тренажёр','body only':'свой вес','other':'снаряд','e-z curl bar':'EZ-гриф','kettlebells':'гиря','bands':'резина','exercise ball':'фитбол','medicine ball':'медбол','foam roll':'ролик'};
 
 
 /* ---------- state ---------- */
-const APP_VERSION = '2.11.3';
+const APP_VERSION = '2.17.1';
 const DEFAULT_SETTINGS = {kcalGoal:2200, kcalMode:'auto', waterGoal:2500, customFoods:[], foodOverrides:{}, customEx:[], favorites:[], waterPresets:[150,250,330,500], profile:{sex:'m',age:28,height:178,weight:78,neat:1.3,goalMode:'lose',rate:500,protein:1.8,fatk:0.9,targetWeight:0}};
 const S = {
   days:{}, settings:clone(DEFAULT_SETTINGS),
@@ -1066,8 +1148,9 @@ try{ const t = localStorage.getItem('forma.tab'); if (!location.hash && ['home',
 const blankDay = () => ({food:[], water:[], gym:null});
 const getDay = k => S.days[k] || blankDay();
 const gymEmpty = g => !g || (!(g.exercises||[]).length && !(g.muscles||[]).length && !(g.note||'').trim());
-function normDay(d){ if (d && d.gym && gymEmpty(d.gym)) d.gym = null; return d; }
-const isEmptyDay = d => !d || !(d.food&&d.food.length) && !(d.water&&d.water.length) && !d.gym && !num(d.weight) && !(d.walks&&d.walks.length);
+const EX_RENAME = {['Гиперэкс'+'тензия']:'Римский стул / гиперэкстензия'};   // old names in saved data → current
+function normDay(d){ if (d && d.gym && d.gym.exercises) d.gym.exercises.forEach(e => { if (EX_RENAME[e.name]) e.name = EX_RENAME[e.name]; }); if (d && d.gym && gymEmpty(d.gym)) d.gym = null; return d; }
+const isEmptyDay = d => !d || !(d.food&&d.food.length) && !(d.water&&d.water.length) && !d.gym && !num(d.weight) && !(d.walks&&d.walks.length) && !d.hs;
 
 /* ---------- storage ----------
    Rules that keep data from "jumping back":
@@ -1090,8 +1173,8 @@ let idbP = null;
 function idb(){ if (idbP) return idbP; idbP = new Promise(res => { try{ const r = indexedDB.open('forma', 1); r.onupgradeneeded = () => r.result.createObjectStore('kv'); r.onsuccess = () => res(r.result); r.onerror = () => res(null); }catch(e){ res(null); } }); return idbP; }
 function idbPut(val){ idb().then(d => { if (!d) return; try{ d.transaction('kv','readwrite').objectStore('kv').put(val, 'cache'); }catch(e){} }); }
 function idbGet(){ return idb().then(d => new Promise(res => { if (!d) return res(null); try{ const q = d.transaction('kv').objectStore('kv').get('cache'); q.onsuccess = () => res(q.result||null); q.onerror = () => res(null); }catch(e){ res(null); } })); }
-function cacheLocal(){ localSeq = Math.max(localSeq+1, Date.now()); const c = {seq:localSeq, days:S.days, settings:S.settings}; try{ localStorage.setItem('forma.cache', JSON.stringify(c)); }catch(e){} idbPut(JSON.parse(JSON.stringify(c))); }
-function applyCache(c){ S.days = c.days||{}; Object.values(S.days).forEach(normDay); S.settings = Object.assign(clone(DEFAULT_SETTINGS), c.settings||{}); setBase = clone(S.settings); localSeq = c.seq||0; }
+function cacheLocal(){ try{ ghQueue(); }catch(e){} localSeq = Math.max(localSeq+1, Date.now()); const c = {seq:localSeq, days:S.days, settings:S.settings}; try{ localStorage.setItem('forma.cache', JSON.stringify(c)); }catch(e){} idbPut(JSON.parse(JSON.stringify(c))); }
+function applyCache(c){ S.days = c.days||{}; Object.values(S.days).forEach(normDay); S.settings = Object.assign(clone(DEFAULT_SETTINGS), c.settings||{}); if ((S.settings.favEx||[]).some(n=>EX_RENAME[n])) S.settings.favEx = S.settings.favEx.map(n=>EX_RENAME[n]||n); setBase = clone(S.settings); localSeq = c.seq||0; }
 function loadLocal(){ try{ const c = JSON.parse(localStorage.getItem('forma.cache')||'null'); if (c) applyCache(c); else setBase = clone(S.settings); }catch(e){ setBase = clone(S.settings); } }
 /* if localStorage lost the latest writes (app killed before flush), IndexedDB still has them */
 async function loadMirror(){ const m = await idbGet(); if (m && (m.seq||0) > localSeq){ applyCache(m); try{ localStorage.setItem('forma.cache', JSON.stringify(m)); }catch(e){} return true; } if (!m && localSeq) idbPut(readJSON('forma.cache', null)); return false; }
@@ -1138,6 +1221,7 @@ function mergeDay(L, C){
   const r = clone(newer);
   r.food = merge(newer.food, older.food); r.water = merge(newer.water, older.water);
   const wk = merge(newer.walks, older.walks); if (wk.length) r.walks = wk; else delete r.walks;
+  if (older.hs && (!newer.hs || (older.hs.t||0) > (newer.hs.t||0))) r.hs = clone(older.hs);
   const ng = newer.gym, og = older.gym, ex = merge(ng && ng.exercises, og && og.exercises).map(e=>clone(e));
   if (ng || (og && ex.length)){ r.gym = clone(ng || og); r.gym.exercises = ex; if (ng && og){ r.gym.muscles = ex.length ? groupsInDay(r.gym) : [...new Set((ng.muscles||[]).concat(og.muscles||[]))]; if (!r.gym.note && og.note) r.gym.note = og.note; } }
   else r.gym = null;
@@ -1159,7 +1243,7 @@ function editDay(k, fn){
   if (isEmptyDay(d)){ delete S.days[k]; const g = readJSON('forma.gone', {}); g[k] = {_del:del}; writeJSON('forma.gone', g); } else S.days[k] = d; persistDay(k); }
 /* settings: per-field stamps */
 const SET_SKIP = new Set(['_ts','_rm','_add']);
-const LIST_KEYS = ['customFoods','customEx','favorites','favEx','achSeen'], MAP_KEYS = ['foodOverrides'];
+const LIST_KEYS = ['customFoods','customEx','favorites','favEx','achSeen','mealTpl'], MAP_KEYS = ['foodOverrides'];
 const itemId = x => x && typeof x==='object' ? String(x.name) : String(x);
 function stampSettings(){
   const now = Date.now(), ts = Object.assign({}, S.settings._ts||{}), base = setBase || {};
@@ -1215,7 +1299,7 @@ async function initDb(){
       if (dirty.has(p)){
         if (L && C){ if (stable(L)===stable(C)){ next[k] = C; unmarkDirty(p); } else { keepOrGone(k, mergeDay(L, C), next); push.push(k); } return; }
         if (L && !C){ next[k] = L; push.push(k); return; }
-        if (!L && C){ if ((tomb[k]||0) >= (C._ts||0)){ push.push(k); return; } if (!isEmptyDay(C)) next[k] = C; unmarkDirty(p); return; }
+        if (!L && C){ if (tomb[k] && tomb[k] >= (C._ts||0)){ push.push(k); return; } if (!isEmptyDay(C)) next[k] = C; unmarkDirty(p); return; }
         unmarkDirty(p); return;
       }
       if (C && !isEmptyDay(C)) next[k] = C;
@@ -1235,6 +1319,117 @@ async function initDb(){
   }, () => {});
 }
 
+
+/* ---------- sync between devices via a secret GitHub Gist (installed app; Claude version has its own cloud) ----------
+   The token lives only on this device (localStorage 'forma.gh'), never inside the synced data.
+   Each sync: download gist → merge with local using the same rules as the cloud (newer wins per item,
+   deletions honoured) → upload the merged result if it differs. */
+const GH_FILE = 'forma.json', GH_DESC = 'Дневник формы — синхронизация (не удалять)';
+let gh = readJSON('forma.gh', {}), ghBusy = false, ghAgain = false, ghLastHash = null, ghState = gh.token ? 'idle' : 'off', ghErr = '', ghT = null;
+const ghOn = () => !window.claude && !!gh.token;
+function ghSave(){ writeJSON('forma.gh', gh); }
+async function ghApi(method, path, body){
+  const r = await fetch('https://api.github.com'+path, {method, cache:'no-store', headers:{'Authorization':'token '+gh.token, 'Accept':'application/vnd.github+json', ...(body?{'Content-Type':'application/json'}:{})}, body: body ? JSON.stringify(body) : undefined});
+  if (r.status===401) throw new Error('auth'); if (r.status===403 || r.status===429) throw new Error('limit'); if (r.status===404) throw new Error('404');
+  if (!r.ok) throw new Error('http'+r.status); return r.status===204 ? null : r.json(); }
+async function ghFind(){ for (let page=1; page<=5; page++){ const list = await ghApi('GET', `/gists?per_page=100&page=${page}`); const g = (list||[]).find(x => x.files && x.files[GH_FILE] && x.description===GH_DESC); if (g) return g.id; if (!list || list.length<100) break; } return null; }
+function ghDoc(){ const tomb = readJSON('forma.tomb', {}), gone = readJSON('forma.gone', {}), g = {}; Object.keys(gone).forEach(k => { g[k] = {_ts: tomb[k]||0, _del: gone[k]._del||{}}; });
+  return {app:'forma', v:1, days:S.days, settings:S.settings, gone:g}; }
+function ghApply(remote){
+  const R = remote.days || {}, G = remote.gone || {}, tomb = readJSON('forma.tomb', {}), next = {};
+  new Set(Object.keys(S.days).concat(Object.keys(R), Object.keys(G))).forEach(k => {
+    const L = S.days[k], C = R[k] || (G[k] ? goneDay(G[k]) : null);
+    if (L && C){ if (stable(L)===stable(C)) next[k] = L; else keepOrGone(k, mergeDay(L, C), next); }
+    else if (L) next[k] = L;
+    else if (C){ if (tomb[k] && tomb[k] >= (C._ts||0)) return; if (!isEmptyDay(C)) next[k] = C; else { keepOrGone(k, C, next); tomb[k] = Math.max(tomb[k]||0, C._ts||0); } }
+  });
+  writeJSON('forma.tomb', tomb);
+  Object.values(next).forEach(normDay); S.days = next;
+  if (remote.settings){ S.settings = mergeSettings(S.settings, Object.assign(clone(DEFAULT_SETTINGS), clone(remote.settings))); setBase = clone(S.settings); }
+  cacheLocal();
+}
+async function ghSync(){
+  if (!ghOn()) return; if (ghBusy){ ghAgain = true; return; }
+  ghBusy = true; ghState = 'sync'; ghPaint();
+  try{
+    if (!gh.gistId){ gh.gistId = await ghFind(); ghSave(); }
+    let remote = null, gfiles = {};
+    if (gh.gistId){
+      try{ const g = await ghApi('GET', '/gists/'+gh.gistId); gfiles = g.files || {}; const f = g.files && g.files[GH_FILE];
+        if (f){ let txt = f.content; if (f.truncated) txt = await (await fetch(f.raw_url, {cache:'no-store'})).text(); remote = JSON.parse(txt); } }
+      catch(e){ if (e.message==='404'){ gh.gistId = null; ghSave(); } else throw e; }
+    }
+    const before = stable({d:S.days, s:S.settings});
+    if (remote && remote.app==='forma') ghApply(remote);
+    const drop = hsImport(gfiles);
+    const doc = ghDoc(), h = stable(doc), rh = remote ? stable({app:remote.app, v:remote.v, days:remote.days, settings:remote.settings, gone:remote.gone||{}}) : null;
+    if (h !== rh || Object.keys(drop).length){
+      const body = {description: GH_DESC, files:Object.assign({[GH_FILE]:{content: JSON.stringify(Object.assign({}, doc, {at:new Date().toISOString()}))}}, drop)};
+      if (gh.gistId) await ghApi('PATCH', '/gists/'+gh.gistId, body); else { const g = await ghApi('POST', '/gists', Object.assign({public:false}, body)); gh.gistId = g.id; }
+    }
+    ghLastHash = h; gh.last = Date.now(); ghSave(); ghState = 'ok'; ghErr = '';
+    if (stable({d:S.days, s:S.settings}) !== before) renderSoon();
+  }catch(e){ ghState = 'err'; ghErr = e.message==='auth' ? 'Токен не подходит или отозван — создай новый' : e.message==='limit' ? 'GitHub временно ограничил запросы — повторю позже' : !navigator.onLine ? 'Нет интернета — синхронизирую, когда появится' : 'Не получилось связаться с GitHub — повторю позже'; }
+  ghBusy = false; ghPaint();
+  if (ghAgain){ ghAgain = false; ghSync(); }
+}
+/* Apple Health steps arrive as small files «steps-YYYY-MM-DD.json» that an iPhone Shortcut writes into the same Gist.
+   They are copied into the diary (day.hs) and removed from the Gist once older than yesterday (today's file keeps updating). */
+const HS_RE = /^steps-(\d{4}-\d{2}-\d{2})\.(json|txt)$/;
+function hsParse(c){ let t = String(c==null?'':c).replace(/[\s  "']/g,''); t = t.replace(/[,.](?=\d{3}(\D|$))/g,''); const m = t.match(/\d+(?:[.,]\d+)?/); if (!m) return null; const n = Math.round(parseFloat(m[0].replace(',','.'))); return isFinite(n) && n>=0 && n<200000 ? n : null; }
+function hsImport(files){
+  const drop = {}, t = today(), from = addDays(t, -60); let last = null;
+  Object.keys(files||{}).forEach(name => { const m = name.match(HS_RE); if (!m) return; const k = m[1], n = hsParse(files[name].content);
+    if (k < addDays(t, -1)) drop[name] = null;
+    if (n===null || k > t || k < from) return;
+    if (!last || k > last.k) last = {k, n};
+    const h = S.days[k] && S.days[k].hs; if (h && num(h.n)===n) return; if (!h && !n) return;
+    editDay(k, d => { d.hs = {n, t:Date.now()}; }); });
+  if (last){ gh.hs = {k:last.k, n:last.n, at:Date.now()}; ghSave(); }
+  return drop;
+}
+function ghQueue(){ if (!ghOn()) return; clearTimeout(ghT); ghT = setTimeout(() => { const h = stable(ghDoc()); if (h !== ghLastHash) ghSync(); }, 2500); }
+function ghPaint(){ const el = document.querySelector('header .sync'); if (el && ghOn()){ el.classList.toggle('on', ghState==='ok'); el.lastChild.textContent = ghLabel(); } const st = document.getElementById('ghstate'); if (st) st.innerHTML = ghStateHtml(); }
+function ghLabel(){ return ghState==='ok' ? 'Синхронизировано' : ghState==='sync' ? 'Синхронизация…' : ghState==='err' ? 'Нет синхронизации' : 'Синхронизация'; }
+function ghWhen(t){ if (!t) return 'ещё не было'; const d = new Date(t), k = keyOf(d); return (k===today() ? 'сегодня' : dayLabel(k)) + ` в ${pad(d.getHours())}:${pad(d.getMinutes())}`; }
+function ghStateHtml(){ return ghState==='err' ? `<span class="ghbad">${esc(ghErr)}</span>` : ghState==='sync' ? 'Синхронизирую…' : `Последняя синхронизация: ${ghWhen(gh.last)}`; }
+function hsCard(){
+  const st = gh.hs ? `Последние шаги: <b>${fmt(gh.hs.n)}</b> за ${gh.hs.k===today()?'сегодня':esc(dayLabel(gh.hs.k))} · получены ${ghWhen(gh.hs.at)}` : 'Шаги ещё не приходили';
+  const hsOpen = S.hsGuide===undefined ? !gh.hs : S.hsGuide;
+  const cp = (v, t) => `<button class="hscp" data-a="hscopy" data-v="${v}">${MI.copy}<span>${t}</span></button>`;
+  return `<div class="card sgroup" id="hscard"><h2 class="sh"><span class="hsic">${MI.heart}</span>Шаги из «Здоровья» iPhone</h2>
+    <div class="hint" style="margin:0">Команда iPhone сама отправляет шаги за день в твой Gist, а приложение кладёт их в «Прогулки». Настраивается один раз, минут 5.</div>
+    <div class="hsst">${st}</div>
+    <div class="hsguide"><button class="hssum" data-a="hsguide" aria-expanded="${hsOpen}">${hsOpen?'Скрыть инструкцию':'Как настроить'}</button>${hsOpen?`
+    <ol class="ghsteps">
+      <li>Открой приложение <b>«Команды»</b> → <b>+</b> → назови команду <b>«Шаги в Форму»</b>.</li>
+      <li>Действие <b>«Найти образцы здоровья»</b>: Тип — <b>Шаги</b>, Дата начала — <b>Сегодня</b>, Группировать по — <b>День</b> (так шаги с iPhone и Apple Watch не задвоятся).</li>
+      <li>Действие <b>«Вычислить статистику»</b> → <b>Сумма</b> из образцов здоровья.</li>
+      <li>Действие <b>«Форматировать дату»</b>: Текущая дата, формат — <b>Пользовательский</b>, строка <code>yyyy-MM-dd</code>.</li>
+      <li>Действие <b>«Получить содержимое URL»</b>, раскрой его:
+        <div class="hsrow"><span>URL</span>${cp('url','Скопировать URL')}</div>
+        <div class="hsrow"><span>Метод — <b>PATCH</b>. Заголовки: ключ <code>Authorization</code>, значение</span>${cp('auth','Скопировать значение')}</div>
+        <div class="hsrow"><span>Тело запроса — <b>JSON</b>. Поле <code>files</code> типа <b>Словарь</b> → внутри поле типа <b>Словарь</b> с ключом <code>steps-</code><i>[Форматированная дата]</i><code>.json</code> → внутри поле <code>content</code> типа <b>Текст</b> = <i>[Статистика]</i>.</span></div></li>
+      <li>Запусти команду один раз и разреши доступ к «Здоровью» и github.com. Потом здесь нажми <b>«Синхронизировать сейчас»</b> — шаги появятся в «Прогулках».</li>
+      <li>Чтобы работало само: вкладка <b>«Автоматизация»</b> → <b>+</b> → <b>Время суток</b> → 23:50, ежедневно → <b>Запускать сразу</b> → команда «Шаги в Форму». Можно добавить ещё время днём.</li>
+    </ol>
+    <div class="hint" style="margin:0">В команде хранится твой токен — не делись ею. Первые ${fmt(HS_BASE)} шагов за день — обычный быт, они уже учтены в образе жизни из настроек, калории считаются с остальных. Прогулки, записанные вручную, входят в эти шаги и не считаются дважды.</div>`:''}
+    </div></div>`;
+}
+function ghCard(){
+  if (window.claude) return '';
+  if (!gh.token) return `<div class="card sgroup" id="ghcard"><h2 class="sh">${MI.cloud}Синхронизация устройств</h2>
+    <div class="hint" style="margin:0">Данные будут храниться в твоём секретном Gist на GitHub и подтягиваться на всех устройствах. Удалишь приложение — вставишь токен снова, и всё вернётся.</div>
+    <ol class="ghsteps"><li>Открой <a href="https://github.com/settings/tokens/new?scopes=gist&description=Forma%20sync" target="_blank" rel="noopener">создание токена на GitHub</a> (галочка <b>gist</b> уже стоит).</li><li>Срок действия — <b>No expiration</b>, внизу <b>Generate token</b>.</li><li>Скопируй токен (начинается с <b>ghp_</b>) и вставь сюда.</li></ol>
+    <input class="field" id="ghtok" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="ghp_…">
+    <button class="btn" data-a="ghconnect">Подключить</button>
+    <div class="hint" style="margin:0">Токен хранится только на этом устройстве и даёт доступ лишь к твоим Gist. Секретный Gist не виден в поиске и профиле, но открыть его может тот, у кого есть ссылка.</div></div>`;
+  return `<div class="card sgroup"><h2 class="sh">${MI.cloud}Синхронизация устройств</h2>
+    <div class="ghok"><span class="ghdot ${ghState==='err'?'bad':''}"></span><div><b>Подключено к GitHub</b><small id="ghstate">${ghStateHtml()}</small></div></div>
+    <div class="row" style="flex-wrap:wrap;gap:8px"><button class="btn ghost" style="flex:1 1 150px" data-a="ghnow">Синхронизировать сейчас</button><button class="btn ghost" style="flex:1 1 110px" data-a="ghoff">Отключить</button></div>
+    <div class="hint" style="margin:0">На другом устройстве открой приложение и вставь тот же токен — данные объединятся. Отключение не удаляет данные ни здесь, ни в Gist.</div></div>${hsCard()}`;
+}
+
 /* ---------- render scheduling ---------- */
 let deferred = false;
 function renderSoon(){
@@ -1247,6 +1442,10 @@ document.addEventListener('focusout', () => { if (deferred){ setTimeout(() => { 
 /* ---------- icons ---------- */
 const SV = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 const MI = {
+  bookmark:SV('<path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4.5L5 21V4a1 1 0 0 1 1-1z"/>'),
+  pot:SV('<path d="M4 11h16v2a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6z"/><path d="M2 11h20M9 7c0-1 1-1.5 1-3M14 7c0-1 1-1.5 1-3"/>'),
+  heart:SV('<path d="M12 20s-7-4.4-9-9a4.8 4.8 0 0 1 9-3 4.8 4.8 0 0 1 9 3c-2 4.6-9 9-9 9z"/>'),
+  copy:SV('<rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>'),
   time:SV('<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/>'),
   dist:SV('<circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h8a3 3 0 0 0 0-6H8a3 3 0 0 1 0-6h8"/>'),
   speed:SV('<path d="M4 17a8 8 0 1 1 16 0"/><path d="M12 17l4.5-5"/>'),
@@ -1284,6 +1483,7 @@ const MI = {
   pie:SV('<path d="M11 4a8.5 8.5 0 1 0 9 9h-9z"/><path d="M14 2.5a8 8 0 0 1 7.5 7.5H14z"/>'),
   data:SV('<ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>'),
   shoe:SV('<path d="M3 17.5V7c0-.6.5-1 1-1h3.2l1.3 2.4c.6 1.1 1.8 1.8 3 1.8h.5l6.6 1.9c2 .6 3.4 2.2 3.4 4.1v.3a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 17.5z"/><path d="M3 15.3h18.9M9.6 9.6l1.4-1.8M12.6 10.3l1.4-1.8"/>'),
+  barcode:SV('<path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 8v8M10 8v8M13.5 8v8M17 8v8"/>'),
   cloud:SV('<path d="M7 19h10a4 4 0 0 0 .5-7.97A6 6 0 0 0 6.1 11.5 3.8 3.8 0 0 0 7 19z"/><path d="M12 3v1.5M5.6 5.6l1 1M18.4 5.6l-1 1"/>'),
   scale:SV('<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9a4 4 0 0 1 8 0zM12 9l1.5-2"/>')
 };
@@ -1335,12 +1535,14 @@ function viewFood(){
     <div class="stats"><div class="stat"><i class="sti">${MI.flag}</i><b class="num" style="color:${left<0?'var(--bad)':'inherit'}">${fmt(Math.abs(left))}</b><span>${left<0?'ккал сверх цели':'ккал осталось до цели'}</span></div>
     <div class="stat"><i class="sti" style="color:var(--warn)">${MI.flame}</i><b class="num">${burn?'≈ '+fmt(burn):'0'}</b><span>${walkB&&gymB?'ккал сожжено: зал и прогулка':walkB?'ккал сожжено на прогулке':'ккал сожжено в зале'}</span></div></div></div>
     <div class="balance"><span>Расход за день <b class="num">≈ ${fmt(spend)}</b> = ${fmt(base)} обмен веществ и быт${gymB||!walkB?` + ${fmt(gymB)} зал`:''}${walkB?` + ${fmt(walkB)} прогулка`:''}</span>${S.settings.kcalMode==='manual'?'<span>Цель задана вручную в настройках</span>':`<span>Цель <b class="num">${fmt(g)}</b> = расход ${sh<0?'− '+fmt(-sh)+' на похудение':sh>0?'+ '+fmt(sh)+' на набор':'(держим вес)'}</span>`}<span>Съедено <b class="num">${fmt(t.kcal)}</b> → ${bal>=0?'дефицит':'профицит'} <b class="num" style="color:${bal>=0?'var(--good)':'var(--warn)'}">${fmt(Math.abs(bal))} ккал</b></span></div>
-    <div class="macros">${mac('Белки',t.p,mg.p,'var(--food)')}${mac('Жиры',t.f,mg.f,'var(--warn)')}${mac('Углеводы',t.c,mg.c,'var(--good)')}</div>${balanceLine(S.date)}</section>`;
+    <div class="macros">${mac('Белки',t.p,mg.p,'var(--food)')}${mac('Жиры',t.f,mg.f,'var(--warn)')}${mac('Углеводы',t.c,mg.c,'var(--good)')}</div>${balanceLine(S.date)}</section>` + sugCard();
   MEALS.forEach(([id,name]) => {
     const items = d.food.filter(e=>e.meal===id); const kc = items.reduce((a,e)=>a+e.kcal,0);
-    html += `<section class="card meal"><div class="meal-h"><div class="row" style="gap:12px"><span class="mealic mi-${id}">${MEAL_ICON[id]}</span><div><h3>${name}</h3><div class="kc num">${fmt(kc)} ккал</div></div></div><button class="add" data-a="addfood" data-meal="${id}">${I.plus} Добавить</button></div>`;
+    html += `<section class="card meal"><div class="meal-h"><div class="row" style="gap:12px"><span class="mealic mi-${id}">${MEAL_ICON[id]}</span><div><h3>${name}</h3><div class="kc num">${fmt(kc)} ккал</div></div></div><div class="row" style="gap:6px">${items.length?`<button class="tplb" data-a="tplnew" data-meal="${id}" aria-label="Сохранить «${name}» как шаблон" title="Сохранить как шаблон">${MI.bookmark}</button>`:''}<button class="add" data-a="addfood" data-meal="${id}">${I.plus} Добавить</button></div></div>`;
     if (items.length){ html += '<ul class="items">' + groupFood(items).map(e => `<li>${fi(e.name)}<div class="nm"><div>${esc(e.name)}</div><small class="num">${amountTxt(e)?amountTxt(e)+' · ':''}Б ${fmt1(e.p)} · Ж ${fmt1(e.f)} · У ${fmt1(e.c)}</small></div><span class="kcal num">${fmt(e.kcal)}</span><span class="rowbtns"><button class="del" data-a="editfood" data-ids="${e.ids.join(',')}" aria-label="Изменить: ${esc(e.name)}">${I.pen}</button><button class="del" data-a="delfood" data-ids="${e.ids.join(',')}" aria-label="Удалить: ${esc(e.name)}">${I.x}</button></span></li>`).join('') + '</ul>'; }
-    else { const yi = getDay(addDays(S.date,-1)).food.filter(e=>e.meal===id); html += yi.length ? `<div class="empty"><button class="repeat" data-a="repeatmeal" data-meal="${id}">${I.repeat} Как вчера · ${yi.length} ${plural(yi.length,'продукт','продукта','продуктов')}, ${fmt(yi.reduce((a,e)=>a+e.kcal,0))} ккал</button></div>` : `<div class="empty">Пока пусто</div>`; }
+    else { const yi = getDay(addDays(S.date,-1)).food.filter(e=>e.meal===id), tp = tplList().map((t,i)=>({t,i})).filter(x=>x.t.meal===id).slice(0,2);
+      const btns = (yi.length ? `<button class="repeat" data-a="repeatmeal" data-meal="${id}">${I.repeat} Как вчера · ${yi.length} ${plural(yi.length,'продукт','продукта','продуктов')}, ${fmt(yi.reduce((a,e)=>a+e.kcal,0))} ккал</button>` : '') + tp.map(x=>`<button class="repeat tplr" data-a="tpladd" data-i="${x.i}" data-meal="${id}">${MI.bookmark} ${esc(x.t.name)} · ${fmt(tplKcal(x.t))} ккал</button>`).join('');
+      html += btns ? `<div class="empty emptyb">${btns}</div>` : `<div class="empty">Пока пусто</div>`; }
     html += '</section>';
   });
   return html;
@@ -1495,6 +1697,7 @@ function exKind(name){
   const info = exInfo(name);
   if ((info && (info.f||'').includes('cardio')) || gymSessions().some(s=>(s.g.exercises||[]).some(e=>e.name===name && isCardio(e)))) return 'cardio';
   if (info && (info.f||'').includes('sec')) return 'sec';
+  if (isAssist(name)) return 'w';
   const anyW = gymSessions().some(s=>(s.g.exercises||[]).some(e=>e.name===name && (e.sets||[]).some(x=>num(x.w)>0)));
   return anyW ? 'w' : 'bw';
 }
@@ -1572,12 +1775,12 @@ function progStrength(name, kind){
   const pts = [];
   gymSessions().forEach(s => (s.g.exercises||[]).filter(e=>e.name===name).forEach(e => {
     const ss = (e.sets||[]).filter(x=>num(x.w)>0||num(x.r)>0); if (!ss.length) return;
-    let w = 0, r = 0; ss.forEach(x=>{ const ww = num(x.w), rr = num(x.r); if (ww>w || (ww===w && rr>r)){ w = ww; r = rr; } });
+    let w = 0, r = 0, raw = 0; ss.forEach(x=>{ const ww = ldW(e, x, s.k), rr = num(x.r); if (ww>w || (ww===w && rr>r)){ w = ww; r = rr; raw = num(x.w); } });
     const maxR = Math.max(...ss.map(x=>num(x.r))), totR = ss.reduce((a,x)=>a+num(x.r),0);
-    pts.push({k:s.k, w, r, v: kind==='w' ? w : maxR, totR, n:ss.length, sum:setsSummary(e), short: kind==='w' ? `${fmt1(w)} × ${r}` : ss.map(x=>fmt(num(x.r))).join(' · ')});
+    pts.push({k:s.k, w, r, v: kind==='w' ? w : maxR, totR, n:ss.length, sum:setsSummary(e), short: kind==='w' ? (isAssist(name) ? `−${fmt1(raw)} × ${r}` : `${fmt1(w)} × ${r}`) : ss.map(x=>fmt(num(x.r))).join(' · ')});
   }));
   const unit = kind==='w' ? 'кг' : kind==='sec' ? 'сек' : 'повт';
-  let hh = `<div class="hint" style="margin-top:8px">${kind==='w' ? 'Рабочий вес — самый тяжёлый подход за тренировку.' : kind==='sec' ? 'Лучшее время в подходе за тренировку.' : 'Максимум повторений в одном подходе за тренировку.'}</div>`;
+  let hh = `<div class="hint" style="margin-top:8px">${isAssist(name) ? 'Гравитрон: нагрузка = твой вес − противовес. Чем меньше противовес, тем выше линия.' : kind==='w' ? 'Рабочий вес — самый тяжёлый подход за тренировку.' : kind==='sec' ? 'Лучшее время в подходе за тренировку.' : 'Максимум повторений в одном подходе за тренировку.'}</div>`;
   hh += chartSvg(pts, unit);
   if (!pts.length) return hh;
   const last = pts[pts.length-1], first = pts[0];
@@ -1705,11 +1908,13 @@ function sheetFood(){
   const MODE_IC = {
     search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>',
     my:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
-    manual:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>'
+    manual:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>',
+    dish:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16v2a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6z"/><path d="M2 11h20M9 7c0-1 1-1.5 1-3M14 7c0-1 1-1.5 1-3"/></svg>'
   };
   let b = `<div class="mealhead"><span class="mealic mi-${sh.meal}">${MEAL_ICON[sh.meal]}</span><div><small>Приём пищи</small><b>${mealName}</b></div></div>
-    <div class="modes" role="group" aria-label="Способ добавления">${[['search','Поиск'],['my','Мои продукты'],['manual','Разово']].map(([id,n])=>`<button class="mode md-${id}" data-a="fmode" data-id="${id}" aria-pressed="${sh.mode===id}"><span class="mode-ic">${MODE_IC[id]}</span>${n}</button>`).join('')}</div>`;
-  if (sh.mode==='my'){
+    <div class="modes" role="group" aria-label="Способ добавления">${[['search','Поиск'],['my','Мои продукты'],['dish','Блюда'],['manual','Разово']].map(([id,n])=>`<button class="mode md-${id}" data-a="fmode" data-id="${id}" aria-pressed="${sh.mode===id}"><span class="mode-ic">${MODE_IC[id]}</span>${n}</button>`).join('')}</div>`;
+  if (sh.mode==='dish') b += dishMode();
+  else if (sh.mode==='my'){
     const np = sh.np, mine = S.settings.customFoods||[];
     b += `<div class="pick"><b>${np.editing?'Изменить продукт':'Новый продукт'}</b>
       <label class="f">Название<input class="field" id="npn" data-a="np" data-f="name" value="${esc(np.name)}" placeholder="Например, сырок Б.Ю. Александров" autocomplete="off"></label>
@@ -1718,6 +1923,7 @@ function sheetFood(){
       <label class="f">Белки<input class="field num" id="npp" type="text" inputmode="decimal" data-a="np" data-f="p" value="${esc(np.p)}"></label>
       <label class="f">Жиры<input class="field num" id="npf" type="text" inputmode="decimal" data-a="np" data-f="f" value="${esc(np.f)}"></label>
       <label class="f">Углев.<input class="field num" id="npc" type="text" inputmode="decimal" data-a="np" data-f="c" value="${esc(np.c)}"></label></div>
+      ${np.bc?`<div class="hint bchint" style="margin:0">${MI.barcode}<span>Штрихкод <b class="num">${esc(np.bc)}</b> — в следующий раз продукт найдётся сканером</span></div>`:''}
       ${np.per===100?`<label class="f">${np.u==='ml'?'Объём 1 банки / бутылки, мл':'Вес 1 штуки, г'} <span class="muted" style="font-weight:500">— необязательно</span><input class="field num" id="nppc" type="text" inputmode="decimal" data-a="np" data-f="pc" value="${esc(np.pc||'')}" placeholder="${np.u==='ml'?'Например, 450':'Например, 60'}"></label>`:''}
       <div class="hint">Цифры бери с упаковки. Белки, жиры и углеводы можно не заполнять.${np.per===100?' Если укажешь вес штуки, продукт можно будет добавлять поштучно.':''}</div>
       <div class="row" style="flex-wrap:wrap;gap:8px"><button class="btn ghost" style="flex:1 1 140px" data-a="npsave">${np.editing?'Сохранить':'Сохранить'}</button><button class="btn" style="flex:1 1 180px" data-a="npsaveadd">Сохранить и съесть</button></div>
@@ -1729,7 +1935,7 @@ function sheetFood(){
       const isCustom = (S.settings.customFoods||[]).some(x=>x.name===p.name);
       const hasOv = !isCustom && (S.settings.foodOverrides||{})[p.name];
       b += `<div class="pick"><div class="row between"><b class="row" style="gap:10px">${fi(p.name,'lg')}${esc(p.name)}${p.edited?' <small class="muted" style="font-weight:600">· изменён</small>':''}</b><div class="row" style="gap:2px"><button class="del fav ${favs().includes(p.name)?'on':''}" data-a="ffav" aria-label="${favs().includes(p.name)?'Убрать из избранного':'В избранное'}" aria-pressed="${favs().includes(p.name)}">${HEARTI(favs().includes(p.name))}</button><button class="del" data-a="emopen" aria-label="Изменить продукт" aria-pressed="${!!sh.em}">${I.pen}</button><button class="del" data-a="fclear" aria-label="Выбрать другой продукт">${I.x}</button></div></div>
-        <div class="hint">${per100?'На 100 '+UL(unitOf(p)):'На 1 шт'}: ${fmt(p.kcal)} ккал · Б ${fmt1(p.p)} · Ж ${fmt1(p.f)} · У ${fmt1(p.c)}</div>
+        <div class="hint">${per100?'На 100 '+UL(unitOf(p)):p.dish?'На 1 порцию':'На 1 шт'}: ${fmt(p.kcal)} ккал · Б ${fmt1(p.p)} · Ж ${fmt1(p.f)} · У ${fmt1(p.c)}</div>${p.dish?`<div class="hint" style="margin:0"><span class="ico-i">${MI.pot}</span> Блюдо: ${p.dish.items.map(x=>esc(x.name)).slice(0,5).join(', ')}${p.dish.items.length>5?'…':''} · ${p.dish.n} ${plural(p.dish.n,'порция','порции','порций')}</div>`:''}
         ${sh.em?`<div class="em"><label class="f">Название<input class="field" id="emn" data-a="em" data-f="name" value="${esc(sh.em.name)}" autocomplete="off" placeholder="Например: Протеин Optimum, шоколад"></label>
           <div class="hint" style="color:var(--ink);font-weight:700">БЖУ ${per100?'на 100 '+UL(unitOf(p)):'на порцию'} — как на упаковке</div>
           <div class="grid4"><label class="f">Белки<input class="field num" id="emp" type="text" inputmode="decimal" min="0" step="0.1" data-a="em" data-f="p" value="${esc(sh.em.p)}"></label>
@@ -1746,7 +1952,7 @@ function sheetFood(){
         <div class="chips" id="fchips">${pickChips(sh)}</div>
         <button class="btn" data-a="fadd">Добавить в «${mealName}»</button></div>`;
     }
-    b += `<input class="field" id="fq" type="search" placeholder="Найти продукт: гречка, банан, творог…" value="${esc(sh.q)}" data-a="fq" autocomplete="off"><div id="fres">${foodResults()}</div>`;
+    b += `<div class="fqrow"><input class="field" id="fq" type="search" placeholder="Найти продукт: гречка, банан, творог…" value="${esc(sh.q)}" data-a="fq" autocomplete="off"><button class="scanbtn" data-a="scan" aria-label="Сканировать штрихкод">${MI.barcode}<span>Скан</span></button></div><div id="fres">${foodResults()}</div>`;
   } else {
     const m = sh.man;
     b += `<div class="pick"><label class="f">Название<input class="field" id="mn" data-a="man" data-f="name" value="${esc(m.name)}" placeholder="Например, домашний суп"></label>
@@ -1772,6 +1978,248 @@ function emState(p, em, isCustom){ const n = (em.name||'').trim(), changed = n &
   const r1 = x => Math.round(num(x)*10)/10, dirty = changed || r1(em.p)!==r1(p.p) || r1(em.f)!==r1(p.f) || r1(em.c)!==r1(p.c);
   return {save: !!n && !taken && dirty && (isCustom || !changed), neu: changed && !taken}; }
 function allFoods(){ return (S.settings.customFoods||[]).concat(baseFoods()); }
+
+/* ---------- barcode scanner ----------
+   Camera → barcode (native BarcodeDetector where available, otherwise ZXing loaded on demand) →
+   own products first (works offline) → Open Food Facts → saved to «Мои продукты» with the barcode. */
+const OFF_URL = code => `https://world.openfoodfacts.org/api/v2/product/${code}.json?fields=code,product_name,product_name_ru,generic_name_ru,brands,nutriments,quantity,serving_quantity,product_quantity,product_quantity_unit`;
+let SC = null;
+function zxLoad(){ if (window.ZXing) return Promise.resolve(); return new Promise((res, rej) => { const sc = document.createElement('script'); sc.src = window.claude ? 'https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js' : 'lib/zxing.min.js'; sc.onload = () => res(); sc.onerror = () => rej(new Error('lib')); document.head.appendChild(sc); }); }
+function eanOk(c){ if (!/^\d{8}$|^\d{12,14}$/.test(c)) return false; const d = c.split('').map(Number), chk = d.pop(); const sum = d.reverse().reduce((a,v,i)=>a + v*(i%2===0?3:1), 0); return (10 - sum%10)%10 === chk; }
+function scanClose(){ if (!SC) return; try{ SC.stop && SC.stop(); }catch(e){} try{ SC.stream && SC.stream.getTracks().forEach(t=>t.stop()); }catch(e){} SC.el && SC.el.remove(); SC = null; document.body.style.overflow = S.sheet ? 'hidden' : ''; }
+function scanMsg(t){ const m = SC && SC.el.querySelector('.scan-msg'); if (m) m.textContent = t; }
+async function scanOpen(){
+  scanClose();
+  const el = document.createElement('div'); el.className = 'scan'; el.innerHTML = `<video playsinline muted autoplay></video><div class="scan-shade"></div><div class="scan-frame"><i></i></div>
+    <div class="scan-top"><b>Наведи камеру на штрихкод</b><button class="iconbtn" data-scan="close" aria-label="Закрыть сканер">${I.x}</button></div>
+    <div class="scan-bot"><div class="scan-msg">Держи телефон ровно, код — внутри рамки</div>
+      <div class="scan-man"><input class="field num" id="scancode" inputmode="numeric" pattern="[0-9]*" placeholder="или введи цифры под кодом"><button class="btn" data-scan="manual">Найти</button></div></div>`;
+  document.body.appendChild(el); document.body.style.overflow = 'hidden';
+  SC = {el};
+  el.addEventListener('click', ev => { const b = ev.target.closest('[data-scan]'); if (!b) return; if (b.dataset.scan==='close') scanClose(); if (b.dataset.scan==='manual'){ const c = (el.querySelector('#scancode').value||'').replace(/\D/g,''); if (c.length<8){ scanMsg('Введи все цифры под штрихкодом (8 или 13)'); return; } scanClose(); scanFound(c); } });
+  el.querySelector('#scancode').addEventListener('keydown', ev => { if (ev.key==='Enter') el.querySelector('[data-scan="manual"]').click(); });
+  const video = el.querySelector('video');
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ scanMsg('Камера здесь недоступна — введи цифры под штрихкодом'); return; }
+  let stream;
+  try{ stream = await navigator.mediaDevices.getUserMedia({audio:false, video:{facingMode:{ideal:'environment'}, width:{ideal:1280}, height:{ideal:720}}}); }
+  catch(e){ scanMsg(e && e.name==='NotAllowedError' ? 'Нет доступа к камере — разреши её для этого сайта в настройках Safari или введи цифры' : 'Камера не включилась — введи цифры под штрихкодом'); return; }
+  if (!SC || SC.el!==el){ stream.getTracks().forEach(t=>t.stop()); return; }
+  SC.stream = stream; video.srcObject = stream; try{ await video.play(); }catch(e){}
+  let last = '', hits = 0, done = false;
+  const got = code => { if (done || !SC) return; code = String(code).replace(/\D/g,''); if (!eanOk(code) && !/^\d{8,14}$/.test(code)) return;
+    if (code===last) hits++; else { last = code; hits = 1; } if (hits < 2) return;   // same code twice in a row → no misreads
+    done = true; try{ navigator.vibrate && navigator.vibrate(40); }catch(e){} scanClose(); scanFound(code); };
+  if ('BarcodeDetector' in window){
+    try{ const det = new BarcodeDetector({formats:['ean_13','ean_8','upc_a','upc_e']}); let on = true; SC.stop = () => { on = false; };
+      const tick = async () => { if (!on) return; try{ const r = await det.detect(video); if (r && r[0]) got(r[0].rawValue); }catch(e){} if (on) setTimeout(tick, 120); }; tick(); return; }catch(e){}
+  }
+  try{ await zxLoad(); }catch(e){ scanMsg('Не загрузился распознаватель — введи цифры под штрихкодом'); return; }
+  if (!SC || SC.el!==el) return;
+  const Z = window.ZXing, hints = new Map(); hints.set(Z.DecodeHintType.POSSIBLE_FORMATS, [Z.BarcodeFormat.EAN_13, Z.BarcodeFormat.EAN_8, Z.BarcodeFormat.UPC_A, Z.BarcodeFormat.UPC_E]); hints.set(Z.DecodeHintType.TRY_HARDER, true);
+  const reader = new Z.MultiFormatReader(); reader.setHints(hints);
+  const cv = document.createElement('canvas'), ctx = cv.getContext('2d', {willReadFrequently:true}); let on = true; SC.stop = () => { on = false; };
+  const tick = () => { if (!on) return;
+    const vw = video.videoWidth, vh = video.videoHeight;
+    if (vw && vh){ const w = Math.round(vw*0.8), h = Math.round(vh*0.5); cv.width = w; cv.height = h; ctx.drawImage(video, (vw-w)/2, (vh-h)/2, w, h, 0, 0, w, h);
+      try{ const src = new Z.HTMLCanvasElementLuminanceSource(cv), bmp = new Z.BinaryBitmap(new Z.HybridBinarizer(src)); const r = reader.decodeWithState(bmp); if (r) got(r.getText()); }catch(e){} }
+    if (on) setTimeout(tick, 150); };
+  tick();
+}
+function offParse(code, pr){
+  const n = pr.nutriments || {}, nm = String(pr.product_name_ru || pr.product_name || pr.generic_name_ru || '').trim(), br = String(pr.brands||'').split(',')[0].trim();
+  let name = nm || (br ? br : `Продукт ${code}`); if (br && nm && !nm.toLowerCase().includes(br.toLowerCase())) name = `${nm}, ${br}`;
+  name = name.replace(/\s+/g,' ').slice(0, 60);
+  let kcal = num(n['energy-kcal_100g']); if (!kcal && num(n['energy_100g'])) kcal = num(n['energy_100g'])/4.184;
+  const liquid = pr.product_quantity_unit==='ml' || /\d\s*(ml|мл|cl|l|л)(?![a-zа-яё])/i.test(String(pr.quantity||''));
+  const prod = {name, kcal:Math.round(kcal*10)/10, p:Math.round(num(n.proteins_100g)*10)/10, f:Math.round(num(n.fat_100g)*10)/10, c:Math.round(num(n.carbohydrates_100g)*10)/10, per:100, g:100, bc:code, src:'off'};
+  if (liquid) prod.u = 'ml';
+  const q = num(pr.product_quantity), sq = num(pr.serving_quantity), pcs = [];
+  if (q > 0 && q <= 2000) pcs.push([liquid ? (q>=250 ? `бутылка/банка ${fmt1(q/1000)} л` : `упаковка ${fmt(q)} мл`) : (q<=150 ? 'шт' : `упаковка ${fmt(q)} г`), q]);
+  if (sq > 0 && sq < (q||Infinity) && !pcs.some(x=>x[1]===sq)) pcs.push(['порция', sq]);
+  if (pcs.length){ prod.pcs = pcs; prod.g = pcs[0][1]; }
+  return {prod, hasKcal: kcal > 0 || /^(вода|water)/i.test(name)};
+}
+async function scanFound(code){
+  const sh = S.sheet; if (!sh || sh.type!=='food') return;
+  const mine = (S.settings.customFoods||[]).find(x => x.bc===code);
+  if (mine){ sh.mode = 'search'; sh.sel = mine; sh.em = null; setPick(sh, mine); render(); $('.sheet-b') && ($('.sheet-b').scrollTop = 0); showToast(`Нашёл в твоих продуктах: ${mine.name}`); return; }
+  showToast(`Ищу ${code}…`, null, true);
+  let data = null;
+  try{ const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 9000); const r = await fetch(OFF_URL(code), {signal:ctl.signal}); clearTimeout(to); data = await r.json(); }
+  catch(e){ data = null; }
+  if (!S.sheet || S.sheet.type!=='food') return;
+  const toForm = msg => { sh.mode = 'my'; sh.np = Object.assign(blankNp(), {bc:code}); render(); $('.sheet-b') && ($('.sheet-b').scrollTop = 0); setTimeout(()=>$('#npn')?.focus(), 50); showToast(msg, null, true); };
+  if (!data){ toForm('Нет связи с базой продуктов — внеси продукт сам, штрихкод запомню'); return; }
+  if (!data.product || data.status===0){ toForm('Такого штрихкода нет в базе — внеси продукт один раз, дальше он найдётся сам'); return; }
+  const {prod, hasKcal} = offParse(code, data.product);
+  if (!hasKcal){ sh.mode = 'my'; sh.np = Object.assign(blankNp(), {name:prod.name, bc:code, u:prod.u, pc:prod.pcs&&prod.pcs[0]?String(prod.pcs[0][1]):''}); render(); showToast('Продукт найден, но калорий в базе нет — допиши их с упаковки', null, true); return; }
+  let name = prod.name, i = 2; while (allFoods().some(x => x.name===name)) name = `${prod.name} (${i++})`; prod.name = name;
+  prod.icon = foodIcon(prod.name);
+  if (prod.u==='ml'){ const n = prod.name.toLowerCase();
+    prod.hyd = ALC_RE.test(n) || /beer|wine|vodka|whisk|cider|liqueur/.test(n) ? 0 : /кол[аы]|cola|pepsi|пепси|fanta|фанта|sprite|спрайт|лимонад|газиров|энергет|energy|monster|red bull|adrenaline|burn|тоник|tonic/.test(n) ? 'soda'
+      : /сок|нектар|juice|смузи|smoothie/.test(n) ? 'juice' : /молок|кефир|ряженк|айран|йогурт питьев|milk|kefir/.test(n) ? 'milk' : /кофе|coffee|латте|капучино/.test(n) ? 'coffee' : /чай|tea/.test(n) ? 'tea' : /морс|компот/.test(n) ? 'compote' : /вода|water/.test(n) ? 'water' : 'other'; }
+  S.settings.customFoods = [prod].concat(S.settings.customFoods||[]); persistSettings();
+  sh.mode = 'search'; sh.sel = S.settings.customFoods[0]; sh.em = null; setPick(sh, sh.sel); render(); $('.sheet-b') && ($('.sheet-b').scrollTop = 0);
+  showToast(`«${prod.name}» из базы Open Food Facts сохранён в «Мои продукты» — сверь цифры с упаковкой (✎)`, null, true);
+}
+/* one diary entry from a product: q = grams/ml (pu<0), number of portions (pu>=0) or pieces (per-piece products) */
+function foodEntry(p, q, pu, meal){
+  const ps = portionsOf(p), amt = p.per===100 ? (pu>=0 && ps[pu] ? q*ps[pu][1] : q) : q, k = p.per===100 ? amt/100 : q, r = x => Math.round(x*10)/10;
+  const e = {id:uid(), name:p.name, meal, grams:p.per===100?Math.round(amt*10)/10:null, qty:p.per===100?null:q, kcal:Math.round(p.kcal*k), p:r(p.p*k), f:r(p.f*k), c:r(p.c*k), t:Date.now()};
+  if (p.per===100 && unitOf(p)==='ml'){ e.u = 'ml'; e.hyd = hydType(p) || 0; }
+  if (p.per!==100) e.pl = 'шт';
+  if (S.date!==today()) e.t = parseKey(S.date).getTime()+13*3600e3;
+  if (p.per===100 && pu>=0 && ps[pu]){ e.pcs = q; e.pl = ps[pu][0]; }
+  return e;
+}
+function mealNow(){ const h = new Date().getHours(); return h < 11 ? 'breakfast' : h < 16 ? 'lunch' : h < 21 ? 'dinner' : 'snack'; }
+const mealName = id => (MEALS.find(m=>m[0]===id)||MEALS[0])[1];
+
+/* ---------- «Мои блюда»: a recipe is saved as one of «Мои продукты» (so search, portions, favourites and sync just work)
+   with dish = {items:[{name, a, per, kcal, p, f, c, u}], out: cooked weight (0 = raw sum), n: portions} */
+function blankDish(){ return {name:'', items:[], out:'', n:'', editing:null, q:''}; }
+function dishFromFood(p){ const d = p.dish || {}; return {name:p.name, items:(d.items||[]).map(x=>Object.assign({}, x, {a:String(x.a)})), out:d.out?String(d.out):'', n:d.n&&d.n!==1?String(d.n):'', editing:p.name, q:''}; }
+function dishSrc(it, self){ const cur = allFoods().find(x => x.name===it.name && x.name!==self); return cur ? {per:cur.per===100?100:1, kcal:num(cur.kcal), p:num(cur.p), f:num(cur.f), c:num(cur.c), u:unitOf(cur)} : it; }
+function dishCalc(ds){
+  const t = {kcal:0, p:0, f:0, c:0, w:0, pcs:0};
+  ds.items.forEach(it => { const src = dishSrc(it, ds.editing), a = num(it.a), k = src.per===100 ? a/100 : a; t.kcal += num(src.kcal)*k; t.p += num(src.p)*k; t.f += num(src.f)*k; t.c += num(src.c)*k; if (src.per===100) t.w += a; else t.pcs++; });
+  const out = num(ds.out) > 0 ? num(ds.out) : t.w, n = Math.max(1, Math.round(num(ds.n)||1));
+  return Object.assign(t, {out, n, portion: out>0 ? out/n : 0});
+}
+function dishItemRow(it, i, self){
+  const src = dishSrc(it, self), a = num(it.a), k = src.per===100 ? a/100 : a, ml = src.per===100 && src.u==='ml';
+  return `<li>${fi(it.name,'sm')}<div class="nm"><div>${esc(it.name)}</div><small class="num">${fmt(num(src.kcal)*k)} ккал · Б ${fmt1(num(src.p)*k)}</small></div>
+    <div class="dsh-a">${nstep('dsha'+i, it.a, src.per===100?(ml?50:10):1, src.per===100?(ml?'мл':'г'):'шт', `data-a="dsha" data-i="${i}"`)}</div>
+    <button class="del" data-a="dshrm" data-i="${i}" aria-label="Убрать ${esc(it.name)}">${I.x}</button></li>`;
+}
+function dishTotHtml(ds){
+  const t = dishCalc(ds); if (!ds.items.length) return '<span class="hint">Добавь продукты, из которых готовишь, — посчитаю калории и БЖУ.</span>';
+  const pk = 1/t.n;
+  return `<div>Всё блюдо: <b class="num">${fmt(t.kcal)} ккал</b> · Б ${fmt1(t.p)} · Ж ${fmt1(t.f)} · У ${fmt1(t.c)}${t.w?` · сырой вес ${fmt(t.w)} г`:''}</div>
+    <div class="dsh-por">1 порция${t.portion?` ≈ <b class="num">${fmt(t.portion)} г</b>`:''}: <b class="num">${fmt(t.kcal*pk)} ккал</b> · Б ${fmt1(t.p*pk)} · Ж ${fmt1(t.f*pk)} · У ${fmt1(t.c*pk)}</div>`;
+}
+function dishResults(q){
+  const ds = S.sheet.dish; if (!q.trim()) return '';
+  const all = allFoods(), res = all.map((p,i)=>({p,i})).filter(x => x.p.name!==ds.editing && matchQ(x.p.name, q)).sort((a,b)=>(normS(b.p.name).startsWith(normS(q))?1:0)-(normS(a.p.name).startsWith(normS(q))?1:0) || a.p.name.length-b.p.name.length).slice(0,8);
+  return res.length ? `<ul class="dshres">${res.map(x=>`<li><button data-a="dshadd" data-i="${x.i}">${fi(x.p.name,'sm')}<span>${esc(x.p.name)}</span><small class="num">${fmt(x.p.kcal)} ккал / ${x.p.per===100?'100 '+UL(unitOf(x.p)):'1 шт'}</small></button></li>`).join('')}</ul>` : `<div class="hint" style="margin:6px 0 0">Не нашёл «${esc(q)}». Сначала добавь его в «Мои продукты».</div>`;
+}
+function dishEditor(){
+  const ds = S.sheet.dish;
+  return `<div class="pick dsh"><b>${ds.editing?'Изменить блюдо':'Новое блюдо'}</b>
+    <label class="f">Название<input class="field" id="dshn" data-a="dsh" data-f="name" value="${esc(ds.name)}" placeholder="Например: плов, омлет, сырники" autocomplete="off"></label>
+    <div class="sec-t" style="margin:4px 0 0">Из чего · ${ds.items.length}</div>
+    ${ds.items.length?`<ul class="dshi">${ds.items.map((it,i)=>dishItemRow(it,i,ds.editing)).join('')}</ul>`:''}
+    <input class="field" id="dq" type="search" data-a="dq" value="${esc(ds.q)}" placeholder="+ Добавить продукт: курица, рис, морковь…" autocomplete="off">
+    <div id="dqres">${dishResults(ds.q)}</div>
+    <label class="f">Вес готового блюда <span class="muted" style="font-weight:500">— необязательно</span>${nstep('dsho', ds.out, 50, 'г', 'data-a="dsh" data-f="out"')}</label>
+    <label class="f">Сколько порций получилось${nstep('dshp', ds.n, 1, 'порц.', 'data-a="dsh" data-f="n"')}</label>
+    <div class="calc" id="dshtot">${dishTotHtml(ds)}</div>
+    <div class="hint" style="margin:0">Вес готового — взвесь кастрюлю с едой и вычти вес пустой. Без него посчитаю по сырым продуктам: крупы и макароны при варке тяжелеют, мясо — легчает, поэтому с весом точнее.</div>
+    <div class="row" style="flex-wrap:wrap;gap:8px"><button class="btn ghost" style="flex:1 1 140px" data-a="dshsave">Сохранить</button><button class="btn" style="flex:1 1 180px" data-a="dshsaveadd">Сохранить и съесть</button></div>
+    <button class="btn ghost" data-a="dshcancel">Отмена</button></div>`;
+}
+function saveDish(){
+  const sh = S.sheet, ds = sh.dish, name = ds.name.trim();
+  if (!name){ showToast('Назови блюдо'); $('#dshn')?.focus(); return null; }
+  if (!ds.items.length){ showToast('Добавь хотя бы один продукт'); $('#dq')?.focus(); return null; }
+  if (ds.items.some(it => !(num(it.a)>0))){ showToast('Укажи количество у каждого продукта'); return null; }
+  if (name!==ds.editing && (S.settings.customFoods||[]).some(x=>x.name===name)){ showToast(`«${name}» уже есть в твоих продуктах — назови иначе`); return null; }
+  if (baseFoods().some(x=>x.name===name)){ showToast(`«${name}» уже есть в базе — назови иначе (например, «${name} домашний»)`); return null; }
+  const t = dishCalc(ds), r = x => Math.round(x*10)/10;
+  const items = ds.items.map(it => { const src = dishSrc(it, ds.editing); return {name:it.name, a:num(it.a), per:src.per, kcal:num(src.kcal), p:num(src.p), f:num(src.f), c:num(src.c), u:src.u}; });
+  const old = (S.settings.customFoods||[]).find(x=>x.name===ds.editing);
+  let prod;
+  if (t.out > 0){ const k = 100/t.out; prod = {name, kcal:r(t.kcal*k), p:r(t.p*k), f:r(t.f*k), c:r(t.c*k), per:100, g:Math.round(t.portion), pcs:[['порция', Math.round(t.portion)]]}; }
+  else { const k = 1/t.n; prod = {name, kcal:r(t.kcal*k), p:r(t.p*k), f:r(t.f*k), c:r(t.c*k), per:1, g:1}; }
+  prod.dish = {items, out:num(ds.out)>0?num(ds.out):0, n:t.n};
+  prod.icon = old && old.icon || (foodIcon(name)!=='🍽️' ? foodIcon(name) : '🍲');
+  const list = (S.settings.customFoods||[]).filter(x => x.name!==name && x.name!==ds.editing);
+  S.settings.customFoods = [prod].concat(list);
+  if (ds.editing && ds.editing!==name) S.settings.favorites = (S.settings.favorites||[]).map(n => n===ds.editing ? name : n);
+  persistSettings(); sh.dish = null; return prod;
+}
+
+/* ---------- meal templates: a saved set of entries added in one tap */
+function tplList(){ return S.settings.mealTpl || []; }
+function tplKcal(t){ return (t.items||[]).reduce((a,e)=>a+num(e.kcal),0); }
+function tplApply(name, meal){
+  const t = tplList().find(x=>x.name===name); if (!t || !(t.items||[]).length) return;
+  const before = clone(getDay(S.date)), ts = S.date===today() ? Date.now() : parseKey(S.date).getTime()+13*3600e3;
+  editDay(S.date, d => { t.items.forEach(e => d.food.push(Object.assign(clone(e), {id:uid(), meal, t:ts}))); mergeFood(d); });
+  S.sheet = null; showToast(`«${t.name}» → ${mealName(meal)}: ${t.items.length} ${plural(t.items.length,'продукт','продукта','продуктов')}, ${fmt(tplKcal(t))} ккал`, {k:S.date, day:before});
+}
+function sheetTpl(){
+  const sh = S.sheet, exists = tplList().some(x=>x.name===sh.name.trim());
+  let b = `<div class="mealhead"><span class="mealic mi-${sh.meal}">${MEAL_ICON[sh.meal]}</span><div><small>Шаблон из приёма пищи</small><b>${mealName(sh.meal)}</b></div></div>
+    <div class="pick"><label class="f">Название шаблона<input class="field" id="tpln" data-a="tpln" value="${esc(sh.name)}" placeholder="Например: Мой завтрак" autocomplete="off"></label>
+    <div class="hint" id="tplh" style="margin:0">${exists?'Шаблон с таким названием уже есть — он будет заменён.':'Потом добавишь всё это в один тап: в «Добавить еду» → «Блюда» или прямо в пустом приёме пищи.'}</div>
+    <ul class="items">${sh.items.map((e,i)=>`<li>${fi(e.name)}<div class="nm"><div>${esc(e.name)}</div><small class="num">${amountTxt(e)?amountTxt(e)+' · ':''}Б ${fmt1(e.p)} · Ж ${fmt1(e.f)} · У ${fmt1(e.c)}</small></div><span class="kcal num">${fmt(e.kcal)}</span><span class="rowbtns"><button class="del" data-a="tplrm" data-i="${i}" aria-label="Убрать из шаблона">${I.x}</button></span></li>`).join('')}</ul>
+    <div class="hint num" style="margin:0">Итого: ${fmt(sh.items.reduce((a,e)=>a+e.kcal,0))} ккал</div>
+    <button class="btn big" data-a="tplsave" ${sh.items.length?'':'disabled'}>Сохранить шаблон</button></div>`;
+  return {title:'Шаблон', body:b};
+}
+function dishMode(){
+  const sh = S.sheet;
+  if (sh.dish) return dishEditor();
+  const tpls = tplList(), dishes = (S.settings.customFoods||[]).map((p,i)=>({p,i})).filter(x=>x.p.dish), all = allFoods();
+  let b = `<div class="sec-t">${MI.bookmark}Шаблоны приёмов пищи${tpls.length?' · '+tpls.length:''}</div>`;
+  b += tpls.length ? `<ul class="tpll">${tpls.map((t,i)=>`<li><div class="nm"><b>${esc(t.name)}</b><small>${(t.items||[]).slice(0,4).map(e=>esc(e.name)).join(', ')}${(t.items||[]).length>4?` и ещё ${(t.items||[]).length-4}`:''}</small><small class="num">${(t.items||[]).length} ${plural((t.items||[]).length,'продукт','продукта','продуктов')} · ${fmt(tplKcal(t))} ккал</small></div><button class="btn sm" data-a="tpladd" data-i="${i}">${I.plus} Добавить</button><button class="del" data-a="tpldel" data-i="${i}" aria-label="Удалить шаблон «${esc(t.name)}»">${I.x}</button></li>`).join('')}</ul>`
+    : `<div class="hint" style="padding:0 4px">Шаблонов пока нет. Запиши, например, свой обычный завтрак, а потом нажми <span class="ico-i">${MI.bookmark}</span> рядом с «Добавить» у этого приёма пищи — он сохранится и будет добавляться в один тап.</div>`;
+  b += `<div class="sec-t" style="margin-top:14px">${MI.pot}Мои блюда${dishes.length?' · '+dishes.length:''}</div>`;
+  b += `<button class="btn" data-a="dshnew">${I.plus} Новое блюдо</button>`;
+  b += dishes.length ? `<ul class="myp">${dishes.map(({p,i})=>`<li><button data-a="fsel" data-i="${all.findIndex(x=>x.name===p.name)}"><span class="row" style="gap:8px">${fi(p.name,'sm')}${esc(p.name)}</span><small class="num">${p.per===100&&p.pcs?`порция ≈ ${fmt(p.pcs[0][1])} г · ${fmt(p.kcal*p.pcs[0][1]/100)} ккал`:`порция · ${fmt(p.kcal)} ккал`} · ${p.dish.items.length} ${plural(p.dish.items.length,'продукт','продукта','продуктов')}</small></button><button class="del" data-a="dshedit" data-i="${i}" aria-label="Изменить блюдо">${I.pen}</button><button class="del" data-a="npdel" data-i="${i}" aria-label="Удалить блюдо">${I.x}</button></li>`).join('')}</ul>`
+    : `<div class="hint" style="padding:0 4px">Собери блюдо из продуктов — плов, омлет, сырники. Калории и БЖУ посчитаются сами, а добавлять его можно порциями, как обычный продукт.</div>`;
+  return b;
+}
+
+/* ---------- «что доесть»: after 15:00, when calories are left, suggest 1–2 product combos that close the gap
+   (protein first if it's short). Pool: what you usually eat + favourites + simple protein foods from the base. */
+const SUG_BASE = ['Творог 5%','Творог 2%','Скайр','Йогурт греческий','Яйцо куриное','Куриная грудка варёная','Куриное филе запечённое','Индейка','Тунец консервированный','Треска','Креветки','Протеиновый коктейль на молоке','Кефир 1%','Творожная запеканка','Протеиновый пудинг','Гречка варёная','Рис варёный','Банан','Яблоко','Овсянка на воде'];
+const SUG_SKIP = new Set(['Напитки','Соусы и добавки','Орехи, семена, масла','Фастфуд','Сладкое']);
+let SUG = [];
+function sugPortion(p){
+  const ps = portionsOf(p);
+  if (p.per!==100) return {q:1, pu:-1, step:1, int:true};
+  if (ps.length && ps[0][1] <= 80) return {q:2, pu:0, step:1, int:true};   // eggs, small pieces → count
+  if (ps.length) return {q:1, pu:0, step:0.5, int:false};
+  const g = num(p.g) || (num(p.kcal) > 300 ? 50 : 150); return {q:g, pu:-1, step:g/2, int:false};
+}
+function sugItem(p, mul){ const b = sugPortion(p), q = b.int ? Math.max(1, Math.round(b.q*mul)) : Math.round(b.q*mul*10)/10; const e = foodEntry(p, q, b.pu, 'snack'); return {p, q, pu:b.pu, e}; }
+function suggestions(){
+  const k = S.date, d = getDay(k), t = foodTotals(d), g = targetOn(k), mg = macroTargets(k);
+  const rem = g - t.kcal, pGap = mg.p - t.p, fOver = t.f - mg.f, cGap = mg.c - t.c;
+  if (rem < 150) return {rem, pGap, list:[]};
+  const all = allFoods(), byName = new Map(all.map(p=>[p.name,p])), seen = new Set(d.food.map(e=>e.name)), fam = new Map();
+  const from = addDays(today(), -60);
+  Object.keys(S.days).filter(x=>x>=from && x<k).forEach(x => (S.days[x].food||[]).forEach(e => fam.set(e.name, (fam.get(e.name)||0)+1)));
+  const names = new Set([...fam.keys()].sort((a,b)=>fam.get(b)-fam.get(a)).slice(0,25).concat(favs(), SUG_BASE));
+  const pool = [...names].map(n=>byName.get(n)).filter(p => p && !seen.has(p.name) && !SUG_SKIP.has(p.cat) && !ALC_RE.test(p.name) && num(p.kcal)>0 && !(p.per===100 && num(p.kcal)>450) && !(unitOf(p)==='ml' && !/кефир|молок|коктейль|йогурт/i.test(p.name)));
+  const opts = [];
+  const score = items => { const kc = items.reduce((a,x)=>a+x.e.kcal,0), P = items.reduce((a,x)=>a+x.e.p,0), F = items.reduce((a,x)=>a+x.e.f,0);
+    if (kc > rem + 40 || kc < Math.min(rem*0.45, 220)) return null;
+    const pCap = Math.min(pGap, 50), C = items.reduce((a,x)=>a+x.e.c,0);
+    let s = pGap > 8 ? 1.3*Math.min(P, pCap)/pCap + 0.9*kc/rem : 1.3*kc/rem + 0.2*Math.min(1, P/25);
+    if (cGap > 30) s += 0.3*Math.min(C, cGap)/cGap;
+    s += 0.25*items.filter(x=>fam.has(x.p.name)||favs().includes(x.p.name)).length/items.length;
+    if (fOver > 0) s -= F/40;
+    return {items, kc, P, F, C:items.reduce((a,x)=>a+x.e.c,0), s}; };
+  pool.forEach(p => { const b = sugPortion(p); [1, 1.5, 2].forEach(m => { if (m>1 && b.pu>=0 && !b.int) return; const it = sugItem(p, m); if (m>1 && (num(it.e.grams) > 250 || (b.int && it.q > 4))) return; const o = score([it]); if (o) opts.push(o); }); });
+  for (let i=0;i<pool.length;i++) for (let j=i+1;j<pool.length;j++){ const o = score([sugItem(pool[i],1), sugItem(pool[j],1)]); if (o) opts.push(o); }
+  opts.sort((a,b)=>b.s-a.s);
+  const out = [], used = new Set();
+  for (const o of opts){ if (out.length>=3) break; if (o.items.some(x=>used.has(x.p.name))) continue; out.push(o); o.items.forEach(x=>used.add(x.p.name)); }
+  return {rem, pGap, list:out};
+}
+function sugCard(){
+  if (S.date!==today() || new Date().getHours() < 15) return '';
+  try{ if (localStorage.getItem('forma.sugoff')===today()) return ''; }catch(e){}
+  const r = suggestions(); SUG = r.list; if (!r.list.length) return '';
+  const meal = mealNow();
+  return `<section class="card sug"><div class="sug-h"><span class="sugic">${MI.target}</span><div style="min-width:0"><h2>Что доесть сегодня</h2><small>До цели <b class="num">${fmt(r.rem)} ккал</b>${r.pGap>8?` · белка не хватает <b class="num">${fmt(r.pGap)} г</b>`:' · белок в норме'}</small></div><button class="del" data-a="sugoff" aria-label="Скрыть подсказку на сегодня">${I.x}</button></div>
+    <ul class="sugl">${r.list.map((o,i)=>`<li><div class="nm">${o.items.map(x=>`<div class="sgi">${fi(x.p.name,'sm')}<span>${esc(x.p.name)} <span class="muted num">${esc(amountTxt(x.e)||'')}</span></span></div>`).join('')}<small class="num">${fmt(o.kc)} ккал · Б ${fmt1(o.P)} · Ж ${fmt1(o.F)} · У ${fmt1(o.C)}</small></div><button class="btn sm" data-a="sugadd" data-i="${i}">${I.plus} ${mealName(meal)}</button></li>`).join('')}</ul>
+    <div class="hint" style="margin:0">Подобрал из того, что ты обычно ешь, и простых белковых продуктов. Количество потом можно поправить в записи.</div></section>`;
+}
+
 function blankNp(){ return {name:'', per:100, kcal:'', p:'', f:'', c:'', editing:null}; }
 function favs(){ return S.settings.favorites||[]; }
 function frequentFoods(all){
@@ -1800,7 +2248,7 @@ function foodResults(){
     const list = cat==='Мои продукты' ? custom : baseFoods().filter(p=>p.cat===cat);
     html += `<div class="sec-t" style="margin-top:12px">Вся база · ${FOODS.length} продуктов</div><div class="catrow" role="group" aria-label="Категории">${cats.map(c=>`<button class="chip" data-a="fcat" data-c="${esc(c)}" aria-pressed="${c===cat}">${esc(c)}</button>`).join('')}</div><ul class="results">${list.map(p=>resRow(p)).join('')}</ul>`;
   } else {
-    const nq = normS(q), res = all.filter(p=>matchQ(p.name, q)).sort((a,b)=>((normS(b.name).startsWith(nq)?1:0)-(normS(a.name).startsWith(nq)?1:0)) || (a.name.length-b.name.length));
+    const nq = normS(q), res = all.filter(p=>matchQ(p.name, q) || (p.bc && /^\d{4,}$/.test(q) && p.bc.includes(q))).sort((a,b)=>((normS(b.name).startsWith(nq)?1:0)-(normS(a.name).startsWith(nq)?1:0)) || ((b.custom?1:0)-(a.custom?1:0)) || (a.name.length-b.name.length));
     html += res.length ? `<ul class="results">${res.slice(0,60).map(p=>resRow(p)).join('')}</ul>` : '';
     html += `<div class="hint" style="display:flex;flex-direction:column;gap:10px;align-items:flex-start;margin-top:10px">${res.length?'Нет нужного?':`Не нашёл «${esc(sh.q)}».`}<button class="btn" data-a="npfromq">Создать продукт «${esc(sh.q.trim())}»</button></div>`;
   }
@@ -1808,7 +2256,7 @@ function foodResults(){
 }
 function resRow(p, note){
   const i = allFoods().findIndex(x=>x.name===p.name);
-  return `<li><button data-a="fsel" data-i="${i}"><span class="row" style="gap:10px;min-width:0">${fi(p.name,'sm')}<span>${esc(p.name)}${p.custom?' <small>· мой</small>':''}${p.edited?' <small>· изменён</small>':''}${favs().includes(p.name)?' <small class="star-s">'+HEARTI(true)+'</small>':''}${note?`<br><small>${note}</small>`:''}</span></span><small class="num" style="flex:none;text-align:right">${fmt(p.kcal)} ккал / ${p.per===100?'100 '+UL(unitOf(p)):'1 шт'}${portionsOf(p).length?`<br><span class="muted">${esc(portionsOf(p)[0][0])} ≈ ${fmt(portionsOf(p)[0][1])} ${UL(unitOf(p))}</span>`:''}</small></button></li>`;
+  return `<li><button data-a="fsel" data-i="${i}"><span class="row" style="gap:10px;min-width:0">${fi(p.name,'sm')}<span>${esc(p.name)}${p.custom?` <small>· ${p.dish?'блюдо':'мой'}</small>`:''}${p.edited?' <small>· изменён</small>':''}${favs().includes(p.name)?' <small class="star-s">'+HEARTI(true)+'</small>':''}${note?`<br><small>${note}</small>`:''}</span></span><small class="num" style="flex:none;text-align:right">${fmt(p.kcal)} ккал / ${p.per===100?'100 '+UL(unitOf(p)):'1 шт'}${portionsOf(p).length?`<br><span class="muted">${esc(portionsOf(p)[0][0])} ≈ ${fmt(portionsOf(p)[0][1])} ${UL(unitOf(p))}</span>`:''}</small></button></li>`;
 }
 
 function emKcal(em){ return num(em.p)*4 + num(em.f)*9 + num(em.c)*4; }
@@ -1830,15 +2278,15 @@ function hydType(e){
 function foodDrinks(d){ return (d && d.food || []).filter(e => num(e.grams)>0 && unitOf(e)==='ml' && hydType(e)).map(e => ({id:'f:'+e.id, type:hydType(e), ml:Math.round(num(e.grams)), t:e.t||0, food:true, name:e.name})); }
 function dayWater(k){ const d = S.days[k]; return d ? (d.water||[]).concat(foodDrinks(d)) : []; }
 function dayMl(k){ const w = dayWater(k); return w.length ? w.reduce((a,e)=>a+e.ml,0) : null; }
-function dayTon(k){ const d = S.days[k]; if (!d || !d.gym) return null; return (d.gym.exercises||[]).reduce((a,e)=>a+(e.sets||[]).reduce((b,x)=>b+num(x.w)*dbMul(e)*num(x.r),0),0); }
-function calVal(mode,k){ return mode==='walk' ? (dayWalks(k).length ? daySteps(k) : null) : mode==='water' ? dayMl(k) : mode==='gym' ? (S.days[k] && S.days[k].gym ? 1 : null) : dayKcal(k); }
+function dayTon(k){ const d = S.days[k]; if (!d || !d.gym) return null; return (d.gym.exercises||[]).reduce((a,e)=>a+(isAssist(e.name)?0:(e.sets||[]).reduce((b,x)=>b+num(x.w)*dbMul(e)*num(x.r),0)),0); }
+function calVal(mode,k){ return mode==='walk' ? (hasWalk(k) ? daySteps(k) : null) : mode==='water' ? dayMl(k) : mode==='gym' ? (S.days[k] && S.days[k].gym ? 1 : null) : dayKcal(k); }
 const walkGoal = () => num(S.settings.walkGoal) || 10000;
 function calGoal(mode, k){ return mode==='walk' ? walkGoal() : mode==='water' ? S.settings.waterGoal : mode==='gym' ? null : targetOn(k || today()); }
 const CAL_UNIT = {food:'ккал', water:'мл', gym:'кг', walk:'шагов'};
 function allPRs(){
   const best = {}, prs = [];
   gymSessions().forEach(s => (s.g.exercises||[]).forEach(e => {
-    let w = 0, r = 0; (e.sets||[]).forEach(x => { const ww = num(x.w), rr = num(x.r); if (ww>w || (ww===w && rr>r)){ w = ww; r = rr; } });
+    let w = 0, r = 0; (e.sets||[]).forEach(x => { const ww = num(x.r)>0 ? ldW(e, x, s.k) : 0, rr = num(x.r); if (ww>w || (ww===w && rr>r)){ w = ww; r = rr; } });
     if (w<=0) return;
     if (best[e.name]!==undefined && w>best[e.name]) prs.push({k:s.k, name:e.name, w, r, prev:best[e.name]});
     if (best[e.name]===undefined || w>best[e.name]) best[e.name] = w;
@@ -1931,12 +2379,17 @@ function barChart(range, mode){
 const EXMAP = new Map(); CATALOG.forEach(x=>EXMAP.set(x.n,x));
 function exInfo(name){ return EXMAP.get(name) || null; }
 /* dumbbells: weight is entered per dumbbell; how many are in use (1 or 2) multiplies the load */
+const enTag = name => { const i = exInfo(name); return i && i.en ? ` <small class="en">(${esc(i.en)})</small>` : ''; };
+const isAssist = name => { const i = exInfo(name); return !!(i && (i.f||'').includes('assist')); };
+/* weight that counts for strength: for the assisted machine (DIP/CHIN Assist) the number on the stack HELPS — load = body weight − counterweight */
+function asLoadTxt(f, k){ return num(f.w)>0 && !f.per ? ` = <b class="num">${fmt1(Math.max(0, weightOn(k)-num(f.w)))} кг</b>` : ''; }
+function ldW(e, x, k){ const w = num(x.w); return isAssist(e.name) ? Math.max(0, weightOn(k || today()) - w) : w; }
 const BW_OK = new Set(['Выпады','Болгарские сплит-приседания','Ягодичный мостик','Подъём на носки стоя']);   // fine without extra weight
 const DB_ONE = new Set(['Тяга гантели одной рукой','Концентрированный подъём']);
 function isDb(name){ const i = exInfo(name); return i ? i.eq==='dumbbell' : /гантел/i.test(name||''); }
 const dbMul = e => (e && isDb(e.name) && num(e.dbn)===2) ? 2 : 1;   // old entries without the setting keep their numbers
 const dbDefault = name => DB_ONE.has(name) ? 1 : 2;
-const WG = {"cat":{"Жим штанги лёжа":"bench-press","Жим гантелей лёжа":"dumbbell-bench-press","Жим штанги на наклонной скамье":"incline-bench-press","Жим гантелей на наклонной скамье":"incline-dumbbell-press","Разводка гантелей":"dumbbell-fly","Кроссовер":"cable-fly","Бабочка (пек-дек)":"pec-deck","Жим в тренажёре":"machine-chest-press","Отжимания на брусьях":"chest-dip","Отжимания":"push-up","Подтягивания":"pull-up","Тяга верхнего блока":"lat-pulldown","Тяга штанги в наклоне":"barbell-row","Тяга гантели одной рукой":"one-arm-dumbbell-row","Тяга горизонтального блока":"seated-row","Т-тяга":"t-bar-row","Становая тяга":"deadlift","Гиперэкстензия":"back-extension","Шраги со штангой":"shrug","Приседания со штангой":"squat","Жим ногами":"leg-press","Выпады":"forward-lunge","Разгибание ног":"leg-extension","Сгибание ног":"lying-leg-curl","Румынская тяга":"romanian-deadlift","Болгарские сплит-приседания":"bulgarian-split-squat","Гакк-приседания":"hack-squat","Ягодичный мост со штангой":"hip-thrust","Ягодичный мостик":"barbell-glute-bridge","Отведение ноги в кроссовере":"cable-kickback","Отведение бедра в тренажёре":"hip-abduction-machine","Сумо-тяга":"sumo-deadlift","Жим штанги стоя":"overhead-press","Жим гантелей сидя":"seated-dumbbell-press","Махи гантелями в стороны":"lateral-raise","Махи в наклоне":"bent-over-rear-delt-raise","Подъём гантелей перед собой":"front-raise","Тяга к подбородку":"upright-row","Тяга каната к лицу":"face-pull","Подъём штанги на бицепс":"ez-bar-curl","Подъём гантелей на бицепс":"bicep-curl","Молотки":"hammer-curl","Сгибания на скамье Скотта":"preacher-curl","Концентрированный подъём":"concentration-curl","Французский жим":"skull-crusher","Разгибание на блоке":"tricep-pushdown","Разгибание на блоке с канатом":"rope-tricep-pushdown","Жим узким хватом":"close-grip-bench-press","Разгибание из-за головы":"overhead-tricep-extension","Отжимания на брусьях (трицепс)":"dip","Скручивания":"crunch","Подъём ног в висе":"hanging-leg-raise","Планка":"plank","Ролик для пресса":"ab-wheel","Скручивания на блоке":"cable-crunch","Русский твист":"russian-twist","Подъём на носки стоя":"standing-calf-raise","Подъём на носки сидя":"seated-calf-raise","Носки в жиме ногами":"leg-press-calf-raise","Сгибание запястий":"wrist-curl","Разгибание запястий":"wrist-extension","Фермерская прогулка":"farmer-carry","Беговая дорожка":"running","Велотренажёр":"cycling","Эллипс":"elliptical","Гребной тренажёр":"rowing","Степпер":"stair-climber","Скакалка":"jump-rope"}};
+const WG = {"cat":{"Жим штанги лёжа":"bench-press","Жим гантелей лёжа":"dumbbell-bench-press","Жим штанги на наклонной скамье":"incline-bench-press","Жим гантелей на наклонной скамье":"incline-dumbbell-press","Разводка гантелей":"dumbbell-fly","Кроссовер":"cable-fly","Бабочка (пек-дек)":"pec-deck","Жим в тренажёре":"machine-chest-press","Отжимания на брусьях":"chest-dip","Отжимания":"push-up","Подтягивания":"pull-up","Тяга верхнего блока":"lat-pulldown","Тяга штанги в наклоне":"barbell-row","Тяга гантели одной рукой":"one-arm-dumbbell-row","Тяга горизонтального блока":"seated-row","Т-тяга":"t-bar-row","Становая тяга":"deadlift","Римский стул / гиперэкстензия":"back-extension","Разгибание спины в тренажёре":"back-extension","Подтягивания в гравитроне (широкий хват)":"pull-up","Подтягивания в гравитроне (узкий хват)":"pull-up","Отжимания на брусьях в гравитроне":"chest-dip","Жим лёжа в Смите":"bench-press","Жим вниз в тренажёре":"dip","Скручивания в тренажёре":"crunch","Шраги со штангой":"shrug","Приседания со штангой":"squat","Жим ногами":"leg-press","Выпады":"forward-lunge","Разгибание ног":"leg-extension","Сгибание ног":"lying-leg-curl","Румынская тяга":"romanian-deadlift","Болгарские сплит-приседания":"bulgarian-split-squat","Гакк-приседания":"hack-squat","Ягодичный мост со штангой":"hip-thrust","Ягодичный мостик":"barbell-glute-bridge","Отведение ноги в кроссовере":"cable-kickback","Отведение бедра в тренажёре":"hip-abduction-machine","Сумо-тяга":"sumo-deadlift","Жим штанги стоя":"overhead-press","Жим гантелей сидя":"seated-dumbbell-press","Махи гантелями в стороны":"lateral-raise","Махи в наклоне":"bent-over-rear-delt-raise","Подъём гантелей перед собой":"front-raise","Тяга к подбородку":"upright-row","Тяга каната к лицу":"face-pull","Подъём штанги на бицепс":"ez-bar-curl","Подъём гантелей на бицепс":"bicep-curl","Молотки":"hammer-curl","Сгибания на скамье Скотта":"preacher-curl","Концентрированный подъём":"concentration-curl","Французский жим":"skull-crusher","Разгибание на блоке":"tricep-pushdown","Разгибание на блоке с канатом":"rope-tricep-pushdown","Жим узким хватом":"close-grip-bench-press","Разгибание из-за головы":"overhead-tricep-extension","Отжимания на брусьях (трицепс)":"dip","Скручивания":"crunch","Подъём ног в висе":"hanging-leg-raise","Планка":"plank","Ролик для пресса":"ab-wheel","Скручивания на блоке":"cable-crunch","Русский твист":"russian-twist","Подъём на носки стоя":"standing-calf-raise","Подъём на носки сидя":"seated-calf-raise","Носки в жиме ногами":"leg-press-calf-raise","Сгибание запястий":"wrist-curl","Разгибание запястий":"wrist-extension","Фермерская прогулка":"farmer-carry","Беговая дорожка":"running","Велотренажёр":"cycling","Эллипс":"elliptical","Гребной тренажёр":"rowing","Степпер":"stair-climber","Скакалка":"jump-rope"}};
 function wgOf(name){ return WG.cat[name] || null; }
 function photoOf(info, cls){ if (!info) return ''; if (info.img) return `<img class="${cls}" src="${info.img}" alt="" loading="lazy">`; return ''; }
 function exImg(info, cls){ if (!info || !info.img) return ''; return `<img class="${cls}" src="${info.img}" alt="" loading="lazy">`; }
@@ -1969,7 +2422,7 @@ function setsSummary(e){
   const info = exInfo(e.name), unit = info && (info.f||'').includes('sec') ? 'сек' : 'повт';
   const same = sets.every(x=>num(x.w)===num(sets[0].w) && num(x.r)===num(sets[0].r));
   const dp = isDb(e.name) && e.dbn && sets.some(x=>num(x.w)>0) ? (num(e.dbn)===2 ? ' · 2 гантели' : ' · 1 гантель') : '';
-  const one = x => num(x.w)>0 ? `${fmt1(num(x.w))} кг × ${fmt(num(x.r))}` : `${fmt(num(x.r))} ${unit}`;
+  const as = isAssist(e.name), one = x => num(x.w)>0 ? `${as?'−':''}${fmt1(num(x.w))} кг × ${fmt(num(x.r))}` : `${fmt(num(x.r))} ${unit}`;
   if (same) return `${sets.length} × ${one(sets[0])}` + dp;
   if (sets.every(x=>!(num(x.w)>0))) return sets.map(x=>fmt(num(x.r))).join(' · ') + ' ' + unit;   // reps only: «7 · 6 · 5 повт»
   const groups = []; sets.forEach(x => { const g = groups[groups.length-1]; if (g && num(g.x.w)===num(x.w) && num(g.x.r)===num(x.r)) g.n++; else groups.push({x, n:1}); });
@@ -1981,7 +2434,7 @@ function setsLine(e){
   const sic = (()=>{ const i0 = exInfo(e.name), s0 = (e.sets||[])[0]||{}; return i0 && (i0.f||'').includes('sec') ? MI.time : num(s0.w)>0 ? MI.weight : MI.reps; })();
   if (!rs.length){ const t = setsSummary(e); return t==='без данных' ? `<span class="nodata">без данных</span>` : `<span class="sline"><span class="mv">${sic}${esc(t)}</span></span>`; }
   const ss = (e.sets||[]).filter(x=>num(x.w)>0||num(x.r)>0), info = exInfo(e.name), unit = info && (info.f||'').includes('sec') ? 'с' : '';
-  const one = x => num(x.w)>0 ? `${fmt1(num(x.w))}×${fmt(num(x.r))}` : `${fmt(num(x.r))}${unit}`;
+  const as = isAssist(e.name), one = x => num(x.w)>0 ? `${as?'−':''}${fmt1(num(x.w))}×${fmt(num(x.r))}` : `${fmt(num(x.r))}${unit}`;
   const pill = r => `<span class="rp">${I.clock}${mmss(r)}</span>`;
   let h = sic.replace('<svg','<svg class="lead"') + ss.map((x,i)=>`<span class="sv">${one(x)}</span>` + (i<ss.length-1 && rs[i] ? pill(rs[i]) : '')).join('');
   rs.slice(Math.max(0, ss.length-1)).forEach(r=>{ h += pill(r); });
@@ -2001,7 +2454,7 @@ function groupsInDay(g){ const set = new Set((g.exercises||[]).map(e=>e.muscle))
    (streaks count the best streak ever). */
 const TIERS = [['Бронза','#C98547','#A5652C'],['Серебро','#A9B4C0','#7D8894'],['Золото','#F2BE3A','#D1930C']];
 const hasGymDay = k => { const g = (S.days[k]||{}).gym; return !!(g && ((g.exercises||[]).length || (g.muscles||[]).length)); };
-function dayTonnage(k){ const g = (S.days[k]||{}).gym; return g ? (g.exercises||[]).filter(e=>!isCardio(e)).reduce((a,e)=>a+(e.sets||[]).reduce((b,x)=>b+num(x.w)*dbMul(e)*num(x.r),0),0) : 0; }
+function dayTonnage(k){ const g = (S.days[k]||{}).gym; return g ? (g.exercises||[]).filter(e=>!isCardio(e) && !isAssist(e.name)).reduce((a,e)=>a+(e.sets||[]).reduce((b,x)=>b+num(x.w)*dbMul(e)*num(x.r),0),0) : 0; }
 function dayCardioKm(k){ const g = (S.days[k]||{}).gym; return g ? (g.exercises||[]).filter(isCardio).reduce((a,e)=>a+cardioDist(e),0) : 0; }
 function achCalendar(){ const ks = Object.keys(S.days).sort(), t = today(); if (!ks.length) return []; const out = []; for (let k = ks[0]; k <= t; k = addDays(k,1)){ out.push(k); if (out.length > 4000) break; } return out; }
 let achMemo = null;
@@ -2015,7 +2468,7 @@ function achievements(){
       return {k, v:cur}; }); };
   // personal records: heavier working weight than ever before on that exercise
   const bestW = {}, prDay = {};
-  cal.forEach(k => { const g = (S.days[k]||{}).gym; if (!g) return; (g.exercises||[]).forEach(e => { if (isCardio(e)) return; const mx = Math.max(0, ...(e.sets||[]).map(x=>num(x.w))); if (!mx) return; if (bestW[e.name] !== undefined && mx > bestW[e.name]) prDay[k] = (prDay[k]||0) + 1; bestW[e.name] = Math.max(bestW[e.name]||0, mx); }); });
+  cal.forEach(k => { const g = (S.days[k]||{}).gym; if (!g) return; (g.exercises||[]).forEach(e => { if (isCardio(e)) return; const mx = Math.max(0, ...(e.sets||[]).filter(x=>num(x.r)>0).map(x=>ldW(e, x, k))); if (!mx) return; if (bestW[e.name] !== undefined && mx > bestW[e.name]) prDay[k] = (prDay[k]||0) + 1; bestW[e.name] = Math.max(bestW[e.name]||0, mx); }); });
   // weekly regularity: consecutive weeks with ≥ 2 workouts
   const weekRun = (() => { let streak = 0, best = 0; const res = {}; const ws0 = cal.length ? mondayOf(cal[0]) : null; if (!ws0) return () => 0;
       for (let ws = ws0; ws <= today(); ws = addDays(ws, 7)){ let n = 0; for (let d = 0; d < 7; d++){ const k = addDays(ws, d); if (k > today()) break; if (hasGymDay(k)){ n++; if (n === 2){ streak++; best = Math.max(best, streak); } } res[k] = best; }
@@ -2094,7 +2547,7 @@ function walkCard(days, t){
   const steps = days.map(daySteps), mx = Math.max(...steps, 1), tot = steps.reduce((a,b)=>a+b,0), n = days.reduce((a,k)=>a+dayWalks(k).length,0), kc = days.reduce((a,k)=>a+walkBurn(k),0);
   return `<section class="card walkcard"><div class="wc-h"><div style="min-width:0"><h2 style="margin:0">Неделя</h2><small>${S.walkWeek===mondayOf(t)?'эта неделя':`${dayLabel(days[0])} – ${dayLabel(days[6])}`}</small></div><span class="row" style="gap:6px"><button class="arrow sm" data-a="wkwprev" aria-label="Предыдущая неделя">${I.left}</button><button class="arrow sm" data-a="wkwnext" aria-label="Следующая неделя" ${S.walkWeek>=mondayOf(t)?'disabled':''}>${I.right}</button></span></div>
     <div class="wc-bars">${days.map((k,i)=>`<button class="wc-b ${k===S.date?'today':''}" data-a="wkday" data-k="${k}" aria-label="${WD_FULL[i]}: ${fmt(steps[i])} шагов"><i style="height:${steps[i]?Math.max(8,steps[i]/mx*100):0}%"></i><span>${WD[i]}</span></button>`).join('')}</div>
-    <div class="wc-f">${n ? `<span><b class="num">${fmt(tot)}</b> шагов · <b class="num">≈ ${fmt1(Math.round(days.reduce((a,k)=>a+dayWalkKm(k),0)*10)/10)} км</b></span><span>${n} ${plural(n,'прогулка','прогулки','прогулок')} · ≈ ${fmt(kc)} ккал</span>` : `<span class="muted">На этой неделе прогулок нет</span>`}</div></section>`;
+    <div class="wc-f">${tot ? `<span><b class="num">${fmt(tot)}</b> шагов · <b class="num">≈ ${fmt1(Math.round(days.reduce((a,k)=>a+dayWalkKm(k),0)*10)/10)} км</b></span><span>${n ? `${n} ${plural(n,'прогулка','прогулки','прогулок')} · ` : ''}≈ ${fmt(kc)} ккал</span>` : `<span class="muted">На этой неделе прогулок нет</span>`}</div></section>`;
 }
 function viewWalk(){
   const k = S.date, t = today(), ws = dayWalks(k), st = daySteps(k), g = walkGoal(), km = dayWalkKm(k), kc = walkBurn(k), mn = ws.reduce((a,w)=>a+num(w.min),0);
@@ -2106,12 +2559,12 @@ function viewWalk(){
     <div class="stat"><i class="sti" style="color:var(--warn)">${MI.flame}</i><b class="num">${kc?'≈ '+fmt(kc):'0'}</b><span>ккал сожжено${mn?` · ${fmt(mn)} мин`:''}</span></div></div></div>
     ${st>=g ? `<div class="walkgoal">${MI.trophy} Цель на день выполнена</div>` : st ? `<div class="hint" style="margin:10px 0 0">До цели ${fmt(g-st)} шагов · ≈ ${fmt1(Math.round((g-st)*strideM()/100)/10)} км</div>` : ''}
     <button class="btn big" style="margin-top:12px;width:100%" data-a="walkopen" data-k="${k}">${I.plusW} Прогулка</button></section>`;
-  if (ws.length) h += `<section class="card"><h2>${k===t?'Сегодня':esc(dayLabel(k))}</h2><ul class="items">${ws.map(w=>`<li><span class="wl-ic">${MI.shoe}</span><div class="nm"><div class="num">${fmt(num(w.steps))} шагов</div><small class="num">≈ ${fmt1(Math.round(walkKm(w)*10)/10)} км${num(w.min)?` · ${fmt(num(w.min))} мин · ${fmt1(Math.round(walkSpeed(w)*10)/10)} км/ч`:''}</small></div><span class="kcal num">${fmt(walkKcal(w, weightOn(k)))}</span><span class="rowbtns"><button class="del" data-a="wkedit2" data-k="${k}" data-id="${w.id}" aria-label="Изменить прогулку">${I.pen}</button></span></li>`).join('')}</ul></section>`;
+  if (ws.length || dayHs(k)) h += `<section class="card"><h2>${k===t?'Сегодня':esc(dayLabel(k))}</h2><ul class="items">${dayHs(k)?`<li><span class="wl-ic">${MI.heart}</span><div class="nm"><div class="num">${fmt(dayHs(k))} шагов за день</div><small class="num">из «Здоровья»${manSteps(k)?` · из них прогулки ${fmt(manSteps(k))}`:''}</small></div><span class="kcal num">${fmt(hsKcal(k))}</span><span class="rowbtns"><button class="del" data-a="walkopen" data-k="${k}" aria-label="Подробнее">${I.pen}</button></span></li>`:''}${ws.map(w=>`<li><span class="wl-ic">${MI.shoe}</span><div class="nm"><div class="num">${fmt(num(w.steps))} шагов</div><small class="num">≈ ${fmt1(Math.round(walkKm(w)*10)/10)} км${num(w.min)?` · ${fmt(num(w.min))} мин · ${fmt1(Math.round(walkSpeed(w)*10)/10)} км/ч`:''}</small></div><span class="kcal num">${fmt(walkKcal(w, weightOn(k)))}</span><span class="rowbtns"><button class="del" data-a="wkedit2" data-k="${k}" data-id="${w.id}" aria-label="Изменить прогулку">${I.pen}</button></span></li>`).join('')}</ul></section>`;
   h += walkCard(days, t);
   h += `<section class="card chart"><h2>Прогресс</h2>${progWalks()}</section>`;
-  const recent = Object.keys(S.days).filter(x=>dayWalks(x).length).sort().reverse().slice(0,8);
+  const recent = Object.keys(S.days).filter(hasWalk).sort().reverse().slice(0,8);
   if (recent.length) h += `<section class="card"><h2>Недавние прогулки</h2><ul class="hist">${recent.map(x=>`<li><button data-a="wkday" data-k="${x}"><span><b>${WD[wdIdx(x)]}, ${dayLabel(x)}</b><br><small class="muted num">≈ ${fmt1(Math.round(dayWalkKm(x)*10)/10)} км · ≈ ${fmt(walkBurn(x))} ккал</small></span><span class="num" style="text-align:right"><b>${fmt(daySteps(x))}</b><br><small class="muted">шагов</small></span></button></li>`).join('')}</ul></section>`;
-  h += `<div class="hint" style="padding:0 4px">Прогулки — это не зал: они не считаются тренировкой и не красят карту мышц, но их калории прибавляются к цели дня. Длина шага ≈ ${fmt(strideM()*100)} см — по твоему росту и полу из настроек.</div>`;
+  h += `<div class="hint" style="padding:0 4px">Прогулки — это не зал: они не считаются тренировкой и не красят карту мышц, но их калории прибавляются к цели дня. Длина шага ≈ ${fmt(strideM()*100)} см — по твоему росту и полу из настроек.${window.claude||gh.hs?'':` <button class="linkbtn" data-a="hsset">Подтягивать шаги из «Здоровья» iPhone автоматически</button>`}</div>`;
   return h;
 }
 function walkCalc(){
@@ -2121,8 +2574,8 @@ function walkCalc(){
 }
 function sheetWalk(){
   const sh = S.sheet, k = sh.k, ws = dayWalks(k), p = prof(), kg = weightOn(k), date = `${WD_FULL[wdIdx(k)]}, ${dayLabel(k)}`;
-  let b = `<div class="walkhero"><span class="wh-ic">${MI.shoe}</span><div><b>${esc(date)}</b><small>${ws.length ? `${fmt(daySteps(k))} шагов · ≈ ${fmt1(Math.round(dayWalkKm(k)*10)/10)} км · ≈ ${fmt(walkBurn(k))} ккал` : 'Вечерняя прогулка, дорога пешком — всё, что вне зала'}</small></div></div>`;
-  if (ws.length) b += `<div class="card"><div class="sec-t" style="margin:0 0 6px">За день</div><ul class="items">${ws.map(w=>`<li><span class="wl-ic">${MI.shoe}</span><div class="nm"><div class="num">${fmt(num(w.steps))} шагов</div><small class="num">≈ ${fmt1(Math.round(walkKm(w)*10)/10)} км${num(w.min)?` · ${fmt(num(w.min))} мин`:''}</small></div><span class="kcal num">${fmt(walkKcal(w, kg))}</span><span class="rowbtns"><button class="del" data-a="wkedit" data-id="${w.id}" aria-label="Изменить прогулку">${I.pen}</button><button class="del" data-a="wkdel" data-id="${w.id}" aria-label="Удалить прогулку">${I.x}</button></span></li>`).join('')}</ul></div>`;
+  let b = `<div class="walkhero"><span class="wh-ic">${MI.shoe}</span><div><b>${esc(date)}</b><small>${ws.length||dayHs(k) ? `${fmt(daySteps(k))} шагов · ≈ ${fmt1(Math.round(dayWalkKm(k)*10)/10)} км · ≈ ${fmt(walkBurn(k))} ккал` : 'Вечерняя прогулка, дорога пешком — всё, что вне зала'}</small></div></div>`;
+  if (ws.length || dayHs(k)) b += `<div class="card"><div class="sec-t" style="margin:0 0 6px">За день</div><ul class="items">${dayHs(k)?`<li><span class="wl-ic">${MI.heart}</span><div class="nm"><div class="num">${fmt(dayHs(k))} шагов за день</div><small class="num">из «Здоровья»${manSteps(k)?` · из них прогулки ${fmt(manSteps(k))}`:''}</small></div><span class="kcal num">${fmt(hsKcal(k))}</span><span class="rowbtns"><button class="del" data-a="hsdel" aria-label="Скрыть шаги из «Здоровья»">${I.x}</button></span></li>`:''}${ws.map(w=>`<li><span class="wl-ic">${MI.shoe}</span><div class="nm"><div class="num">${fmt(num(w.steps))} шагов</div><small class="num">≈ ${fmt1(Math.round(walkKm(w)*10)/10)} км${num(w.min)?` · ${fmt(num(w.min))} мин`:''}</small></div><span class="kcal num">${fmt(walkKcal(w, kg))}</span><span class="rowbtns"><button class="del" data-a="wkedit" data-id="${w.id}" aria-label="Изменить прогулку">${I.pen}</button><button class="del" data-a="wkdel" data-id="${w.id}" aria-label="Удалить прогулку">${I.x}</button></span></li>`).join('')}</ul>${dayHs(k)?`<div class="hint" style="margin:8px 0 0">«Здоровье» считает все шаги за день, записанные прогулки уже внутри. Первые ${fmt(HS_BASE)} — обычный быт (он в образе жизни из настроек), калории идут с остальных.</div>`:''}</div>`;
   b += `<div class="card params"><div class="sec-t" style="margin:0 0 8px">${sh.eid ? 'Изменить прогулку' : ws.length ? 'Ещё прогулка' : 'Новая прогулка'}</div>
     <div class="cgrid"><div class="f"><span class="flab">${MI.shoe}Шаги</span>${nstep('wk-steps', sh.steps, 500, 'шагов', 'data-a="wkf" data-f="steps"', true)}</div>
     <div class="f"><span class="flab">${MI.time}Время</span>${nstep('wk-min', sh.min, 5, 'мин', 'data-a="wkf" data-f="min"')}</div></div>
@@ -2154,7 +2607,7 @@ function sheetGym(){
     <span class="mvs"><span class="mv m">${MI.list}${exs.length} ${plural(exs.length,'упражнение','упражнения','упражнений')}</span>${nsets?`<span class="mv m">${MI.sets}${nsets} ${plural(nsets,'подход','подхода','подходов')}</span>`:''}</span>${dayBurn(k)?`<span class="burnbig">${I.flame}${kcalTxt(dayBurn(k))} сожжено</span>`:''}
     ${sm.length?`<small class="legend2"><i class="lg on"></i>основные <i class="lg sec"></i>вспомогательные</small>`:''}</div></div>`;
   const kcs = gymKcal(g, weightOn(k)).per;
-  b += exs.map((e,ei) => { const info = exInfo(e.name), pr = isPR(e, k); return `<button class="excard" data-a="gedit" data-ei="${ei}">${info&&info.img?exImg(info,'thumb'):`<span class="thumb ic">${muscleIcon(MUSCLES.includes(e.muscle)?e.muscle:'Грудь','ic2')}</span>`}<span class="ex-t"><b>${esc(e.name)}${pr?' <span class="prb">★ рекорд</span>':''}</b><small>${esc(e.muscle||'')}</small><span class="num sum">${setsLine(e)}</span>${kcs[ei]?`<span class="burn num" style="font-size:12px">${I.flame}${kcalTxt(kcs[ei])}</span>`:''}</span><span class="chev">${I.right}</span></button>`; }).join('');
+  b += exs.map((e,ei) => { const info = exInfo(e.name), pr = isPR(e, k); return `<button class="excard" data-a="gedit" data-ei="${ei}">${info&&info.img?exImg(info,'thumb'):`<span class="thumb ic">${muscleIcon(MUSCLES.includes(e.muscle)?e.muscle:'Грудь','ic2')}</span>`}<span class="ex-t"><b>${esc(e.name)}${enTag(e.name)}${pr?' <span class="prb">★ рекорд</span>':''}</b><small>${esc(e.muscle||'')}</small><span class="num sum">${setsLine(e)}</span>${kcs[ei]?`<span class="burn num" style="font-size:12px">${I.flame}${kcalTxt(kcs[ei])}</span>`:''}</span><span class="chev">${I.right}</span></button>`; }).join('');
   b += `<button class="btn big" data-a="ggroup">${I.plusW} Добавить упражнение</button>`;
   b += `<label class="f">Заметка<textarea class="field" id="gnote" rows="3" data-a="gnote" placeholder="Самочувствие, что поменять в следующий раз…">${esc(g.note||'')}</textarea></label>`;
   b += sh.confirmDel ? `<div class="confirm"><span>Удалить всю тренировку за этот день?</span><button class="btn" style="background:var(--warn)" data-a="gdelyes">Удалить</button><button class="btn ghost" data-a="gdelno">Отмена</button></div>` : `<button class="btn danger" data-a="gdel">Удалить тренировку</button>`;
@@ -2183,17 +2636,17 @@ function gymListStep(g){
   let b = `<input class="field" id="gq" type="search" placeholder="Поиск упражнения" value="${esc(sh.gq||'')}" data-a="gq" autocomplete="off"><div id="gqres">${sh.gq?gSearch(sh.gq):''}</div>`;
   if (sh.gq) return {title:m, body:b, back:'gback-group'};
   b += `<ul class="exlist">${names.map(n => { const info = exInfo(n); const last = lastSession(n, sh.key);
-    return `<li><button data-a="gpickex" data-n="${esc(n)}"><span class="ex-t"><b>${isFavEx(n)?`<span class="favmark">${HEARTI(true)}</span>`:''}${esc(n)}</b><small>${info?esc(ruList(info.pm)):'моё упражнение'}${info&&info.sm.length?` <span class="muted">+ ${esc(ruList(info.sm))}</span>`:''}</small>${last&&setsSummary(last.e)!=='без данных'?`<span class="num sum muted">прошлый раз: ${esc(setsSummary(last.e))}</span>`:''}</span>${done.has(n)?'<span class="badge">уже есть</span>':`<span class="chev">${I.right}</span>`}</button></li>`; }).join('')}</ul>
+    return `<li><button data-a="gpickex" data-n="${esc(n)}"><span class="ex-t"><b>${isFavEx(n)?`<span class="favmark">${HEARTI(true)}</span>`:''}${esc(n)}${enTag(n)}</b><small>${info?esc(ruList(info.pm)):'моё упражнение'}${info&&info.sm.length?` <span class="muted">+ ${esc(ruList(info.sm))}</span>`:''}</small>${last&&setsSummary(last.e)!=='без данных'?`<span class="num sum muted">прошлый раз: ${esc(setsSummary(last.e))}</span>`:''}</span>${done.has(n)?'<span class="badge">уже есть</span>':`<span class="chev">${I.right}</span>`}</button></li>`; }).join('')}</ul>
     <button class="btn addown" data-a="gcustom">${I.dumb}Добавить своё упражнение</button>`;
   return {title:m, body:b, back:'gback-group'};
 }
 function exRow(x, done, key){
   const last = lastSession(x.n, key);
-  return `<li><button data-a="gpickex" data-n="${esc(x.n)}" data-g="${esc(x.g)}"><span class="ex-t"><b>${esc(x.n)}</b><small>${esc(ruList(x.pm))}${x.sm&&x.sm.length?` <span class="muted">+ ${esc(ruList(x.sm))}</span>`:''}</small><small class="muted">${esc(x.g)}${x.eq?` · ${esc(EQ[x.eq]||x.eq)}`:''}</small>${last&&setsSummary(last.e)!=='без данных'?`<span class="num sum muted">прошлый раз: ${esc(setsSummary(last.e))}</span>`:''}</span>${done&&done.has(x.n)?'<span class="badge">уже есть</span>':`<span class="chev">${I.right}</span>`}</button></li>`;
+  return `<li><button data-a="gpickex" data-n="${esc(x.n)}" data-g="${esc(x.g)}"><span class="ex-t"><b>${esc(x.n)}${enTag(x.n)}</b><small>${esc(ruList(x.pm))}${x.sm&&x.sm.length?` <span class="muted">+ ${esc(ruList(x.sm))}</span>`:''}</small><small class="muted">${esc(x.g)}${x.eq?` · ${esc(EQ[x.eq]||x.eq)}`:''}</small>${last&&setsSummary(last.e)!=='без данных'?`<span class="num sum muted">прошлый раз: ${esc(setsSummary(last.e))}</span>`:''}</span>${done&&done.has(x.n)?'<span class="badge">уже есть</span>':`<span class="chev">${I.right}</span>`}</button></li>`;
 }
 function gSearch(q){
   q = q.trim().toLowerCase(); if (!q) return '';
-  const ru = CATALOG.filter(x=>matchQ(x.n, q));
+  const ru = CATALOG.filter(x=>matchQ(x.n, q) || (x.en && matchQ(x.en, q)) || (x.al && matchQ(x.al, q)));
   const custom = (S.settings.customEx||[]).filter(c=>matchQ(c.name, q));
   const g = getDay(S.sheet.key).gym, done = new Set(((g&&g.exercises)||[]).map(e=>e.name));
   let h = '';
@@ -2203,19 +2656,68 @@ function gSearch(q){
 }
 function bestBefore(name, beforeK){
   let best = null;
-  gymSessions().filter(s=>s.k<beforeK).forEach(s => (s.g.exercises||[]).filter(e=>e.name===name && !isCardio(e)).forEach(e => (e.sets||[]).forEach(x => { const w = num(x.w), r = num(x.r); if (w>0 && (!best || w>best.w || (w===best.w && r>best.r))) best = {w, r, k:s.k}; })));
+  gymSessions().filter(s=>s.k<beforeK).forEach(s => (s.g.exercises||[]).filter(e=>e.name===name && !isCardio(e)).forEach(e => (e.sets||[]).forEach(x => { const w = ldW(e, x, s.k), r = num(x.r); if (r>0 && w>0 && (!best || w>best.w || (w===best.w && r>best.r))) best = {w, r, k:s.k, raw:num(x.w)}; })));
   return best;
 }
-function progressTip(name, key){
-  const last = lastSession(name, key); if (!last || isCardio(last.e)) return null;
-  const sets = (last.e.sets||[]).filter(x=>num(x.w)>0||num(x.r)>0); if (!sets.length) return null;
-  const info = exInfo(name), secU = info && (info.f||'').includes('sec');
-  const w0 = num(sets[0].w), r0 = num(sets[0].r), allDone = sets.every(x=>num(x.r)>=r0 && num(x.w)>=w0);
-  const big = ['Ноги','Ягодицы','Спина'].includes(last.e.muscle) && w0>=40;
-  if (secU) return {w:w0, r:r0+5, n:sets.length, txt:`${r0+5} сек × ${sets.length}`, why:'прошлый раз выдержал — добавь 5 секунд'};
-  if (!w0) return {w:0, r:r0+1, n:sets.length, txt:`${r0+1} × ${sets.length}`, why:'свой вес: добавь по повтору в подходе'};
-  if (allDone && r0>=6){ const nw = Math.round((w0 + (big?5:2.5))/2.5)*2.5; return {w:nw, r:r0, n:sets.length, txt:`${fmt1(nw)} кг × ${r0} × ${sets.length}`, why:`в прошлый раз все подходы по ${r0} — пора прибавить вес`}; }
-  return {w:w0, r:r0+1, n:sets.length, txt:`${fmt1(w0)} кг × ${r0+1} × ${sets.length}`, why:'тот же вес, попробуй на 1 повтор больше'};
+const pbTxt = (name, pb) => isAssist(name) ? `противовес ${fmt1(pb.raw)} кг × ${pb.r}` : `${fmt1(pb.w)} кг × ${pb.r}`;
+/* Progress tip — double progression on the LAST workout's working sets (warm-ups and drop-offs ignored):
+   1) last workout clearly weaker than recent ones → repeat the recent level, no increase;
+   2) every working set hit the top of the rep range at the top weight → add weight, reps back to the bottom;
+   3) weight was just raised → keep it, add reps;
+   4) otherwise → same weight, bring all sets up to the best set (+1 rep when they're even).
+   The number of sets is never increased. Strength is compared by estimated 1-rep max (Epley). */
+const e1rm = (w, r) => w * (1 + Math.min(r, 12)/30);
+const ISO_RE = /разводк|сведени|сгибани|разгибани|махи|бицепс|молот|концентр|бабочк|пек-дек|кроссовер|носки|отведени|приведени|французск|трицепс|шраги|скручиван|гиперэкстенз|пуловер/i;
+function exCompound(name, muscle){ const i = exInfo(name); if (ISO_RE.test(name)) return false; if (i) return ['Грудь','Спина','Ноги','Ягодицы','Плечи'].includes(i.g) && (i.sm||[]).length>0; return ['Грудь','Спина','Ноги','Ягодицы'].includes(muscle); }
+function workSets(e, k){
+  const ss = (e.sets||[]).map(x=>({w:ldW(e, x, k), r:num(x.r)})).filter(x=>x.r>0);
+  const top = ss.reduce((b,x)=>!b || e1rm(x.w,x.r) > e1rm(b.w,b.r) ? x : b, null); if (!top) return null;
+  const work = top.w>0 ? ss.filter(x=>x.w >= top.w*0.8) : ss;
+  return {top, work, all:ss, e1:e1rm(top.w, top.r), atTop:work.filter(x=>x.w >= top.w-0.01)};
+}
+function tipOff(name, key){ try{ return !!(JSON.parse(localStorage.getItem('forma.tipoff')||'{}')[key+'|'+name]); }catch(e){ return false; } }
+function progressTip(name, key){ const t = progressTip0(name, key); return t && isAssist(name) ? assistTip(t, name, key) : t; }
+/* convert a tip computed in load space back to counterweight numbers with plain wording */
+function assistTip(t, name, key){
+  const bw = weightOn(key), toA = w => Math.max(0, Math.round((bw - w)/2.5)*2.5), sets = t.sets && t.sets.map(x=>({w:toA(x.w), r:x.r})), a = toA(t.w);
+  const txt = sets ? sets.map(x=>`−${fmt1(x.w)}×${x.r}`).join(' → ') : a>0 ? `противовес ${fmt1(a)} кг × ${t.r} × ${t.n}` : `без противовеса × ${t.r} × ${t.n}`;
+  const why = {bad:'прошлый раз было тяжелее обычного — повтори свой уровень, противовес не уменьшай', up: a>0 ? 'все подходы получились — уменьши противовес на шаг, повторов станет меньше, потом снова добавляй' : 'противовес больше не нужен — пробуй подтягиваться сам!', hold:'в прошлый раз уменьшил противовес — закрепи его, добавляй повторы', pyr:'как в прошлый раз, в самом тяжёлом подходе — на повтор больше'}[t.kind] || 'тот же противовес, на повтор больше — когда все подходы станут лёгкими, уменьшим';
+  return Object.assign({}, t, {w:a, sets, txt, why});
+}
+function progressTip0(name, key){
+  const hist = []; const ss = gymSessions().filter(s=>s.k<key).reverse();
+  for (const s of ss){ const e = (s.g.exercises||[]).find(x=>x.name===name && (x.sets||[]).length); if (e){ const w = workSets(e, s.k); if (w) hist.push(Object.assign({k:s.k, e}, w)); if (hist.length>=4) break; } }
+  if (!hist.length || isCardio(hist[0].e)) return null;
+  const L = hist[0], info = exInfo(name), secU = info && (info.f||'').includes('sec'), n = L.work.length;
+  const minR = Math.min(...L.atTop.map(x=>x.r)), maxR = Math.max(...L.atTop.map(x=>x.r)), W = L.top.w;
+  const nextR = (lo, hi) => minR < maxR ? Math.max(maxR, lo) : Math.min(hi, maxR+1);
+  if (secU){ const t = minR < maxR ? maxR : maxR+5; return {w:W, r:t, n, txt:`${t} сек × ${n}`, why: minR < maxR ? `выдержи все подходы по ${maxR} сек, как лучший` : 'прошлый раз выдержал — добавь 5 секунд'}; }
+  // 1) a bad day: don't build on it
+  const ref = hist.slice(1).reduce((b,h)=>!b || h.e1 > b.e1 ? h : b, null);
+  const vol = h => h.work.reduce((a,x)=>a + (x.w||1)*x.r, 0);
+  if (ref && L.top.w <= ref.top.w && L.e1 < ref.e1*0.93 && vol(L) < vol(ref)*0.9){ const rn = ref.work.length, rr = Math.min(...ref.atTop.map(x=>x.r));
+    if (ref.atTop.length < ref.work.length) return {kind:'bad', w:ref.top.w, r:ref.top.r, n:ref.all.length, sets:ref.all.map(x=>({w:x.w, r:x.r})), txt:ref.all.map(x=>`${fmt1(x.w)}×${x.r}`).join(' → '), why:`прошлый раз было тяжелее обычного — повтори свою тренировку от ${dayLabel(ref.k)}, без прибавки`};
+    return {kind:'bad', w:ref.top.w, r:rr, n:rn, txt:ref.top.w ? `${fmt1(ref.top.w)} кг × ${rr} × ${rn}` : `${rr} × ${rn}`, why:`прошлый раз было тяжелее обычного (${ref.top.w?fmt1(W)+'×'+maxR+' против '+fmt1(ref.top.w)+'×'+ref.top.r:maxR+' против '+ref.top.r}) — повтори свой уровень от ${dayLabel(ref.k)}, без прибавки`}; }
+  if (!W){ const t = nextR(1, 999); return {w:0, r:t, n, txt:`${t} × ${n}`, why: minR < maxR ? `свой вес: сделай все подходы по ${maxR}, как лучший` : 'свой вес: добавь по повтору в подходе'}; }
+  const comp = exCompound(name, L.e.muscle), lo = comp ? 6 : 8; let hi = comp ? 10 : 12;
+  const med = L.work.map(x=>x.r).sort((a,b)=>a-b)[Math.floor(L.work.length/2)]; if (med > hi) hi = Math.min(20, med);   // you train in higher reps — respect that
+  const lo2 = Math.max(lo, hi-4);
+  // 2) all working sets at the top weight reached the top of the range → add weight
+  if (L.atTop.length===L.work.length && minR >= hi){
+    const db = isDb(name), step = isAssist(name) ? 5 : db ? (W < 10 ? 1 : 2) : ['Ноги','Ягодицы','Спина'].includes((info&&info.g)||L.e.muscle) && comp && W >= 60 ? 5 : 2.5;
+    const nw = Math.round((W + step)/(db?1:2.5))*(db?1:2.5);
+    const est = hi > 12 ? minR - 3 : Math.floor(30*(e1rm(W, minR)/nw - 1)), nr = Math.max(lo2, Math.min(hi-1, est));   // reps you should manage with the new weight
+    return {kind:'up', w:nw, r:nr, n, txt:`${fmt1(nw)} кг × ${nr} × ${n}`, why:`все подходы по ${minR}+ на ${fmt1(W)} кг — пора прибавить вес. ${nr} на ${fmt1(nw)} кг — та же нагрузка, дальше снова добавляй повторы`}; }
+  const t = nextR(lo2, hi);
+  // 3) weight was just raised → consolidate
+  const P = hist[1];
+  if (P && W > P.top.w) return {kind:'hold', w:W, r:t, n, txt:`${fmt1(W)} кг × ${t} × ${n}`, why:`в прошлый раз поднял до ${fmt1(W)} кг — закрепи вес, добавляй повторы до ${hi}`};
+  // pyramid / ramping sets: keep the structure, one more rep in the heaviest set
+  if (L.atTop.length < L.work.length){ const sets = L.all.map(x=>({w:x.w, r:x.r})), ti = sets.map((x,i)=>i).filter(i=>sets[i].w>=W-0.01).pop(); sets[ti] = {w:W, r:Math.min(hi, sets[ti].r+1)};
+    return {kind:'pyr', w:W, r:sets[ti].r, n:sets.length, sets, txt:`${fmt1(W)} кг × ${sets[ti].r} в тяжёлом подходе`, why:`лесенка как в прошлый раз (${sets.map(x=>fmt1(x.w)).join(' → ')} кг), в самом тяжёлом — на повтор больше`}; }
+  // 4) same weight, more reps
+  const pyr = false;
+  return {w:W, r:t, n, txt:`${fmt1(W)} кг × ${t} × ${n}`, why: pyr ? `сделай все ${n} ${plural(n,'подход','подхода','подходов')} на ${fmt1(W)} кг — потом прибавим` : minR < maxR ? `добей все подходы до ${maxR}, как в лучшем` : t >= hi ? `${hi} повторов во всех подходах — и в следующий раз прибавим вес` : `тот же вес, на 1 повтор больше — когда будет ${hi} во всех подходах, прибавим`};
 }
 // unsaved edits survive going back / closing / reloading until saved
 let DRAFTS = {}; try{ DRAFTS = JSON.parse(localStorage.getItem('forma.drafts')||'{}') || {}; }catch(e){}
@@ -2272,7 +2774,7 @@ function gymDetailStep(){
   const slug = wgOf(f.name), hasPhoto = !!(info && info.img);
   const mine = !f.custom && !info && (S.settings.customEx||[]).some(c=>c.name===f.name);
   let b = `${hasPhoto && !f.custom ? `<div class="media"><img src="${info.img}" alt="${esc(f.name)}: техника выполнения"></div>` : ''}
-    ${f.custom ? `<label class="f">Название упражнения<input class="field" id="gname" data-a="gname" placeholder="Например: Пуловер с гантелью" value="${esc(f.name)}" autocomplete="off"></label><div class="muted" style="font-size:13px;margin-top:-6px">Группа: ${esc(f.g)}</div>` : mine ? myExHead(f) : `<div class="myhead"><div style="min-width:0"><h4 class="ex-name">${esc(f.name)}</h4><div class="muted" style="font-size:13px">${esc(f.g)}${info&&info.eq?` · ${esc(EQ[info.eq]||info.eq)}`:''}</div></div><div class="myact">${favBtn(f.name)}</div></div>`}`;
+    ${f.custom ? `<label class="f">Название упражнения<input class="field" id="gname" data-a="gname" placeholder="Например: Пуловер с гантелью" value="${esc(f.name)}" autocomplete="off"></label><div class="muted" style="font-size:13px;margin-top:-6px">Группа: ${esc(f.g)}</div>` : mine ? myExHead(f) : `<div class="myhead"><div style="min-width:0"><h4 class="ex-name">${esc(f.name)}${enTag(f.name)}</h4><div class="muted" style="font-size:13px">${esc(f.g)}${info&&info.eq?` · ${esc(EQ[info.eq]||info.eq)}`:''}</div></div><div class="myact">${favBtn(f.name)}</div></div>`}`;
   if (info){
     b += `<div class="card anat"><div class="bm-fig">${anatDiagram(info.pm, info.sm, f.name)}</div><div class="anat-t">
       <div><span class="dot on"></span><b>Основные:</b> ${esc(ruList(info.pm))}</div>${info.sm.length?`<div><span class="dot sec"></span><b>Вспомогательные:</b> ${esc(ruList(info.sm))}</div>`:''}
@@ -2292,7 +2794,7 @@ function gymDetailStep(){
       ${last?`<div class="hint" style="margin-top:8px">Прошлый раз (${dayLabel(last.k)}): ${esc(cardioSummary(last.e)||'—')}</div>`:''}</div>`;
   } else {
     const secU = info && (info.f||'').includes('sec'), bw = info && (info.f||'').includes('bw');
-    const db = isDb(f.name), wl = bw ? 'Доп. вес' : 'Вес';
+    const db = isDb(f.name), asx = isAssist(f.name), wl = asx ? 'Противовес' : bw ? 'Доп. вес' : 'Вес';
     if (db && !f.dbn) f.dbn = dbDefault(f.name);
     b += `<div class="card params"><div class="sec-t" style="margin:0 0 8px">Параметры</div>
       ${db ? `<div class="dbrow"><span class="flab">${MI.dumb}Гантели</span><div class="seg" role="group" aria-label="Сколько гантелей"><button data-a="gdbn" data-v="1" aria-pressed="${num(f.dbn)===1}">1 гантель</button><button data-a="gdbn" data-v="2" aria-pressed="${num(f.dbn)===2}">2 гантели</button></div><div class="hint" style="margin:0;flex-basis:100%">Вес — одной гантели${num(f.dbn)===2?', в калориях и тоннаже считаю обе':''}.</div></div>` : ''}
@@ -2302,9 +2804,10 @@ function gymDetailStep(){
       ${last?`<button class="linkbtn" data-a="glast">Как в прошлый раз</button>`:''}</div>
       ${last?`<div class="hint">Прошлый раз (${dayLabel(last.k)}): ${esc(setsSummary(last.e))}</div>`:''}
       ${(f.rests||[]).length?`<div class="rests"><span class="muted">Отдых:</span>${f.rests.map((r,ri)=>`<span class="rp num">${I.clock}${mmss(r)}</span>`).join('')}<button class="linkbtn" data-a="grclr">сбросить</button></div>`:''}
+      ${asx ? `<div class="hint asnote">${MI.scale}<span>Противовес <b>помогает</b>: чем он меньше, тем тяжелее. Нагрузка = твой вес ${fmt1(weightOn(sh.key))} кг − противовес<span id="asload">${asLoadTxt(f, sh.key)}</span>. Рекорд — подход с самым маленьким противовесом.</span></div>` : ''}
       <div class="total" id="gtotal">${formTotal(f)}</div></div>
-      ${(()=>{ const tip = progressTip(f.name, sh.key); return tip ? `<div class="tip"><div><small>Совет на сегодня</small><b class="num">${tip.txt}</b><span>${tip.why}</span></div><button class="add" data-a="gtip">Применить</button></div>` : ''; })()}
-      ${(()=>{ const pb = bestBefore(f.name, sh.key); return pb ? `<div class="hint">Рекорд: <b class="num">${fmt1(pb.w)} кг × ${pb.r}</b> (${dayLabel(pb.k)})</div>` : ''; })()}`;
+      ${(()=>{ const tip = !tipOff(f.name, sh.key) && progressTip(f.name, sh.key); return tip ? `<div class="tip"><div><small>Совет на сегодня</small><b class="num">${tip.txt}</b><span>${tip.why}</span></div><div class="tipb"><button class="add" data-a="gtip">Применить</button><button class="tipx" data-a="gtipx" aria-label="Скрыть совет">${I.x}</button></div></div>` : ''; })()}
+      ${(()=>{ const pb = bestBefore(f.name, sh.key); return pb ? `<div class="hint">Рекорд: <b class="num">${pbTxt(f.name, pb)}</b> (${dayLabel(pb.k)})</div>` : ''; })()}`;
   }
   const cs = formCanSave(f);
   b += `<button class="btn big" data-a="gsave" ${cs?'':'disabled'}>${editing?'Сохранить':'Добавить в тренировку'}</button>${cs||f.cardio?'':`<div class="hint" id="gneedw" style="text-align:center;margin-top:-4px">${saveHint(f)}</div>`}`;
@@ -2326,13 +2829,13 @@ function cardioCalc(f, si){
   return parts.length ? parts.join(' · ') + `<div class="hint">Чистый расход сверх покоя: всего ≈ ${fmt(gross)} ккал минус ≈ ${fmt(3.5*kg/1000*5*setMin(x))} ккал обмена веществ за это время${x.rails&&RAILS.includes(f.name)?', минус 20% за поручни':''}. Вес ${fmt1(kg)} кг${num(x.hr)>=80?', считаю по пульсу (формула Keytel)':f.name==='Беговая дорожка'?', таблица нагрузок Compendium по скорости + ACSM для наклона':f.name==='Гребной тренажёр'&&num(x.m)?', мощность по темпу (формула Concept2)':''}.</div>` : '<span class="hint">Заполни время' + (f.name==='Беговая дорожка'?' и скорость':'') + ' — посчитаю дистанцию и калории.</span>';
 }
 function formSets(f){ return f.per ? f.sets.map(s=>({w:s.w, r:s.r})) : Array.from({length:Math.max(1,Math.round(num(f.n)))}, ()=>({w:f.w, r:f.r})); }
-function needsWeight(f){ if (f.cardio) return false; const info = exInfo(f.name); if (!info) return false; return !/bw|sec/.test(info.f||'') && !BW_OK.has(f.name); }
+function needsWeight(f){ if (f.cardio) return false; const info = exInfo(f.name); if (!info) return false; return !/bw|sec|assist/.test(info.f||'') && !BW_OK.has(f.name); }
 function saveHint(f){ const ss = formSets(f); return !ss.some(x=>num(x.r)>0) ? 'Укажи повторения, чтобы сохранить' : 'Укажи вес, чтобы сохранить'; }
 function formCanSave(f){ if (f.cardio) return true; const ss = formSets(f); if (!ss.some(x=>num(x.r)>0)) return false; return !needsWeight(f) || ss.every(x=>num(x.w)>0); }
 function syncCardio(){ const f = S.sheet && S.sheet.form; if (!f || !f.cs) return; f.cs.forEach((_,i)=>{ const c = $('#gcalc-'+i); if (c) c.innerHTML = cardioCalc(f, i); }); const t = $('#gctot'); if (t) t.innerHTML = cardioTotal(f); }
 function syncSave(){ const f = S.sheet && S.sheet.form, bt = $('[data-a="gsave"]'); if (!f || !bt) return; const ok = formCanSave(f); bt.disabled = !ok; const h = $('#gneedw'); if (h) h.style.display = ok ? 'none' : ''; else if (!ok && !f.cardio){ bt.insertAdjacentHTML('afterend','<div class="hint" id="gneedw" style="text-align:center;margin-top:-4px"></div>'); } const h2 = $('#gneedw'); if (h2 && !ok) h2.textContent = saveHint(f); }
 function formKg(){ return S.sheet && S.sheet.key ? weightOn(S.sheet.key) : bodyKg(); }
-function formTotal(f){ const ss = formSets(f); const kc = exKcal({name:f.name, muscle:f.g, sets:ss, rests:f.rests, dbn:f.dbn}, formKg()); return `${ss.length} ${plural(ss.length,'подход','подхода','подходов')}` + (kc?` · сожжено <b class="num">≈ ${fmt(kc)} ккал</b>`:'') + (kc&&!f.cardio?`<div class="hint">Чистый расход сверх покоя: подходы (≈ 2¼ мин на подход с отдыхом) плюс работа — вес × повторы × амплитуда. Больше вес — больше ккал. Таймер отдыха на калории не влияет.</div>`:''); }
+function formTotal(f){ const ss = formSets(f); const kc = exKcal({name:f.name, muscle:f.g, sets:ss, rests:f.rests, dbn:f.dbn}, formKg()); return `${ss.length} ${plural(ss.length,'подход','подхода','подходов')}` + (kc?` · сожжено <b class="num">≈ ${fmt(kc)} ккал</b>`:'') + (kc&&!f.cardio?`<div class="hint">Чистый расход сверх покоя: подходы (≈ 2¼ мин на подход с отдыхом) плюс работа — вес × повторы × амплитуда. ${isAssist(f.name)?"Меньше противовес — больше ккал.":"Больше вес — больше ккал."} Таймер отдыха на калории не влияет.</div>`:''); }
 function saveForm(){
   const sh = S.sheet, f = sh.form;
   const e = {id: uid(), name:f.name, muscle:f.g, sets: f.cardio ? f.cs.filter(segHas).map(c=>Object.assign({}, c)) : formSets(f).filter(s=>num(s.w)>0||num(s.r)>0)};
@@ -2406,8 +2909,9 @@ function sheetSettings(){
     <div class="srow"><span class="flab">${MI.pulse}Звук в конце</span>${optRow('restSound', st.restSound||'on', [['on','Вкл'],['off','Выкл']])}</div>
     <div class="srow"><span class="flab">${MI.reps}Вибрация</span>${optRow('restVibe', st.restVibe||'on', [['on','Вкл'],['off','Выкл']])}</div>
   </div>
+  ${ghCard()}
   <div class="card sgroup"><h2 class="sh">${MI.data}Данные</h2>
-    <div class="hint" style="margin:0">${db&&S.synced?'Хранятся в облаке и одинаковы на всех твоих устройствах.':'Данные хранятся только на этом телефоне. Время от времени сохраняй резервную копию (кнопка ниже) — например, в «Файлы» или iCloud.'}</div>
+    <div class="hint" style="margin:0">${db&&S.synced?'Хранятся в облаке и одинаковы на всех твоих устройствах.':ghOn()?'Хранятся на устройстве и в твоём Gist на GitHub.':'Данные хранятся только на этом телефоне. Время от времени сохраняй резервную копию (кнопка ниже) — например, в «Файлы» или iCloud.'}</div>
     <div class="row" style="flex-wrap:wrap;gap:8px"><button class="btn ghost" style="flex:1 1 140px" data-a="export" data-fmt="csv">${I.dl} Excel (CSV)</button><button class="btn ghost" style="flex:1 1 140px" data-a="export" data-fmt="json">${I.dl} Резервная копия</button></div>
     <div class="hint" style="margin:0">Схемы мышц: «Muscular system», Wikimedia Commons (через проект wger). Фото упражнений: Free Exercise DB (общественное достояние).</div>
     <label class="btn ghost filebtn">${I.ul} Восстановить из копии<input type="file" id="importfile" accept="application/json,.json" data-a="importfile"></label>
@@ -2451,7 +2955,7 @@ function doImport(file){
     let added = 0, merged = 0;
     const okArr = (x, f) => Array.isArray(x) ? x.filter(e => e && typeof e==='object' && f(e)) : [];
     const clean = d => { if (!d || typeof d!=='object') return null; const o = {food: okArr(d.food, e=>typeof e.name==='string' && isFinite(num(e.kcal))), water: okArr(d.water, e=>num(e.ml)>0), gym: d.gym && typeof d.gym==='object' && Array.isArray(d.gym.exercises||[]) ? d.gym : null};
-      if (num(d.weight)>0) o.weight = num(d.weight); const w = okArr(d.walks, e=>num(e.steps)>0); if (w.length) o.walks = w; return isEmptyDay(o) ? null : o; };
+      if (num(d.weight)>0) o.weight = num(d.weight); const w = okArr(d.walks, e=>num(e.steps)>0); if (w.length) o.walks = w; if (d.hs && typeof d.hs==='object' && num(d.hs.n)>0) o.hs = Object.assign({n:Math.round(num(d.hs.n)), t:num(d.hs.t)||Date.now()}, d.hs.x?{x:1}:{}); return isEmptyDay(o) ? null : o; };
     try{
     Object.entries(data.days).forEach(([k, d0]) => { const d = clean(d0); if (!/^\d{4}-\d{2}-\d{2}$/.test(k) || !d) return;
       if (!S.days[k]){ S.days[k] = Object.assign(blankDay(), d); added++; persistDay(k); }
@@ -2461,9 +2965,10 @@ function doImport(file){
         if (!cur.gym && d.gym){ cur.gym = d.gym; ch = true; }
         if (!num(cur.weight) && num(d.weight)){ cur.weight = d.weight; ch = true; }
         if (!(cur.walks||[]).length && (d.walks||[]).length){ cur.walks = d.walks; ch = true; }
+        if (!cur.hs && d.hs){ cur.hs = d.hs; ch = true; }
         if (ch){ merged++; persistDay(k); } } });
     if (data.settings){ const st = data.settings;
-      if (JSON.stringify(S.settings.profile)===JSON.stringify(DEFAULT_SETTINGS.profile)) ['profile','kcalMode','kcalGoal','waterGoal','waterPresets'].forEach(key => { if (st[key]!==undefined) S.settings[key] = clone(st[key]); }); ['customFoods','customEx'].forEach(key => { const have = new Set((S.settings[key]||[]).map(x=>x.name)); S.settings[key] = (S.settings[key]||[]).concat((st[key]||[]).filter(x=>!have.has(x.name))); });
+      if (JSON.stringify(S.settings.profile)===JSON.stringify(DEFAULT_SETTINGS.profile)) ['profile','kcalMode','kcalGoal','waterGoal','waterPresets'].forEach(key => { if (st[key]!==undefined) S.settings[key] = clone(st[key]); }); ['customFoods','customEx','mealTpl'].forEach(key => { const have = new Set((S.settings[key]||[]).map(x=>x.name)); S.settings[key] = (S.settings[key]||[]).concat((st[key]||[]).filter(x=>!have.has(x.name))); });
       S.settings.favorites = [...new Set((S.settings.favorites||[]).concat(st.favorites||[]))]; S.settings.favEx = [...new Set((S.settings.favEx||[]).concat(st.favEx||[]))];
       ['restSound','restVibe','walkGoal'].forEach(key => { if (S.settings[key]===undefined && st[key]!==undefined) S.settings[key] = st[key]; }); S.settings.foodOverrides = Object.assign({}, st.foodOverrides||{}, S.settings.foodOverrides||{});
       if (Array.isArray(st.achSeen)) S.settings.achSeen = [...new Set((S.settings.achSeen||[]).concat(st.achSeen))];
@@ -2532,6 +3037,7 @@ setInterval(restTick, 250);
 
 /* ---------- main render ---------- */
 function render(){
+  if (SC && (!S.sheet || S.sheet.type!=='food')) scanClose();
   saveDrafts();
   deferred = false;
   const app = $('#app');
@@ -2541,11 +3047,11 @@ function render(){
   const view = S.tab==='home' ? viewHome() : S.tab==='food' ? viewFood() : S.tab==='water' ? viewWater() : S.tab==='walk' ? viewWalk() : viewGym();
   let sheet = '';
   if (S.sheet){
-    const s = S.sheet.type==='food' ? sheetFood() : S.sheet.type==='fedit' ? sheetFoodEdit() : S.sheet.type==='gym' ? sheetGym() : S.sheet.type==='cal' ? sheetCal() : S.sheet.type==='weight' ? sheetWeight() : S.sheet.type==='wedit' ? sheetWaterEdit() : S.sheet.type==='wpre' ? sheetWaterPresets() : S.sheet.type==='walk' ? sheetWalk() : S.sheet.type==='ach' ? sheetAch() : sheetSettings();
+    const s = S.sheet.type==='food' ? sheetFood() : S.sheet.type==='fedit' ? sheetFoodEdit() : S.sheet.type==='gym' ? sheetGym() : S.sheet.type==='cal' ? sheetCal() : S.sheet.type==='weight' ? sheetWeight() : S.sheet.type==='wedit' ? sheetWaterEdit() : S.sheet.type==='wpre' ? sheetWaterPresets() : S.sheet.type==='walk' ? sheetWalk() : S.sheet.type==='tpl' ? sheetTpl() : S.sheet.type==='ach' ? sheetAch() : sheetSettings();
     const mod = S.sheet.type==='ach'?'m-ach':S.sheet.type==='walk'?'m-walk':S.sheet.type==='weight'?'m-weight':(S.sheet.type==='wedit'||S.sheet.type==='wpre')?'m-water':S.sheet.type==='cal'?'m-'+S.sheet.mode:(S.sheet.type==='food'||S.sheet.type==='fedit')?'m-food':S.sheet.type==='gym'?'m-gym':S.sheet.type==='settings'?'m-food':'m-'+S.tab;
     sheet = `<div class="overlay ${mod}" data-a="closebg"><div class="sheet" role="dialog" aria-modal="true" aria-label="${esc(s.title)}"><div class="sheet-h">${s.back?`<button class="iconbtn" data-a="${s.back}" aria-label="Назад">${I.left}</button>`:''}<h3 style="flex:1">${esc(s.title)}</h3><button class="iconbtn" data-a="close" aria-label="Закрыть">${I.x}</button></div><div class="sheet-b">${s.body}</div>${S.sheet.type==='gym'&&S.sheet.step==='detail'?timerBar():''}</div></div>`;
   }
-  app.innerHTML = `<div class="wrap"><header class="top"><div class="brand"><h1>Дневник формы</h1><span class="sync ${db&&S.synced?'on':''}"><i></i>${db&&S.synced?'Сохранено в облаке':'Хранится на этом телефоне'}</span></div><button class="iconbtn" data-a="settings" aria-label="Настройки">${I.gear}</button></header>${view}</div>
+  app.innerHTML = `<div class="wrap"><header class="top"><div class="brand"><h1>Дневник формы</h1><span class="sync ${(db&&S.synced)||(ghOn()&&ghState==='ok')?'on':''}"><i></i>${db&&S.synced?'Сохранено в облаке':ghOn()?ghLabel():'Хранится на этом телефоне'}</span></div><button class="iconbtn" data-a="settings" aria-label="Настройки">${I.gear}</button></header>${view}</div>
     <nav class="tabs"><div class="in" role="tablist">${[['home','Сегодня'],['food','Еда'],['water','Вода'],['gym','Зал'],['walk','Прогулки']].map(([id,n])=>`<button class="tab t-${id}" role="tab" aria-selected="${S.tab===id}" data-a="tab" data-id="${id}">${I[id]}${n}</button>`).join('')}</div></nav>
     ${sheet}`;
   window.scrollTo(0, scrollY);
@@ -2578,7 +3084,7 @@ function hideToast(){
 }
 
 /* ---------- actions ---------- */
-document.addEventListener('click', ev => {
+document.addEventListener('click', async ev => {
   const el = ev.target.closest('[data-a]'); if (!el) return;
   const a = el.dataset.a;
   if (a==='closebg'){ if (ev.target===el){ S.sheet=null; render(); } return; }
@@ -2587,6 +3093,44 @@ document.addEventListener('click', ev => {
   if (a==='nstep'){ const inp = document.getElementById(el.dataset.t); if (!inp) return; const d = num(el.dataset.d); const cur = inp.value.trim()==='' && inp.dataset.base ? num(inp.dataset.base) : num(inp.value); const v = Math.max(0, Math.round((cur + (inp.value.trim()==='' && inp.dataset.base ? 0 : d))*100)/100); inp.value = String(v).replace('.',','); inp.dispatchEvent(new Event('input', {bubbles:true})); return; }
   switch(a){
     case 'tab': S.tab = el.dataset.id; try{ localStorage.setItem('forma.tab', S.tab); history.replaceState(null,'','#'+S.tab); }catch(e){} window.scrollTo(0,0); break;
+    case 'ghconnect': { const t = ($('#ghtok')?.value||'').trim(); if (!/^(ghp_|github_pat_|gho_)[A-Za-z0-9_]{20,}$/.test(t)){ showToast('Это не похоже на токен GitHub — он начинается с ghp_'); return; }
+      gh = {token:t}; ghSave(); ghState = 'sync'; render(); await ghSync(); if (ghState==='ok') showToast('Синхронизация включена — данные в твоём Gist'); else { showToast(ghErr || 'Не получилось подключиться', null, true); if (ghErr.startsWith('Токен')){ gh = {}; ghSave(); ghState = 'off'; } } render(); return; }
+    case 'ghnow': await ghSync(); render(); if (ghState==='ok') showToast('Синхронизировано'); return;
+    case 'ghoff': gh = {}; ghSave(); ghState = 'off'; ghLastHash = null; showToast('Синхронизация отключена — данные остались на устройстве'); break;
+    case 'scan': scanOpen(); return;
+    case 'dshnew': sh.dish = blankDish(); render(); { const bb=$('.sheet-b'); if (bb) bb.scrollTop=0; } $('#dshn')?.focus(); return;
+    case 'dshedit': { const p = (S.settings.customFoods||[])[+el.dataset.i]; if (!p) return; sh.dish = dishFromFood(p); render(); const bb=$('.sheet-b'); if (bb) bb.scrollTop=0; return; }
+    case 'dshcancel': sh.dish = null; break;
+    case 'dshadd': { const p = allFoods()[+el.dataset.i]; if (!p) return; const ds = sh.dish, ps = portionsOf(p);
+      const a = p.per===100 ? (ps.length && ps[0][1] <= 80 ? ps[0][1] : (num(p.g)||100)) : 1;
+      ds.items.push({name:p.name, a:String(Math.round(a)), per:p.per===100?100:1, kcal:num(p.kcal), p:num(p.p), f:num(p.f), c:num(p.c), u:unitOf(p)}); ds.q = ''; render();
+      const inp = $('#dsha'+(ds.items.length-1)); if (inp){ inp.scrollIntoView({block:'center'}); inp.focus(); try{ inp.select(); }catch(e){} } return; }
+    case 'dshrm': sh.dish.items.splice(+el.dataset.i, 1); break;
+    case 'dshsave': case 'dshsaveadd': { const prod = saveDish(); if (!prod) return;
+      if (a==='dshsaveadd'){ sh.mode = 'search'; sh.sel = prod; setPick(sh, prod); render(); const bb=$('.sheet-b'); if (bb) bb.scrollTop=0; showToast(`Блюдо «${prod.name}» сохранено — выбери, сколько порций`); return; }
+      showToast(`Блюдо «${prod.name}» сохранено — оно есть в поиске и в «Блюдах»`); break; }
+    case 'tplnew': { const meal = el.dataset.meal, items = getDay(S.date).food.filter(e=>e.meal===meal).map(e=>{ const x = clone(e); delete x.id; delete x.t; delete x.ids; return x; }); if (!items.length) return;
+      let name = `Мой ${mealName(meal).toLowerCase()}`; if (meal==='snack') name = 'Мой перекус'; let i = 2; while (tplList().some(x=>x.name===name)) name = `${name.replace(/ \d+$/,'')} ${i++}`;
+      S.sheet = {type:'tpl', meal, name, items}; break; }
+    case 'tplrm': sh.items.splice(+el.dataset.i, 1); break;
+    case 'tplsave': { const name = sh.name.trim(); if (!name){ showToast('Назови шаблон'); $('#tpln')?.focus(); return; } if (!sh.items.length) return;
+      S.settings.mealTpl = [{name, meal:sh.meal, items:sh.items}].concat(tplList().filter(x=>x.name!==name)); persistSettings(); S.sheet = null;
+      showToast(`Шаблон «${name}» сохранён — ${fmt(sh.items.reduce((a,e)=>a+e.kcal,0))} ккал в один тап`); break; }
+    case 'tpladd': { const t = tplList()[+el.dataset.i]; if (!t) return; tplApply(t.name, el.dataset.meal || (sh && sh.meal) || t.meal); return; }
+    case 'tpldel': { const t = tplList()[+el.dataset.i]; if (!t) return; const before = clone(tplList()); S.settings.mealTpl = tplList().filter((_,i)=>i!==+el.dataset.i); persistSettings(); showToast(`Шаблон «${t.name}» удалён`, {tpl:before}); return; }
+    case 'sugoff': try{ localStorage.setItem('forma.sugoff', today()); }catch(e){} showToast('Подсказка скрыта до завтра'); break;
+    case 'sugadd': { const o = SUG[+el.dataset.i]; if (!o) return; const meal = mealNow(), before = clone(getDay(S.date));
+      editDay(S.date, d => { o.items.forEach(x => d.food.push(Object.assign(foodEntry(x.p, x.q, x.pu, meal), {id:uid()}))); mergeFood(d); });
+      showToast(`Добавлено в «${mealName(meal)}»: ${o.items.map(x=>x.p.name).join(' + ')} · ${fmt(o.kc)} ккал`, {k:S.date, day:before}); break; }
+    case 'hscopy': { if (!gh.gistId){ showToast('Сначала нажми «Синхронизировать сейчас» — Gist ещё не создан'); return; }
+      const v = el.dataset.v==='url' ? 'https://api.github.com/gists/'+gh.gistId : 'token '+gh.token;
+      try{ await navigator.clipboard.writeText(v); showToast(el.dataset.v==='url' ? 'URL скопирован' : 'Значение заголовка скопировано'); }
+      catch(e){ const ta = document.createElement('textarea'); ta.value = v; ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); showToast('Скопировано'); }catch(e2){ showToast('Не удалось скопировать'); } ta.remove(); }
+      return; }
+    case 'hsdel': { const k = sh.k, before = clone(getDay(k)); editDay(k, d => { if (d.hs) d.hs = Object.assign({}, d.hs, {x:1, t:Date.now()}); }); showToast('Шаги из «Здоровья» скрыты за этот день', {k, day:before}); break; }
+    case 'hsguide': S.hsGuide = !(S.hsGuide===undefined ? !gh.hs : S.hsGuide); break;
+    case 'hsset': S.sheet = {type:'settings'}; render(); if (!gh.token) showToast('Шаги приходят через синхронизацию устройств — сначала подключи её', null, true); setTimeout(() => { const c = document.getElementById('hscard') || document.getElementById('ghcard'); if (c) c.scrollIntoView({block:'start'}); }, 80); return;
+    case 'npscan': { const np = S.sheet.np; scanOpen(); return; }
     case 'achopen': S.sheet = {type:'ach'}; break;
     case 'wkday': if (el.dataset.k > today()) return; S.date = el.dataset.k; S.walkWeek = mondayOf(el.dataset.k); window.scrollTo(0,0); break;
     case 'wkwprev': S.walkWeek = addDays(S.walkWeek||mondayOf(today()), -7); break;
@@ -2622,7 +3166,7 @@ document.addEventListener('click', ev => {
     case 'progper': S.progPer = el.dataset.p; break;
     case 'wmper': S.wmPer = el.dataset.p; break;
     case 'progcat': S.progCat = el.dataset.c; S.progEx = null; break;
-    case 'emopen': if (sh.em){ sh.em = null; break; } sh.em = {name:sh.sel.name, p:String(sh.sel.p), f:String(sh.sel.f), c:String(sh.sel.c)}; render(); syncEm(); return;
+    case 'emopen': if (sh.sel && sh.sel.dish && (S.settings.customFoods||[]).some(x=>x.name===sh.sel.name)){ sh.mode = 'dish'; sh.dish = dishFromFood((S.settings.customFoods||[]).find(x=>x.name===sh.sel.name)); sh.sel = null; break; } if (sh.em){ sh.em = null; break; } sh.em = {name:sh.sel.name, p:String(sh.sel.p), f:String(sh.sel.f), c:String(sh.sel.c)}; render(); syncEm(); return;
     case 'emclose': sh.em = null; break;
     case 'emnew': {
       const p = sh.sel; if (!p || !sh.em) return; const r1 = x => Math.round(x*10)/10, n = (sh.em.name||'').trim();
@@ -2651,7 +3195,7 @@ document.addEventListener('click', ev => {
     case 'npper': { const v = el.dataset.id; sh.np.per = v==='1' ? 1 : 100; sh.np.u = v==='ml' ? 'ml' : undefined; break; }
     case 'npfromq': sh.np = Object.assign(blankNp(), {name:sh.q.trim()}); sh.mode = 'my'; render(); $('#npk')?.focus(); return;
     case 'npcancel': sh.np = blankNp(); break;
-    case 'npedit': { const p = (S.settings.customFoods||[])[+el.dataset.i]; if (!p) return; sh.np = {name:p.name, per:p.per===100?100:1, u:p.u, pc:p.pcs&&p.pcs[0]?String(p.pcs[0][1]):'', kcal:String(p.kcal), p:String(p.p||''), f:String(p.f||''), c:String(p.c||''), editing:p.name}; render(); const b=$('.sheet-b'); if (b) b.scrollTop=0; $('#npn')?.focus(); return; }
+    case 'npedit': { const p = (S.settings.customFoods||[])[+el.dataset.i]; if (!p) return; if (p.dish){ sh.mode = 'dish'; sh.dish = dishFromFood(p); break; } sh.np = {name:p.name, bc:p.bc, per:p.per===100?100:1, u:p.u, pc:p.pcs&&p.pcs[0]?String(p.pcs[0][1]):'', kcal:String(p.kcal), p:String(p.p||''), f:String(p.f||''), c:String(p.c||''), editing:p.name}; render(); const b=$('.sheet-b'); if (b) b.scrollTop=0; $('#npn')?.focus(); return; }
     case 'npdel': { const list = S.settings.customFoods||[]; const p = list[+el.dataset.i]; if (!p) return; const before = clone(list); S.settings.customFoods = list.filter((_,i)=>i!==+el.dataset.i); persistSettings(); showToast(`«${p.name}» удалён из моих продуктов`, {foods:before}); return; }
     case 'npsave': case 'npsaveadd': {
       const np = sh.np, name = np.name.trim(), kcal = num(np.kcal);
@@ -2661,6 +3205,7 @@ document.addEventListener('click', ev => {
       const prod = {name, kcal:Math.round(kcal*10)/10, p:num(np.p), f:num(np.f), c:num(np.c), per:np.per===100?100:1, g:np.per===100?(num(np.pc)||100):1};
       if (np.per===100 && np.u==='ml') prod.u = 'ml';
       const old = (S.settings.customFoods||[]).find(x=>x.name===np.editing);
+      if (np.bc) prod.bc = np.bc; else if (old && old.bc) prod.bc = old.bc;
       if (old && old.icon) prod.icon = old.icon;
       if (old && old.hyd !== undefined && np.u==='ml') prod.hyd = old.hyd;
       if (np.per===100 && num(np.pc)>0) prod.pcs = old && old.pcs && old.pcs[0] && num(old.pcs[0][1])===num(np.pc) ? old.pcs.map(x=>x.slice()) : [['шт', num(np.pc)]];
@@ -2675,12 +3220,7 @@ document.addEventListener('click', ev => {
     case 'fclear': sh.sel = null; break;
     case 'fqtyset': sh.qty = el.dataset.v; break;
     case 'fpu': { const i = +el.dataset.i, ps = portionsOf(sh.sel), amt = pickAmount(sh); sh.pu = i; sh.qty = String(i>=0 ? Math.max(0.5, Math.round(amt/ps[i][1]*2)/2) : Math.round(amt)).replace('.',','); break; }
-    case 'fadd': { const p = sh.sel, q = num(sh.qty); if (!p) return; if (q<=0){ showToast('Укажи количество больше нуля'); $('#fqty')?.focus(); return; } if (q>(p.per===100 && sh.pu<0 ? 10000 : 100)){ showToast('Слишком много — проверь количество'); return; } const amt = p.per===100 ? pickAmount(sh) : q, k = p.per===100 ? amt/100 : q; const r = x => Math.round(x*10)/10;
-      const ps = portionsOf(p), e = {id:uid(), name:p.name, meal:sh.meal, grams:p.per===100?Math.round(amt*10)/10:null, qty:p.per===100?null:q, kcal:Math.round(p.kcal*k), p:r(p.p*k), f:r(p.f*k), c:r(p.c*k), t:Date.now()};
-      if (p.per===100 && unitOf(p)==='ml'){ e.u = 'ml'; e.hyd = hydType(p) || 0; }
-      if (p.per!==100) e.pl = 'шт';
-      if (S.date!==today()) e.t = parseKey(S.date).getTime()+13*3600e3;
-      if (p.per===100 && sh.pu>=0 && ps[sh.pu]){ e.pcs = q; e.pl = ps[sh.pu][0]; }
+    case 'fadd': { const p = sh.sel, q = num(sh.qty); if (!p) return; if (q<=0){ showToast('Укажи количество больше нуля'); $('#fqty')?.focus(); return; } if (q>(p.per===100 && sh.pu<0 ? 10000 : 100)){ showToast('Слишком много — проверь количество'); return; } const e = foodEntry(p, q, sh.pu, sh.meal);
       const before = clone(getDay(S.date)); editDay(S.date, d=>{ d.food.push(e); mergeFood(d); }); S.sheet=null; showToast(`${p.name} · ${fmt(e.kcal)} ккал добавлено${e.u==='ml'&&hydType(e)?` · +${fmt(e.grams)} мл к воде`:''}`, {k:S.date, day:before}); return; }
     case 'fmanadd': { const m = sh.man; const kcal = num(m.kcal); if (!m.name.trim() || String(m.kcal).trim()==='' || kcal<0){ showToast('Укажи название и калории (можно 0)'); return; }
       const e = {id:uid(), name:m.name.trim(), meal:sh.meal, grams:null, qty:1, kcal:Math.round(kcal), p:num(m.p), f:num(m.f), c:num(m.c), t:Date.now()};
@@ -2741,8 +3281,8 @@ document.addEventListener('click', ev => {
         const known = Object.values(EXERCISES).some(l=>l.includes(n)) || (S.settings.customEx||[]).some(c=>c.name===n);
         if (!known){ S.settings.customEx = (S.settings.customEx||[]).concat([{name:n, muscle:sh.form.g}]); persistSettings(); } }
       const editing = sh.form.ei>=0, name = sh.form.name, pb = bestBefore(name, sh.key), exId = editing ? ((getDay(sh.key).gym||{}).exercises||[])[sh.form.ei]?.id : null; if (!saveForm()) return; dropDraft(sh.key, name, exId); sh.step = 'day'; sh.form = null;
-      const e = getDay(sh.key).gym.exercises.find(x=>x.name===name), mx = e ? Math.max(0, ...(e.sets||[]).map(x=>num(x.w))) : 0;
-      render(); showToast(pb && mx > pb.w ? `Новый рекорд: ${fmt1(mx)} кг в «${name}» (было ${fmt1(pb.w)})` : editing ? `«${name}» сохранено` : `«${name}» добавлено`); return; }
+      const e = getDay(sh.key).gym.exercises.find(x=>x.name===name), mx = e ? Math.max(0, ...(e.sets||[]).filter(x=>num(x.r)>0).map(x=>ldW(e, x, sh.key))) : 0, asx = isAssist(name), mnA = e && asx ? Math.min(...(e.sets||[]).filter(x=>num(x.r)>0).map(x=>num(x.w))) : 0;
+      render(); showToast(pb && mx > pb.w ? (asx ? `Новый рекорд: противовес ${fmt1(mnA)} кг в «${name}» (было ${fmt1(pb.raw)})` : `Новый рекорд: ${fmt1(mx)} кг в «${name}» (было ${fmt1(pb.w)})`) : editing ? `«${name}» сохранено` : `«${name}» добавлено`); return; }
     case 'gdelex2': { const k = sh.key, before = clone(getDay(k)), ei = sh.form.ei, name = sh.form.name; dropDraft(k, name, (getDay(k).gym.exercises[ei]||{}).id);
       editDay(k, d => { d.gym.exercises.splice(ei,1); d.gym.muscles = groupsInDay(d.gym); if (!d.gym.exercises.length && !d.gym.note) d.gym = null; });
       sh.form = null; sh.step = getDay(k).gym ? 'day' : 'group'; render(); showToast(`«${name}» удалено`, {k, day:before}); return; }
@@ -2763,7 +3303,8 @@ document.addEventListener('click', ev => {
     case 'gmydelyes': { const n = sh.form.name, before = clone(S.settings.customEx||[]); S.settings.customEx = before.filter(c=>c.name!==n); persistSettings();
       const wasEdit = sh.form.ei>=0; sh.delMine = false; sh.form = null; sh.step = wasEdit ? 'day' : 'list'; render(); showToast(`«${n}» удалено из моих упражнений`); return; }
     case 'grclr': if (sh.form){ sh.form.rests = []; if (S.timer && S.timer.ref && S.timer.ref.form===sh.form) S.timer.ref = null; } break;
-        case 'gtip': { const tip = progressTip(sh.form.name, sh.key); if (!tip) return; Object.assign(sh.form, {w:String(tip.w), r:String(tip.r), n:tip.n, per:false}); break; }
+        case 'gtipx': { try{ const o = JSON.parse(localStorage.getItem('forma.tipoff')||'{}'), lim = addDays(today(),-14); Object.keys(o).forEach(x=>{ if (x.slice(0,10) < lim) delete o[x]; }); o[sh.key+'|'+sh.form.name] = 1; localStorage.setItem('forma.tipoff', JSON.stringify(o)); }catch(e){} showToast('Совет скрыт на эту тренировку — в следующий раз посчитаю по ней'); break; }
+        case 'gtip': { const tip = progressTip(sh.form.name, sh.key); if (!tip) return; if (tip.sets){ Object.assign(sh.form, {per:true, sets:tip.sets.map(x=>({w:String(x.w), r:String(x.r)})), n:tip.sets.length}); queueDrafts(); break; } Object.assign(sh.form, {w:String(tip.w), r:String(tip.r), n:tip.n, per:false}); break; }
     case 'grepeat': { const src = S.days[el.dataset.k].gym; let skipped = 0; editDay(sh.key, d=>{ if (!d.gym) d.gym = {muscles:[], exercises:[], note:''}; const have = new Set(d.gym.exercises.map(e=>e.name)); (src.exercises||[]).forEach(e=>{ if (have.has(e.name)){ skipped++; return; } const c = Object.assign(clone(e), {id:uid()}); delete c.rests; d.gym.exercises.push(c); }); d.gym.muscles = groupsInDay(d.gym); });
       sh.step = 'day'; render(); showToast(skipped ? `Скопировано, ${skipped} ${plural(skipped,'упражнение уже было','упражнения уже были','упражнений уже были')} — пропустил` : 'Тренировка скопирована — поправь веса, если нужно'); return; }
     case 'tmr': { const sec = num(el.dataset.s); if (S.timer){ restLog(S.timer.ref, (Date.now()-S.timer.start)/1000); }
@@ -2780,7 +3321,7 @@ document.addEventListener('click', ev => {
     case 'sopt': { const v = el.dataset.v; setPath(S.settings, el.dataset.f, isNaN(+v) ? v : +v); if (el.dataset.f==='profile.goalMode'){ const g = v; S.settings.profile.rate = g==='lose' ? 500 : g==='gain' ? 300 : 0; } persistSettings(); break; }
     case 'export': doExport(el.dataset.fmt); return;
     case 'swaterauto': S.settings.waterGoal = Math.round(bodyKg()*30/50)*50; persistSettings(); break;
-    case 'undo': { const u = S.toast && S.toast.undo; if (u && u.foods){ S.settings.customFoods = u.foods; persistSettings(); } else if (u){ if (isEmptyDay(u.day)) delete S.days[u.k]; else S.days[u.k] = u.day; persistDay.undoing = true; persistDay(u.k); persistDay.undoing = false; } hideToast(); break; }
+    case 'undo': { const u = S.toast && S.toast.undo; if (u && u.tpl){ S.settings.mealTpl = u.tpl; persistSettings(); } else if (u && u.foods){ S.settings.customFoods = u.foods; persistSettings(); } else if (u){ if (isEmptyDay(u.day)) delete S.days[u.k]; else S.days[u.k] = u.day; persistDay.undoing = true; persistDay(u.k); persistDay.undoing = false; } hideToast(); break; }
     default: return;
   }
   render();
@@ -2846,12 +3387,16 @@ document.addEventListener('input', ev => {
   else if (a==='fqty'){ sh.qty = el.value; const q = num(el.value); $('#fsum').innerHTML = pickSum(sh); document.querySelectorAll('[data-a="fqtyset"]').forEach(c=>c.setAttribute('aria-pressed', String(num(c.dataset.v)===q))); }
   else if (a==='man'){ sh.man[el.dataset.f] = el.value; }
   else if (a==='np'){ sh.np[el.dataset.f] = el.value; }
+  else if (a==='dsh'){ sh.dish[el.dataset.f] = el.value; const o = $('#dshtot'); if (o) o.innerHTML = dishTotHtml(sh.dish); }
+  else if (a==='dsha'){ const it = sh.dish.items[+el.dataset.i]; if (it){ it.a = el.value; const o = $('#dshtot'); if (o) o.innerHTML = dishTotHtml(sh.dish); const src = dishSrc(it, sh.dish.editing), k = src.per===100 ? num(el.value)/100 : num(el.value); const sm = el.closest('li')?.querySelector('.nm small'); if (sm) sm.textContent = `${fmt(num(src.kcal)*k)} ккал · Б ${fmt1(num(src.p)*k)}`; } }
+  else if (a==='dq'){ sh.dish.q = el.value; const r = $('#dqres'); if (r) r.innerHTML = dishResults(el.value); }
+  else if (a==='tpln'){ sh.name = el.value; const h = $('#tplh'); if (h) h.textContent = tplList().some(x=>x.name===el.value.trim()) ? 'Шаблон с таким названием уже есть — он будет заменён.' : 'Потом добавишь всё это в один тап: в «Добавить еду» → «Блюда» или прямо в пустом приёме пищи.'; }
   else if (a==='em'){ sh.em[el.dataset.f] = el.value; const o = $('#emk'); if (o) o.textContent = fmt(emKcalFor(sh.sel, sh.em)); syncEm(); }
   else if (a==='gname'){ if (sh.form){ const was = isDb(sh.form.name); sh.form.name = el.value; queueDrafts(); if (isDb(el.value)!==was){ const pos = el.selectionStart; render(); const i = $('#gname'); if (i){ i.focus(); try{ i.setSelectionRange(pos,pos); }catch(e){} } } } }
   else if (a==='grename'){ sh.rn = el.value; }
   else if (a==='gq'){ const was = !!sh.gq; sh.gq = el.value; if (was !== !!sh.gq){ render(); const i = $('#gq'); if (i){ i.focus(); try{ i.setSelectionRange(i.value.length, i.value.length); }catch(e){} } } else { const r = $('#gqres'); if (r) r.innerHTML = gSearch(el.value); } }
   else if (a==='gdur'){ const d = S.days[sh.key]; if (d&&d.gym){ d.gym.duration = num(el.value); persistDay(sh.key); } }
-  else if (a==='gf'){ sh.form[el.dataset.f] = el.value; queueDrafts(); const t = $('#gtotal'); if (t) t.innerHTML = formTotal(sh.form); syncSave(); }
+  else if (a==='gf'){ sh.form[el.dataset.f] = el.value; queueDrafts(); const t = $('#gtotal'); if (t) t.innerHTML = formTotal(sh.form); const al = $('#asload'); if (al) al.innerHTML = asLoadTxt(sh.form, sh.key); syncSave(); }
   else if (a==='gps'){ sh.form.sets[+el.dataset.si][el.dataset.f] = el.value; queueDrafts(); const t = $('#gtotal'); if (t) t.innerHTML = formTotal(sh.form); syncSave(); }
   else if (a==='wkf'){ sh[el.dataset.f] = el.value; const c = $('#wkcalc'); if (c) c.innerHTML = walkCalc(); const bt = $('[data-a="wksave"]'); if (bt) bt.disabled = !(num(sh.steps)>0); }
   else if (a==='gcrails'){ sh.form.cs.forEach(c=>{ c.rails = el.checked; }); syncCardio(); }
@@ -2870,6 +3415,7 @@ document.addEventListener('change', ev => {
   else if (a==='prof' && el.tagName==='SELECT'){ /* handled on input */ }
 });
 document.addEventListener('keydown', ev => {
+  if (ev.key==='Escape' && SC){ scanClose(); return; }
   if (ev.key==='Escape' && S.sheet){ S.sheet=null; render(); }
   if (ev.key==='Enter' && ev.target.id==='wml'){ ev.preventDefault(); document.querySelector('[data-a="addwatercustom"]').click(); }
   if (ev.key==='Enter' && ev.target.id==='fqty'){ ev.preventDefault(); document.querySelector('[data-a="fadd"]').click(); }
@@ -2906,7 +3452,10 @@ try{ if (navigator.storage && navigator.storage.persist) navigator.storage.persi
 loadLocal();
 if ('serviceWorker' in navigator && (location.protocol==='https:'||location.hostname==='localhost')) navigator.serviceWorker.register('sw.js').catch(()=>{});
 render();
-loadMirror().then(ch => { if (ch) render(); return initDb(); }).then(render);
+loadMirror().then(ch => { if (ch) render(); return initDb(); }).then(() => { render(); if (ghOn()) ghSync(); });
+document.addEventListener('visibilitychange', () => { if (document.visibilityState==='visible' && ghOn()) ghSync(); });
+setInterval(() => { if (document.visibilityState==='visible' && ghOn()) ghSync(); }, 90000);
+window.addEventListener('online', () => { if (ghOn()) ghSync(); });
 // another tab/window of the app saved newer data → take it instead of later overwriting it
 window.addEventListener('storage', ev => { if (ev.key!=='forma.cache' || !ev.newValue) return; try{ const c = JSON.parse(ev.newValue); if ((c.seq||0) > localSeq){ applyCache(c); renderSoon(); } }catch(e){} });
 initDownloads();
